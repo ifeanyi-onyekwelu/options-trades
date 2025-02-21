@@ -1,0 +1,264 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Withdraw{% endblock title %}
+
+
+{% block extrastyle %}
+<style>
+    /* Add your custom styles here */
+    .payment-option {
+        text-align: center;
+        margin: 10px;
+    }
+
+    .payment-option img {
+        height: 200px;
+        width: auto;
+        margin: 2rem 0;
+    }
+
+    .payment-option h4 {
+        background: var(--light);
+        padding: .7rem;
+        color: #fff;
+    }
+
+    .payment-option p {
+        color: var(--light);
+    }
+
+    .payment-option .btn {
+        background: var(--light);
+    }
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="modal fade" id="usdtWithdraw" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form id="usdtWithdrawForm">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">Withdraw Via USDT</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <label for="account" class="form-label">Account to withdraw</label>
+                                    <select name="account" id="account" class="form-control">
+                                        <option value="Wallet">Wallet ${{ request.user.userbalance.balance|intcomma }}
+                                        </option>
+                                        <option value="Interest">Interest $20</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="amountWithTitle" class="form-label">Amount</label>
+                                    <input type="text" id="amount" class="form-control" placeholder="Enter amount"
+                                        name="amount" />
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="walletAddressWithTitle" class="form-label">Wallet Address</label>
+                                    <input type="text" id="wallet_address" class="form-control"
+                                        placeholder="Enter wallet address" name="wallet_address" />
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <input type="text" id="coin" class="form-control" value="USDT" hidden name="coin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Withdraw</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="bitcoinWithdraw" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form id="btcWithdrawForm">
+                        csr
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">Withdraw Via BTC</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <label for="account" class="form-label">Account to withdraw</label>
+                                    <select name="account" id="account" class="form-control">
+                                        <option value="Wallet">Wallet ${{ request.user.userbalance.balance|intcomma }}
+                                        </option>
+                                        <option value="Interest">Interest $20</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="amountWithTitle" class="form-label">Amount</label>
+                                    <input type="text" id="amount" class="form-control" placeholder="Enter amount"
+                                        name="amount" />
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="walletAddressWithTitle" class="form-label">Wallet Address</label>
+                                    <input type="text" id="wallet_address" class="form-control"
+                                        placeholder="Enter wallet address" name="wallet_address" />
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <input type="text" id="coin" class="form-control" value="BTC" hidden name="coin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Withdraw</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="cardWithdraw" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form id="ethWithdrawForm">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">Withdraw Via ETH</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <label for="account" class="form-label">Account to withdraw</label>
+                                    <select name="account" id="account" class="form-control">
+                                        <option value="Wallet">Wallet ${{ request.user.userbalance.balance|intcomma }}
+                                        </option>
+                                        <option value="Interest">Interest $20</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="amountWithTitle" class="form-label">Amount</label>
+                                    <input type="text" id="amount" class="form-control" placeholder="Enter amount"
+                                        name="amount" />
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="walletAddressWithTitle" class="form-label">Wallet Address</label>
+                                    <input type="text" id="wallet_address" class="form-control"
+                                        placeholder="Enter wallet address" name="wallet_address" />
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <input type="text" id="coin" class="form-control" value="ETH" hidden name="coin" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Withdraw</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card payment-option">
+                    <h4>USDT Payment</h4>
+                    <img src="{% static 'img/TetherUSDT.png' %}" alt="USDT">
+                    <p>Minimum Withdrawal: $10</p>
+                    <p>Maximum Withdrawal: $10,000</p>
+                    <p>Processing Time: 1-2 business days</p>
+                    <p>Withdrawal Charge: 1%</p>
+                    <btn class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#usdtWithdraw">Withdraw Now
+                    </btn>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card payment-option">
+                    <h4>Bitcoin (BTC)</h4>
+                    <img src="{% static 'img/btc.png' %}" alt="BTC">
+                    <p>Minimum Withdrawal: $10</p>
+                    <p>Maximum Withdrawal: $10,000</p>
+                    <p>Processing Time: 1-2 business days</p>
+                    <p>Withdrawal Charge: 1%</p>
+                    <btn class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bitcoinWithdraw">Withdraw Now
+                    </btn>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card payment-option">
+                    <h4>Card</h4>
+                    <img src="{% static 'img/card.png' %}" alt="Card">
+                    <p>Minimum Withdrawal: $10</p>
+                    <p>Maximum Withdrawal: $10,000</p>
+                    <p>Processing Time: 1-2 business days</p>
+                    <p>Withdrawal Charge: 1%</p>
+                    <btn class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cardWithdraw">Withdraw Now
+                    </btn>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const usdtWithdrawForm = document.getElementById("usdtWithdrawForm")
+        const btcWithdrawForm = document.getElementById("btcWithdrawForm")
+        const ethWithdrawForm = document.getElementById("ethWithdrawForm")
+
+        usdtWithdrawForm.addEventListener("submit", (e) => withdraw(e, usdtWithdrawForm));
+        btcWithdrawForm.addEventListener("submit", (e) => withdraw(e, btcWithdrawForm));
+        ethWithdrawForm.addEventListener("submit", (e) => withdraw(e, ethWithdrawForm));
+
+        async function withdraw(e, form) {
+            e.preventDefault();
+
+            const getValue = (element_id) => form.querySelector(`#${element_id}`).value;
+            const clearValue = (element_id) => form.querySelector(`#${element_id}`).value = "";
+
+            let formData = new FormData(e.currentTarget);
+            formData['account'] = getValue("account");
+            formData['amount'] = getValue("amount");
+            formData['wallet_address'] = getValue("wallet_address");
+            formData['coin'] = getValue("coin");
+
+
+            const response = await fetch("{% url 'user:handle-withdraw' %}", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-CSRFToken': "{{ csrf_token }}"
+                }
+            })
+
+            const responseData = await response.json();
+            if (responseData.status === 'success') {
+                form.querySelector("#submitBtn").textContent = "Successful"
+
+                clearValue("amount");
+                clearValue("wallet_address");
+
+                setTimeout(() => {
+                    form.querySelector("#submitBtn").textContent = "Withdraw"
+                }, 2000)
+            }
+        }
+    })
+</script>
+{% endblock javascript %}

@@ -1,0 +1,59 @@
+{% extends '../_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}All users{% endblock title %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                {{ request.user.last_name }}</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Users</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email Address</th>
+                            <th>Username</th>
+                            <th>Status</th>
+                            <th>Date Joined</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users reversed %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'admin:user-details' user.id %}">{{ user.first_name }}</a></td>
+                            <td><a href="{% url 'admin:user-details' user.id %}">{{ user.last_name }}</a></td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.username }}</td>
+                            {% if user.is_active == True %}
+                            <td><a href="{% url 'admin:suspend-user' user.id %}"
+                                    class="btn btn-sm btn-danger text-light">Suspend</a></td>
+                            {% else %}
+                            <td><a href="{% url 'admin:activate-user' user.id %}"
+                                    class="btn btn-sm btn-info text-light">Activate</a></td>
+                            {% endif %}
+                            <td>{{ user.date_joined }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

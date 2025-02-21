@@ -1,0 +1,51 @@
+{% extends 'user_admin/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}User {{ user_profile.user.username }} balance{% endblock title %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                {{ request.user.last_name }}</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User Balances</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <form id="formAccountSettings" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="user" class="form-label">User</label>
+                                    <input class="form-control" type="text" id="user" name="user"
+                                        value="{{ user_balance.user.first_name }} {{ user_balance.user.last_name }}"
+                                        readonly />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="balance" class="form-label">Balance</label>
+                                    <input class="form-control" type="text" id="balance" name="balance"
+                                        value="${{ user_balance.balance }}" readonly />
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <a href="{% url 'admin:user-profile-delete' user_profile.id %}"
+                                    class="btn btn-outline-danger">delete</a>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

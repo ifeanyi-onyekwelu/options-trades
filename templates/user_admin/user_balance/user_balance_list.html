@@ -1,0 +1,56 @@
+{% extends 'user_admin/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}All users balance{% endblock title %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+                <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                    {{ request.user.last_name }}</h1>
+                <div class="ms-md-1 ms-0">
+                    <nav>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{% url 'admin:dashboard' %}">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">User Balances</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Full name</th>
+                                <th>Balance</th>
+                                <th>Update Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user_balance in user_balances %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><a href="{% url 'admin:user-balance-details' user_balance.id %}">
+                                        {{ user_balance.user.first_name }} {{ user_balance.user.last_name }}</a></td>
+                                <td>{{ user_balance.balance }}</td>
+                                <td>
+                                    <a href="{% url 'admin:user-balance-delete' user_balance.id %}"
+                                        class="btn btn-primary">Add Funds</a>
+                                    <a href="{% url 'admin:user-balance-delete' user_balance.id %}"
+                                        class="btn btn-secondary">Remove Funds</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock content %}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Trades | Dashboard - {% block title %}{% endblock title %}</title>
+
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
+
+    <link id="style" href="{% static 'assets/lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/styles2.css' %}" rel="stylesheet">
+
+    <link href="{% static 'css/icons.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/lib/node-waves/waves.min.css' %}" rel="stylesheet">
+
+    <link href="{% static 'assets/lib/simplebar/simplebar.min.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'assets/lib/choices.js/public/assets/styles/choices.min.css' %}" />
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" />
+
+    <link rel="stylesheet" href="https://php.spruko.com/ynex/ynex/assets/libs/apexcharts/apexcharts.css" </head>
+
+<body>
+    <div class="page">
+        <header class="app-header">
+            <div class="main-header-container container-fluid">
+                <div class="header-content-left">
+                    <div class="header-element">
+                        <div class="horizontal-logo">
+                            <a href="./" class="header-logo">
+                                <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-logo">
+                                <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-logo">
+                                <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-dark">
+                                <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-dark">
+                                <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-white">
+                                <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-white">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="header-element">
+                        <a aria-label="Hide Sidebar"
+                            class="sidemenu-toggle header-link animated-arrow hor-toggle horizontal-navtoggle"
+                            data-bs-toggle="sidebar" href="javascript:void(0);"><span></span></a>
+                    </div>
+
+                </div>
+
+                <div class="header-content-right">
+                    <div class="header-element notifications-dropdown">
+                        <a href="#" class="header-link dropdown-toggle" aria-expanded="false">
+                            <i class="bx bx-bell header-link-icon"></i>
+                            <span class="badge bg-secondary rounded-pill header-icon-badge pulse pulse-secondary"
+                                id="notification-icon-badge">0</span>
+                        </a>
+                    </div>
+
+                    <div class="header-element">
+                        <a href="javascript:void(0);" class="header-link dropdown-toggle" id="mainHeaderProfile"
+                            data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                            <div class="d-flex align-items-center">
+                                <div class="me-sm-2 me-0">
+                                    <img src="{% static 'img/images/user.jpg' %}" alt="img" width="32" height="32"
+                                        class="rounded-circle">
+                                </div>
+                                <div class="d-sm-block d-none">
+                                    <p class="fw-semibold mb-0 lh-1">{{ request.user.first_name }}</p>
+                                    <span class="op-7 fw-normal text-success d-block fs-11">Active</span>
+                                </div>
+                            </div>
+                        </a>
+                        <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
+                            aria-labelledby="mainHeaderProfile">
+                            <li><a class="dropdown-item d-flex" href="profile"><i
+                                        class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
+                            <li><a class="dropdown-item d-flex border-block-end" href="javascript:void(0);"><i
+                                        class="ti ti-wallet fs-18 me-2 op-7"></i>Bal:
+                                    $0.00</a></li>
+                            <li><a class="dropdown-item d-flex" href="notification"><i
+                                        class="ti ti-bell fs-18 me-2 op-7"></i>Notification</a></li>
+                            <li><a class="dropdown-item d-flex" href="support"><i
+                                        class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li>
+                            <li><a class="dropdown-item d-flex" href="logout"><i
+                                        class="ti ti-logout fs-18 me-2 op-7"></i>Log
+                                    Out</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </header>
+
+        {% include 'user/_sidebar.html' %}
+
+        {% block content %}
+        {% endblock content %}
+
+        <footer class="footer mt-auto py-3 bg-white text-center">
+            <div class="container">
+                <span class="text-muted"> Copyright © 2025</span> <a href="javascript:void(0);"
+                    class="text-dark fw-semibold">Options TH</a>. All Rights Reserved
+                <center>
+                    <div class="icon-before">
+                        <div class="icon-bar">
+                            <center><img src="{% static 'img/flag.png' %}" alt="Language flag" width="160" /></center>
+                            <div id="google_translate_element"></div>
+                        </div>
+                    </div>
+                </center>
+                </span>
+            </div>
+        </footer>
+    </div>
+    </div>
+
+    <div class="scrollToTop">
+        <span class="arrow"><i class="ri-arrow-up-s-fill fs-20"></i></span>
+    </div>
+    <div id="responsive-overlay"></div>
+
+    <script src="{% static 'assets/lib/@popperjs/core/umd/popper.min.js' %}"></script>
+    <script src="{% static 'assets/lib/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/defaultmenu.min.js' %}"></script>
+    <script src="{% static 'assets/lib/node-waves/waves.min.js' %}"></script>
+    <script src="{% static 'js/sticky.js' %}"></script>
+    <script src="{% static 'assets/lib/simplebar/simplebar.min.js' %}"></script>
+    <script src="{% static 'js/simplebar.js' %}"></script>
+    <script src="{% static 'assets/lib/@simonwep/pickr/pickr.es5.min.js' %}"></script>
+    <script src="{% static 'assets/lib/apexcharts/apexcharts.min.js' %}"></script>
+    <script src="{% static 'js/crypto-dashboard.js' %}"></script>
+    <script src="{% static 'js/custom-switcher.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'assets/lib/choices.js/public/assets/scripts/choices.min.js' %}"></script>
+    <script src="{% static 'js/main2.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+{% block title %}Referred Users{% endblock title %}
+
+
+{% block extrastyle %}
+<style>
+    thead {
+        background: var(--light);
+        color: #fff;
+    }
+
+    tbody tr td {
+        color: var(--light);
+    }
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Full name</th>
+                            <th>Joined At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for referred_user in referred_users %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ referred_user.user.first_name }} {{ referred_user.user.last_name }}</td>
+                            <td>{{ referred_user.user.date_joined }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

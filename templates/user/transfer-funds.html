@@ -1,0 +1,70 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+{% block title %}Referred Users{% endblock title %}
+
+
+{% block extrastyle %}
+<style>
+    .btn-primary {
+        background: var(--light);
+    }
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Transfer Funds</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="step-form-horizontal" class="step-form-horizontal" method="post">
+                            {% csrf_token %}
+                            <div>
+                                <section>
+                                    <div class="row">
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="form-group">
+                                                <label class="text-label">Username*</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" id="inputGroupPrepend2"
+                                                        aria-describedby="inputGroupPrepend2" placeholder="Username"
+                                                        name="username" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="form-group">
+                                                <label class="text-label">Amount*</label>
+                                                <div class="input-group">
+                                                    <input type="number" name="amount" class="form-control"
+                                                        placeholder="$0.00" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mb-4">
+                                            <div class="form-group">
+                                                <label class="text-label">Total amount debited from balance*</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" value="">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 mb-4">
+                                            <button class="btn btn-primary w-10">Transfer</button>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

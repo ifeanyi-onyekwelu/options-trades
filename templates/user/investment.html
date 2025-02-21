@@ -1,0 +1,106 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Investment Plans{% endblock title %}
+
+{% block extrastyle %}
+<style>
+    h4 {
+        margin: 0 0 1.5rem;
+        background: var(--light);
+        position: relative;
+        color: #fff;
+        padding: .7rem;
+        border-radius: 5px;
+    }
+
+    .benefits li {
+        margin: 1rem 0;
+        text-align: center;
+    }
+
+    .btn-primary {
+        width: 100%;
+        background: var(--light);
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover {
+        background: var(--dark);
+        color: var(--light);
+        border: 2px solid var(--light);
+    }
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="modal fade" id="investmentModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form class="investmentForm" method="post" action="{% url 'user:handle-invest' %}">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalCenterTitle">Invest</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Content of the modal -->
+                            <div class="row">
+                                <div class="col-lg-12 mb-3">
+                                    <label for="account" class="form-label">Balance to invest with</label>
+                                    <input type="text" class="form-control"
+                                        value="${{ request.user.userbalance.balance|intcomma }}" name="amount"
+                                        readonly />
+                                </div>
+                                <div class="col-lg-12 mb-3">
+                                    <label for="amountWithTitle" class="form-label">Amount</label>
+                                    <input type="text" class="form-control" placeholder="Enter the amount"
+                                        name="amount" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary investBtn">Invest</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" id="plans">
+            {% if messages %}
+            {% for message in messages %}
+            <p {% if message.tags %} class=">
+                {% if message.tags == 'error' %}text-danger{% else %}text-{{ message.tags }}{% endif %}" {% endif %}>
+                {{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            {% for plan in plans %}
+            <div class="col-lg-4 col-sm-6 invest-plans">
+                <div class="card">
+                    <div class=" card-body">
+                        <div class="stat-content d-inline-block w-100 text-center">
+                            <h4>{{ plan.name }}</h4>
+
+                            <ul class="benefits">
+                                <li>Starting Price: ${{ plan.starting_price }}</li>
+                                <li>Maximum Price: ${{ plan.maximum_price }}</li>
+                                <li>Returns: {{ plan.returns_percentage }}% daily</li>
+                                <li>Duration: {{ plan.duration_days }} days</li>
+                                <li>Total Returns: Approximately {{ plan.total_returns_percentage }}%</li>
+                            </ul>
+
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#investmentModal">Invest</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

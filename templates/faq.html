@@ -1,0 +1,139 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}FAQs{% endblock title %}
+
+
+{% block content %}
+<header id="featured" class="site-featured">
+    <div id="featured-media" class="featured-media has-media">
+        <div class="featured-text">
+            <div class="container">
+                <h2 class="entry-title">Frequently Asked Questions</h2>
+            </div>
+        </div>
+        <video poster="{% static 'img/tmp/sample-header1.jpg' %}" autoplay="" loop="" muted=""
+            src="{% static 'img/images/about.mp4' %}" alt=""></video>
+    </div>
+</header>
+
+<div id="content" class="site-content">
+    <div class="site-section section-video-presentation">
+        <div class="container">
+            <div class="row">
+                <div class="w-100"></div>
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" style="text-transform: none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false"
+                                aria-controls="collapseThree">
+                                How safe is this investment?
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                While no investment is entirely safe, our Copy Trade,
+                                Options and Stocks are backed by considerable asset
+                                coverage. Capital is immediately invested to purchase new
+                                assets that produce predictable daily revenue for the
+                                Company. Further more, we have developed a conservative
+                                hedging strategy that predicts we will be able to service
+                                our debt commitments to investors in the face of market
+                                fluctuations up to 75%. For more information on how we
+                                service our debt commitments, please contact us.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading4">
+                            <button class="accordion-button collapsed" style="text-transform: none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false"
+                                aria-controls="collapse4">
+                                When do I receive my interest payments?
+                            </button>
+                        </h2>
+                        <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="heading4"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Interest reflects daily starting from 24 hour after your
+                                investment.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading5">
+                            <button class="accordion-button collapsed" style="text-transform: none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false"
+                                aria-controls="collapse5">
+                                Can I access my principal investment early?
+                            </button>
+                        </h2>
+                        <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="heading5"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                You can access your principal investment early from the
+                                first 24 hours of your investment. You can sale your
+                                position anytime you wish. It is advisable that you select
+                                an option best suited to your situation.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading8">
+                            <button class="accordion-button collapsed" style="text-transform: none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false"
+                                aria-controls="collapse8">
+                                Does Options TH provide monthly investment statements?
+                            </button>
+                        </h2>
+                        <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="heading8"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                We work with a transfer agent to handle all payment
+                                processing and account reporting. Once an investment is
+                                made, you gain access to an investor history in your
+                                dashboard.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading9">
+                            <button class="accordion-button collapsed" style="text-transform: none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="false"
+                                aria-controls="collapse9">
+                                Do I need a financial advisor or brokerage to get started?
+                            </button>
+                        </h2>
+                        <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="heading9"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                No. We work directly with investors to eliminate unnecessary
+                                brokerage fees and commissions.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="heading12">
+                            <button class="accordion-button collapsed" style="text-transform: none" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="false"
+                                aria-controls="collapse12">
+                                Can I speak to someone about my investment?
+                            </button>
+                        </h2>
+                        <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="heading12"
+                            data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Of course. The investor relations team can be reached by
+                                email or through livechat anytime.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

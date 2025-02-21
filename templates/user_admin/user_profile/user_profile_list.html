@@ -1,0 +1,53 @@
+{% extends 'user_admin/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}All users profiles{% endblock title %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                {{ request.user.last_name }}</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User Profiles</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Full name</th>
+                            <th>Referral code</th>
+                            <th>Referral link</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for profile in user_profiles %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'admin:user-profile-details' profile.id %}">
+                                    {{ profile.user.first_name }} {{ profile.user.last_name }}</a></td>
+                            <td>{{ profile.referral_code }}</td>
+                            <td>{{ profile.referral_link }}</td>
+                            <td><a href="{% url 'admin:user-profile-delete' profile.id %}"
+                                    class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

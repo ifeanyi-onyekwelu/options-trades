@@ -1,0 +1,117 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}Features{% endblock title %}
+
+
+{% block content %}
+{% include 'partials/_navbar.html' %}
+
+<!-- Header Start -->
+<div class="container-fluid hero-header bg-img py-5 mb-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 mb-3 animated slideInDown">Features</h1>
+                <nav aria-label="breadcrumb animated slideInDown">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'app:home' %}" class="custom-text">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Features</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-lg-6 animated fadeIn">
+                <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;"
+                    src="../static/img/about.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+
+
+<!-- Features Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <h1 class="display-6">Why Us!</h1>
+            <p class="custom-text fs-5 mb-5">Why We Stand Out in the Investment Landscape</p>
+        </div>
+        <div class="row g-5">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="d-flex align-items-start">
+                    <div class="ps-4">
+                        <h5 class="mb-3">Secure Transactions</h5>
+                        <span>
+                            Our team of seasoned financial experts brings a wealth of knowledge and experience to guide
+                            you through the complexities
+                            of the investment landscape.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="d-flex align-items-start">
+                    <img class="img-fluid flex-shrink-0" src="{% static 'img/icon-6.png' %}" alt="">
+                    <div class="ps-4">
+                        <h5 class="mb-3">Diverse Investment Opportunities</h5>
+                        <span>
+                            Unlock a world of possibilities with our diverse range of investment options. From
+                            traditional stocks and bonds to
+                            cutting-edge cryptocurrencies.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="d-flex align-items-start">
+                    <img class="img-fluid flex-shrink-0" src="{% static 'img/icon-5.png' %}" alt="">
+                    <div class="ps-4">
+                        <h5 class="mb-3">Transparent Analytics</h5>
+                        <span>
+                            Gain a clear understanding of your investments with our transparent analytics.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="d-flex align-items-start">
+                    <img class="img-fluid flex-shrink-0" src="{% static 'img/icon-4.png' %}" alt="">
+                    <div class="ps-4">
+                        <h5 class="mb-3">Personalized Financial Journey</h5>
+                        <span>Embark on a personalized financial journey tailored to your unique goals and preferences.
+                            Our platform offers
+                            personalized investment plans.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="d-flex align-items-start">
+                    <img class="img-fluid flex-shrink-0" src="{% static 'img/icon-3.png' %}" alt="">
+                    <div class="ps-4">
+                        <h5 class="mb-3">Community-Driven Success</h5>
+                        <span>Join a thriving community of investors dedicated to mutual success.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="d-flex align-items-start">
+                    <img class="img-fluid flex-shrink-0" src="{% static 'img/icon-8.png' %}" alt="">
+                    <div class="ps-4">
+                        <h5 class="mb-3">24/7 Support</h5>
+                        <span>Experience the assurance of responsive customer support committed to your satisfaction.
+                            Our dedicated support team is
+                            here to promptly address your queries.
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Features End -->
+
+{% include 'partials/_footer.html' %}
+{% endblock content %}
