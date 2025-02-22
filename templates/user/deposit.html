@@ -30,7 +30,7 @@
     .payment-option .btn {
         background: var(--light);
     }
-    
+
     .wallet-address-qrcode {
         width: 300px;
         height: 300px;
@@ -42,7 +42,7 @@
 {% endblock extrastyle %}
 
 {% block content %}
-<div class="content-body">
+<div class="main-content app-content">
     <div class="container-fluid">
         <div class="modal fade" id="usdtDeposit" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -56,11 +56,13 @@
                             <img src="{% static 'img/usdt-address.jpeg' %}" alt="" class="wallet-address-qrcode">
                             <div class="col-lg-12 mb-3">
                                 <label for="nameWithTitle" class="form-label">Wallet Address</label>
-                                <input type="text" id="nameWithTitle" class="form-control" value="TTdRoo9deUzB3ZKWXLLjbQTPBLEJNbVWGv" readonly />
+                                <input type="text" id="nameWithTitle" class="form-control"
+                                    value="TTdRoo9deUzB3ZKWXLLjbQTPBLEJNbVWGv" readonly />
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="nameWithTitle" class="form-label">Amount to deposit</label>
-                                <input type="text" id="nameWithTitle" class="form-control" placeholder="$10 - $10,000" />
+                                <input type="text" id="nameWithTitle" class="form-control"
+                                    placeholder="$10 - $10,000" />
                             </div>
                         </div>
                     </div>
@@ -85,11 +87,13 @@
                             <img src="{% static 'img/btc-address.jpeg' %}" alt="" class="wallet-address-qrcode">
                             <div class="col-lg-12 mb-3">
                                 <label for="nameWithTitle" class="form-label">Wallet Address</label>
-                                <input type="text" id="nameWithTitle" class="form-control" value="3JN3ykBae8hXhq5oANKKTupwSjpo5tyhxP" readonly />
+                                <input type="text" id="nameWithTitle" class="form-control"
+                                    value="3JN3ykBae8hXhq5oANKKTupwSjpo5tyhxP" readonly />
                             </div>
                             <div class="col-lg-12 mb-3">
                                 <label for="nameWithTitle" class="form-label">Amount to deposit</label>
-                                <input type="text" id="nameWithTitle" class="form-control" placeholder="$1,000 - $10,000" />
+                                <input type="text" id="nameWithTitle" class="form-control"
+                                    placeholder="$1,000 - $10,000" />
                             </div>
                         </div>
                     </div>
@@ -145,7 +149,8 @@
                     <p>Minimum Deposit: $1,000</p>
                     <p>Maximum Deposit: $10,000</p>
                     <p>Processing Time: 1-2 business days</p>
-                    <btn class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bitcoinDeposit">Deposit Now</btn>
+                    <btn class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bitcoinDeposit">Deposit Now
+                    </btn>
                 </div>
             </div>
 

@@ -34,7 +34,7 @@
                 <div class="header-content-left">
                     <div class="header-element">
                         <div class="horizontal-logo">
-                            <a href="./" class="header-logo">
+                            <a href="{% url 'user:dashboard' %}" class="header-logo">
                                 <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-logo">
                                 <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-logo">
                                 <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-dark">
@@ -78,7 +78,7 @@
                         </a>
                         <ul class="main-header-dropdown dropdown-menu pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
                             aria-labelledby="mainHeaderProfile">
-                            <li><a class="dropdown-item d-flex" href="profile"><i
+                            <li><a class="dropdown-item d-flex" href="{% url 'user:profile' %}"><i
                                         class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
                             <li><a class="dropdown-item d-flex border-block-end" href="javascript:void(0);"><i
                                         class="ti ti-wallet fs-18 me-2 op-7"></i>Bal:
@@ -87,7 +87,7 @@
                                         class="ti ti-bell fs-18 me-2 op-7"></i>Notification</a></li>
                             <li><a class="dropdown-item d-flex" href="support"><i
                                         class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li>
-                            <li><a class="dropdown-item d-flex" href="logout"><i
+                            <li><a class="dropdown-item d-flex" href="{% url 'auth:handle_logout' %}"><i
                                         class="ti ti-logout fs-18 me-2 op-7"></i>Log
                                     Out</a></li>
                         </ul>
