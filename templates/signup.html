@@ -1,0 +1,115 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock title %}
+
+{% block content %}
+<div class="container-lg my-5">
+    <div class="row justify-content-center align-items-center authentication authentication-basic h-100">
+        <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-8 col-sm-8 col-12">
+            <div class="card custom-card">
+                <form action="{% url 'auth:handle_signup' %}" method="POST" class="card-body p-5">
+                    {% csrf_token %}
+                    <p class="h5 fw-semibold mb-2 text-center">Sign Up</p>
+                    <p class="mb-4 text-muted op-7 fw-normal text-center">
+                        Unlock direct access to yield-producing oil and gas investments
+                        today.
+                    </p>
+
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert 
+            {% if 'error' in message.tags %} alert-danger 
+            {% elif 'success' in message.tags %} alert-success 
+            {% else %} alert-secondary {% endif %} 
+            alert-dismissible fade show" role="alert">
+                        <strong>{{ message.tags|title }}:</strong> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+
+
+                    <div class="row gy-3">
+                        <div class="col-xl-12">
+                            <label for="fname" class="form-label text-default">First name</label>
+                            <input type="text" name="fname" required class="form-control form-control-lg" id="fname"
+                                placeholder="First name" />
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="lname" class="form-label text-default">Last name</label>
+                            <input type="text" name="lname" required class="form-control form-control-lg" id="lname"
+                                placeholder="Last name" />
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="email" class="form-label text-default">Email</label>
+                            <input type="email" name="email" required class="form-control form-control-lg" id="email"
+                                placeholder="Email" />
+                        </div>
+
+                        <div class="col-xl-12">
+                            <label for="password" class="form-label text-default">Password</label>
+                            <div class="input-group">
+                                <input type="password" name="password1" class="form-control form-control-lg" required
+                                    id="password1" placeholder="Password" />
+                                <button class="btn btn-light" onclick="createpassword('password',this)" type="button"
+                                    id="button-addon2">
+                                    <i class="ri-eye-off-line align-middle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="cpassword" class="form-label text-default">Confirm Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control form-control-lg" required name="password2"
+                                    id="password2" placeholder="Confirm Password" />
+                                <button class="btn btn-light" onclick="createpassword('cpassword',this)" type="button"
+                                    id="button-addon2">
+                                    <i class="ri-eye-off-line align-middle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="code" class="form-label text-default fs-16">Verification Code:
+                                <span class="text-danger">545043</span></label><br />
+                            <p class="fs-12" style="padding: -5px 0 !important">
+                                Please enter the verification code you see above into the
+                                text box provided. This is required to prevent automated
+                                submissions.
+                            </p>
+                            <input type="text" name="code1" value="545043" hidden />
+                            <input type="number" name="code2" required class="form-control form-control-lg" id="code"
+                                placeholder="Enter Verification code" />
+                        </div>
+                        <div class="col-xl-12">
+                            <label for="ref" class="form-label text-default">Referral Code (Optional)</label>
+                            <input type="text" name="ref_code" placeholder="Enter referral code"
+                                class="form-control form-control-lg" id="ref" />
+                        </div>
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required />
+                            <label class="form-check-label text-muted fw-normal" for="defaultCheck1">
+                                By creating a account, you agree to our
+                                <a href="privacy" class="text-success"><u>Privacy Policy</u></a>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 d-grid mt-2">
+                        <button type="submit" name="submit" class="btn btn-lg btn-primary">
+                            Become Investor
+                        </button>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <p class="fs-12 text-muted">
+                        Are you already a member?
+                        <a href="{% url 'auth:login' %}" class="text-primary">Sign In</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'js/show-password.js' %}"></script>
+{% endblock content %}

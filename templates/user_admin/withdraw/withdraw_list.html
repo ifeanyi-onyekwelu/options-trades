@@ -1,0 +1,60 @@
+{% extends 'user_admin/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}withdrawals{% endblock title %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                {{ request.user.last_name }}</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Withdrawals</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>User</th>
+                            <th>Amount</th>
+                            <th>Transaction ID</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for withdraw in withdrawals %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'admin:withdrawal' withdraw.id %}">{{ withdraw.user.first_name }}
+                                    {{ withdraw.user.last_name }}</a></td>
+                            <td>
+                                {{ withdraw.amount|intcomma }}
+                            </td>
+
+                            <td>
+                                {{ withdraw.transaction_id }}
+                            </td>
+
+                            <td>{{ withdraw.date_created }}</td>
+                            <td><a href="{% url 'admin:delete-withdrawal' withdraw.id %}"
+                                    class="btn btn-danger">Delete</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

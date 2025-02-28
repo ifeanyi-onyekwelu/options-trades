@@ -1,0 +1,60 @@
+{% extends 'user_admin/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Investment Plans{% endblock title %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                {{ request.user.last_name }}</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Investment Plans</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>S/N</th>
+                            <th>Name</th>
+                            <th>Minimum Amount</th>
+                            <th>Maximum Amount</th>
+                            <th>Returns Percentage</th>
+                            <th>Duration days</th>
+                            <th>Total returns percentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for plan in investment_plans %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <a href="{% url 'admin:investment_plan' plan.id %}">{{ plan.name }}</a>
+                            </td>
+
+                            <td>
+                                {{ plan.starting_price|intcomma }}
+                            </td>
+
+                            <td>{{ plan.maximum_price|intcomma }}</td>
+                            <td>{{ plan.returns_percentage }}%</td>
+                            <td>{{ plan.duration_days }} days</td>
+                            <td>{{ plan.total_returns_percentage }}%</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

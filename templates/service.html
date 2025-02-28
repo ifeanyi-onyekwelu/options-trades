@@ -1,0 +1,114 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}Services{% endblock title %}
+
+
+{% block content %}
+{% include 'partials/_navbar.html' %}
+
+<!-- Header Start -->
+<div class="container-fluid hero-header bg-img py-5 mb-5">
+    <div class="container py-5">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 mb-3 animated slideInDown">Services</h1>
+                <nav aria-label="breadcrumb animated slideInDown">
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'app:home' %}" class="custom-text">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Services</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="col-lg-6 animated fadeIn">
+                <img class="img-fluid animated pulse infinite" style="animation-duration: 3s;"
+                    src="../static/img/about.png" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+
+
+<!-- Service Start -->
+<div class="container-xxl py-5 my-5" id="services">
+    <div class="container py-5">
+        <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
+            <h1 class="display-6">Services</h1>
+            <p class="custom-text fs-5 mb-5">Unlock Growth through Our Specialized Investment Services.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item bg-white p-5">
+                    <img class="img-fluid mb-4" src="{% static 'img/icon-7.png' %}" alt="">
+                    <h5 class="mb-3">Expert Investment Guidance</h5>
+                    <p>
+                        Gain a competitive edge with personalized guidance from financial experts. Receive insights,
+                        market analyses, and
+                        tailored investment strategies to navigate the dynamic crypto landscape.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item bg-white p-5">
+                    <img class="img-fluid mb-4" src="{% static 'img/icon-3.png' %}" alt="">
+                    <h5 class="mb-3">Personalized Investment Planning</h5>
+                    <p>
+                        Tailor your investment strategy to align with your financial goals. Our experts work with you to
+                        create a personalized
+                        investment plan that suits your risk tolerance, time horizon, and objectives.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item bg-white p-5">
+                    <img class="img-fluid mb-4" src="{% static 'img/icon-9.png' %}" alt="">
+                    <h5 class="mb-3">Diversified Portfolio Management</h5>
+                    <p>
+                        Build a well-rounded portfolio with diverse investment options. We offer a range of assets,
+                        including stocks, bonds,
+                        mutual funds, and more, ensuring a balanced and resilient investment approach.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item bg-white p-5">
+                    <img class="img-fluid mb-4" src="{% static 'img/icon-5.png' %}" alt="">
+                    <h5 class="mb-3">Financial Education and Workshops</h5>
+                    <p>
+                        Enhance your financial literacy through our educational resources. Attend workshops, access
+                        tutorials, and stay updated
+                        on market trends to make informed investment decisions.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item bg-white p-5">
+                    <img class="img-fluid mb-4" src="{% static 'img/icon-2.png' %}" alt="">
+                    <h5 class="mb-3">Real-time Analytics and Reporting</h5>
+                    <p>
+                        Stay informed with real-time analytics and comprehensive reporting. Monitor your portfolio's
+                        performance, track market
+                        trends, and receive detailed reports to aid in strategic decision-making.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item bg-white p-5">
+                    <img class="img-fluid mb-4" src="{% static 'img/icon-8.png' %}" alt="">
+                    <h5 class="mb-3">Dedicated Customer Support</h5>
+                    <p>
+                        Receive personalized assistance from our dedicated customer support team. We are here to address
+                        your inquiries, provide
+                        support, and ensure a smooth and positive experience throughout your investment journey.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+
+{% include 'partials/_footer.html' %}
+{% endblock content %}

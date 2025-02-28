@@ -1,0 +1,95 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}Team{% endblock title %}
+
+
+{% block content %}
+<header id="featured" class="site-featured">
+    <div id="featured-media" class="featured-media has-media">
+        <div class="featured-text">
+            <div class="container">
+                <h2 class="entry-title">Our Team</h2>
+            </div>
+        </div>
+        <video poster="{% static 'img/tmp/sample-header1.jpg' %}" autoplay="" loop="" muted=""
+            src="{% static 'img/images/about.mp4' %}" alt=""></video>
+    </div>
+</header>
+<div class="site-section dotted-pattern dotted-pattern-top-right">
+    <div class="container">
+        <div class="row">
+            <div class="col-6 col-lg-3">
+                <div class="team-member">
+                    <img src="{% static 'img/team/1.jpg' %}" alt="" />
+                    <h5 class="team-member-title">Jason Graeme</h5>
+                    <p class="team-member-position text-faded">
+                        CHIEF EXECUTIVE OFFICER
+                    </p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="team-member">
+                    <img src="{% static 'img/team/2.jpg' %}" alt="" />
+                    <h5 class="team-member-title">Arthur E. Allen</h5>
+                    <p class="team-member-position text-faded">
+                        CHIEF FINANCIAL OFFICER, PARTNER
+                    </p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="team-member">
+                    <img src="{% static 'img/team/3.jpg' %}" alt="" />
+                    <h5 class="team-member-title">Matthew Bradwell</h5>
+                    <p class="team-member-position text-faded">
+                        CHIEF ACQUISITIONS OFFICER, PARTNER
+                    </p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="team-member">
+                    <img src="{% static 'img/team/4.jpg' %}" alt="" />
+                    <h5 class="team-member-title">Samuel Jonathan</h5>
+                    <p class="team-member-position text-faded">
+                        SENIOR MINERALS SPECIALIST
+                    </p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="team-member">
+                    <img src="{% static 'img/team/5.jpg' %}" alt="" />
+                    <h5 class="team-member-title">Corey C. Eddins</h5>
+                    <p class="team-member-position text-faded">
+                        SENIOR ASSOCIATE, CAPITAL MARKETS
+                    </p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="team-member">
+                    <img src="{% static 'img/team/6.jpg' %}" alt="" />
+                    <h5 class="team-member-title">Karla Velasquez</h5>
+                    <p class="team-member-position text-faded">
+                        MANAGER, INVESTOR RELATIONS
+                    </p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="team-member">
+                    <img src="{% static 'img/team/7.jpg' %}" alt="" />
+                    <h5 class="team-member-title">Kathleen Cohen</h5>
+                    <p class="team-member-position text-faded">
+                        REVENUE ACCOUNTING SPECIALIST
+                    </p>
+                </div>
+            </div>
+            <div class="col-6 col-lg-3">
+                <div class="team-member">
+                    <img src="{% static 'img/team/8.jpg' %}" alt="" />
+                    <h5 class="team-member-title">Jack Gonzales</h5>
+                    <p class="team-member-position text-faded">SOFTWARE ENGINEER</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,331 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+
+<div class="main-content app-content">
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                {{ request.user.last_name }}</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'user:dashboard' %}">Dashboards</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Header Close -->
+
+        <!-- Start::row-1 -->
+        <div class="row">
+
+            <div class="col-xxl-12">
+                <div class="row">
+                    <div class="col-xxl-3 col-xl-6 col-lg-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md avatar-rounded bg-light p-2">
+                                                <img src="{% static 'img/images/crypto-currencies/regular/stellar.svg' %}"
+                                                    alt="">
+                                            </span>
+                                        </div>
+                                        <div class="mb-0 fw-semibold">
+                                            Total Balance
+                                        </div>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div id="btc-charts"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-end">
+                                    <div>
+                                        <p class="mb-1">USD</p>
+                                        <p class="fs-20 mb-0 fw-semibold lh-1 text-primary">
+                                            $0.00 </p>
+                                    </div>
+                                    <div class="ms-auto text-end">
+                                        <p class="mb-0">Updated</p>
+                                        <p class="mb-0 text-muted"><span class="text-success">now</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-6 col-lg-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md avatar-rounded bg-light p-2">
+                                                <img src="{% static 'img/images/crypto-currencies/regular/stellar.svg' %}"
+                                                    alt="">
+                                            </span>
+                                        </div>
+                                        <div class="mb-0 fw-semibold">
+                                            Bitcoin Balance
+                                        </div>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div id="btc-charts"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-end">
+                                    <div>
+                                        <p class="mb-1">USD</p>
+                                        <p class="fs-20 mb-0 fw-semibold lh-1 text-primary">
+                                            $0.00</p>
+                                    </div>
+                                    <div class="ms-auto text-end">
+                                        <p class="mb-0">Updated</p>
+                                        <p class="mb-0 text-muted"><span class="text-success">now</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-6 col-lg-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md avatar-rounded bg-light p-2">
+                                                <img src="{% static 'img/images/crypto-currencies/regular/stellar.svg' %}"
+                                                    alt="">
+                                            </span>
+                                        </div>
+                                        <div class="mb-0 fw-semibold">
+                                            Ethereum Balance
+                                        </div>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div id="btc-charts"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-end">
+                                    <div>
+                                        <p class="mb-1">USD</p>
+                                        <p class="fs-20 mb-0 fw-semibold lh-1 text-primary">
+                                            $0.00</p>
+                                    </div>
+                                    <div class="ms-auto text-end">
+                                        <p class="mb-0">Updated</p>
+                                        <p class="mb-0 text-muted"><span class="text-success">now</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-3 col-xl-6 col-lg-12">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-2">
+                                            <span class="avatar avatar-md avatar-rounded bg-light p-2">
+                                                <img src="{% static 'img/images/crypto-currencies/regular/stellar.svg' %}"
+                                                    alt="">
+                                            </span>
+                                        </div>
+                                        <div class="mb-0 fw-semibold">
+                                            Tether (TRC20) Balance
+                                        </div>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div id="btc-charts"></div>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-end">
+                                    <div>
+                                        <p class="mb-1">USD</p>
+                                        <p class="fs-20 mb-0 fw-semibold lh-1 text-primary">
+                                            $0.00</p>
+                                    </div>
+                                    <div class="ms-auto text-end">
+                                        <p class="mb-0">Updated</p>
+                                        <p class="mb-0 text-muted"><span class="text-success">now</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xxl-12 col-xl-12">
+                        <div class="card custom-card">
+                            <div class="card-header justify-content-between flex-wrap">
+                                <div class="card-title">
+                                    Market Statistics
+                                </div>
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-primary btn-sm btn-wave">1D</button>
+                                    <button type="button" class="btn btn-primary-light btn-sm btn-wave">1W</button>
+                                    <button type="button" class="btn btn-primary-light btn-sm btn-wave">1M</button>
+                                    <button type="button" class="btn btn-primary-light btn-sm btn-wave">3M</button>
+                                    <button type="button" class="btn btn-primary-light btn-sm btn-wave">6M</button>
+                                    <button type="button" class="btn btn-primary-light btn-sm btn-wave">1Y</button>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="tradingview-widget-container" style="height:100%;width:100%">
+                                    <div id="tradingview_5981e" style="height: 300px; width:100%">
+                                    </div>
+                                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js">
+                                    </script>
+                                    <script type="text/javascript">
+                                        new TradingView.widget({
+                                            "autosize": true,
+                                            "symbol": "BINANCE:BTCUSDT",
+                                            "interval": "D",
+                                            "timezone": "Etc/UTC",
+                                            "theme": "light",
+                                            "style": "1",
+                                            "locale": "en",
+                                            "enable_publishing": false,
+                                            "hide_top_toolbar": true,
+                                            "hide_legend": true,
+                                            "allow_symbol_change": true,
+                                            "container_id": "tradingview_5981e"
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End::row-1 -->
+
+        <!-- Start:: row-3 -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-header justify-content-between flex-wrap">
+                        <div class="card-title mb-2 mb-sm-0">
+                            Recent Deposits
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover text-nowrap table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Method</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+<style>
+    body {
+        top: 0px !important;
+    }
+
+    body>.skiptranslate {
+        display: none;
+    }
+
+    .goog-logo-link {
+        display: none !important;
+    }
+
+    .goog-te-gadget {
+        color: transparent !important;
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+
+    .icon-before {
+        position: relative;
+        width: 160px;
+    }
+
+    #goog-gt-tt {
+        display: none !important;
+        top: 0px !important;
+    }
+
+    .goog-tooltip.skiptranslate {
+        display: none !important;
+        top: 0px !important;
+    }
+
+    .activity-root {
+        display: hide !important;
+    }
+
+    .status-message {
+        display: hide !important;
+    }
+
+    .started-activity-container {
+        display: hide !important;
+    }
+
+    #google_translate_element {
+        color: transparent;
+    }
+
+    #google_translate_element a {
+        display: none;
+    }
+
+    .icon-bar {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        color: black;
+        text-align: center;
+    }
+</style>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en'
+        }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
+
+
+<!-- Footer End -->
+{% endblock content %}

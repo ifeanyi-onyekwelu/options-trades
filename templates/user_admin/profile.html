@@ -1,0 +1,156 @@
+{% extends 'user_admin/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Admin Registration{% endblock title %}
+
+{% block content %}
+{% include 'user_admin/_navbar.html' %}
+{% include 'user_admin/_sidebar.html' %}
+<div class="content-body">
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                <img src="" alt="Profile Image" class="d-block rounded mr-2" height="100" width="100"
+                                    id="currentProfileImage" />
+                            </div>
+                        </div>
+                        <hr class="my-0" />
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="firstName" class="form-label">First Name</label>
+                                    <input class="form-control" type="text" id="firstName" name="firstName"
+                                        value="{{ request.user.first_name }}" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="lastName" class="form-label">Last Name</label>
+                                    <input class="form-control" type="text" name="lastName" id="lastName"
+                                        value="{{ request.user.last_name }}" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="email" class="form-label">Username</label>
+                                    <input class="form-control" type="text" id="username" name="userName"
+                                        value="{{ request.user.username }}" placeholder="Username" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="email" class="form-label">E-mail</label>
+                                    <input class="form-control" type="email" id="email" name="email"
+                                        value="{{ request.user.email }}" placeholder="example@example.com" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="dateOfBirth" class="form-label">Date Of Birth</label>
+                                    <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth"
+                                        value="{{ request.user.date_of_birth }}" readonly />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="phoneNumber">Phone Number</label>
+                                    <div class="input-group input-group-merge">
+                                        <div class="input-group-prepend w-25">
+                                            <select class="form-select" id="countryCode" name="countryCode"></select>
+                                        </div>
+                                        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+                                            value="{{ request.user.phone_number }}" placeholder="202 555 0111" />
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address" name="address"
+                                        value="{{ request.user.userprofile.address }}" placeholder="Address" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="state" class="form-label">State</label>
+                                    <input class="form-control" type="text" id="state" name="state"
+                                        value="{{ request.user.userprofile.state }}" placeholder="Street" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="zipcode" class="form-label">Zipcode</label>
+                                    <input class="form-control" type="text" id="zipcode" name="zipcode"
+                                        value="{{ request.user.userprofile.zipcode }}" placeholder="Zicode" />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="country" class="form-label">Country</label>
+                                    <input class="form-control" type="text" id="country" name="country"
+                                        value="{{ request.user.userprofile.country }}" placeholder="Country" />
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-primary me-2" id="updateProfileBtn">Save</button>
+                            </div>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <h5 class="card-header">Delete Account</h5>
+                <div class="card-body">
+                    <div class="mb-3 col-12 mb-0">
+                        <div class="alert bg-danger bg-opacity-25">
+                            <h6 class="alert-heading fw-bold mb-1 text-light">Are you sure you want to delete your
+                                account?
+                            </h6>
+                            <p class="mb-0 text-light">Once you delete your account, there is no going back. Please be
+                                certain.
+                            </p>
+                        </div>
+                    </div>
+                    <form method="post" action="{% url 'user:delete-account' %}">
+                        {% csrf_token %}
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="accountActivation"
+                                id="accountActivation" required />
+                            <label class="form-check-label" for="accountActivation">I confirm my account
+                                deactivation</label>
+                        </div>
+                        <button type="submit" class="btn btn-danger deactivate-account">Deactivate Account</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        fetch('https://restcountries.com/v3.1/all')
+            .then(response => response.json())
+            .then(countries => {
+                countries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = `${country.idd.root}${country.idd.suffixes}`;
+                    option.textContent = `${country.cca2} (${country.idd.root}${country.idd.suffixes})`;
+                    countryCodeDropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching countries:', error));
+
+
+        const currentProfileImageUrl = "{{ request.user.userprofile.profile_img.url }}";
+
+        document.getElementById('currentProfileImage').src = currentProfileImageUrl;
+
+        document.getElementById('upload').addEventListener('change', function () {
+            if (this.files.length > 0) {
+
+                const selectedFile = this.files[0];
+
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.getElementById('currentProfileImage').src = e.target.result;
+                };
+
+                reader.readAsDataURL(selectedFile);
+            }
+        });
+    })
+</script>
+{% endblock javascript %}

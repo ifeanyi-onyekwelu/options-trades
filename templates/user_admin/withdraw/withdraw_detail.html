@@ -1,0 +1,77 @@
+{% extends 'user_admin/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Withdrawal made by {{ withdraw.user.username }}{% endblock title %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                {{ request.user.last_name }}</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Withdrawak {{ withdraw.id }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <form id="formAccountSettings" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <h4 class="text-body mb-3">Withdrawal made by {{ withdraw.user.first_name }}
+                                {{ withdraw.user.last_name }}</h4>
+                            <div class="row">
+                                <div class="mb-3 col-md-6">
+                                    <label for="user" class="form-label">User</label>
+                                    <input class="form-control" type="text" id="user" name="user"
+                                        value="{{ withdraw.user.username }}" readonly />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="amount" class="form-label">Amount</label>
+                                    <input class="form-control" type="text" name="amount" id="amount"
+                                        value="${{ withdraw.amount|intcomma }}" readonly />
+                                </div>
+                                <div class="mb-3 col-md-12">
+                                    <label for="wallet_address" class="form-label">Wallet Address</label>
+                                    <input class="form-control" type="text" name="wallet_address" id="wallet_address"
+                                        value="{{ withdraw.wallet_address }}" readonly />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="coin" class="form-label">Coin</label>
+                                    <input class="form-control" type="text" name="coin" id="coin"
+                                        value="{{ withdraw.coin }}" readonly />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="transactionId" class="form-label">Transaction ID</label>
+                                    <input class="form-control" type="text" id="transactionId" name="transactionId"
+                                        value="{{ withdraw.transaction_id }}" readonly />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="date_created" class="form-label">Date Created</label>
+                                    <input class="form-control" type="date_created" id="date_created"
+                                        name="date_created" value="{{ withdraw.date_created }}" readonly />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="status" class="form-label">Status</label>
+                                    <input type="text" class="form-control" value="{{ withdraw.status }}" readonly>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <a href="{% url 'admin:withdrawal-edit' withdraw.id %}" class="btn btn-primary">Edit</a>
+                                <a href="{% url 'admin:delete-withdrawal' withdraw.id %}"
+                                    class="btn btn-outline-danger">delete</a>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

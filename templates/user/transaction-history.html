@@ -1,0 +1,67 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Transaction History{% endblock title %}
+
+
+{% block extrastyle %}
+<style>
+    thead {
+        background: var(--light);
+        color: #fff;
+    }
+
+    tbody tr td {
+        color: var(--light);
+    }
+</style>
+{% endblock extrastyle %}
+
+{% block content %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Type</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for transaction in all_transactions %}
+                        <tr>
+                            <td>{{ transaction.date_created }}</td>
+                            <td>
+                                {% if transaction.transaction_type == 'deposit' %}
+                                Deposit
+                                {% elif transaction.transaction_type == 'withdrawal' %}
+                                Withdrawal
+                                {% else %}
+                                Transfer
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if transaction.transaction_type == 'deposit' %}
+                                <span class="text-success">+ ${{ transaction.amount|intcomma }}</span>
+                                {% elif transaction.transaction_type == 'withdrawal' %}
+                                <span class="text-danger">- ${{ transaction.amount|intcomma }}</span>
+                                {% elif transaction.transaction_type == 'transfer' %}
+                                {% if transaction.sender == request.user %}
+                                <span class="text-danger">- ${{ transaction.amount|intcomma }}</span>
+                                {% else %}
+                                <span class="text-success">+ ${{ transaction.amount|intcomma }}</span>
+                                {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

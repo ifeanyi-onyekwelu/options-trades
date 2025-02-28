@@ -1,0 +1,29 @@
+{% load static %}
+<header id="top-header" class="site-header">
+    <div class="container">
+        <div class="site-identity">
+            <a href="{% url 'app:home' %}" class="site-title"><img src="{% static 'img/images/logo.png' %}"
+                    class="custom-logo" width="209" height="18" alt="Options TH" /></a>
+            <p class="site-description screen-reader-text">
+                Options TH</p>
+        </div>
+        <nav class="language-navigation">
+        </nav>
+        <nav class="main-navigation">
+            <ul id="menu-main" class="menu">
+                <li><a href="{% url 'app:about' %}">Our Company</a></li>
+                <li><a href="{% url 'app:team' %}">Our Team</a></li>
+                <li><a href="{% url 'app:faqs' %}">FAQ</a></li>
+                <li><a href="{% url 'app:contact' %}">Help Center</a></li>
+                <li><a href="{% url 'auth:signup' %}">Get Started</a></li>
+                <li><a href="{% url 'auth:login' %}">Sign In</a></li>
+            </ul>
+        </nav>
+        <div id="menu-toggle">
+            <a href="{% url 'app:home' %}#menu-main" title="Toggle menu">
+                <em class="mdi mdi-menu"></em><em class="mdi mdi-close"></em>
+                <span class="screen-reader-text">Menu</span>
+            </a>
+        </div>
+    </div>
+</header>

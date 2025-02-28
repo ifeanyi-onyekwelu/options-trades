@@ -1,0 +1,380 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<header id="featured" class="site-featured has-main-features">
+    <div id="featured-media" class="featured-media has-media">
+        <div class="featured-text">
+            <div class="container">
+                <h1 class="entry-title display">
+                    Friendly Platform, Serious Investors.
+                </h1>
+                <p class="" style="max-width: 600px; margin: auto; padding-bottom: 22px;">
+                    At Options Trades Hub, our Copy Trade, Options and Stock market prioritize
+                    the financial interests of you and your family, not private equity professionals and corporate
+                    bankers.
+
+                    Start building generational wealth from the ground up today.
+                </p>
+                <p class="no-margin-bottom">
+                    <a href="{% url 'auth:signup' %}" class="button button-filled button-primary no-margin-bottom"
+                        style="text-transform: capitalize !important;">Join our
+                        Investors</a>
+                    <span class="home-start-intro">Already an investor? <a href="{% url 'auth:login' %}">Sign
+                            in</a></span>
+                </p>
+            </div>
+        </div>
+        <video id="sample-video" src="{% static 'img/images/background.mp4' %}" poster="tmp/sample-header1.jpg"
+            autoplay="" loop="" muted=""></video>
+    </div>
+</header>
+
+<div id="content" class="site-content">
+    <div class="site-section section-features-main-pitch">
+        <div class="main-features">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-lg-4">
+                        <div class="featured-box">
+                            <center>
+                                <em class="featured-box-icon mdi mdi-briefcase-outline"></em>
+                                <h5 class="featured-box-title">Stock Education</h5>
+                                <p class="featured-box-content">
+                                    The first step to maximizing the value of your Copy Trade, Options and Stocks is
+                                    understanding exactly what you are sitting on. Our leading AAPL US-based land
+                                    team
+                                    leverages decades of sector-specific knowledge to ensure you remain fully
+                                    informed.
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-lg-4">
+                        <div class="featured-box">
+                            <center>
+                                <em class="featured-box-icon mdi mdi-currency-eur"></em>
+                                <h5 class="featured-box-title">Financial Security</h5>
+                                <p class="featured-box-content">
+                                    Navigating the constantly changing stock market can be a stress-inducing
+                                    endeavor.
+                                    Calling upon innovative analytical insights and years of expertise, we provide
+                                    our
+                                    partners with modern solutions for stability and peace of mind.
+                                </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-lg-4">
+                        <div class="featured-box">
+                            <center>
+                                <em class="featured-box-icon mdi mdi-security"></em>
+                                <h5 class="featured-box-title">Investment Longevity</h5>
+                                <p class="featured-box-content">
+                                    Your long-term financial stability is not something that we take lightly. From
+                                    interest rates to asset ROI, we work with land owners and individual investors
+                                    to
+                                    identify and implement solutions that establish long-term generational wealth.
+                                </p>
+                            </center>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6 col-xl-6">
+                    <img src="{% static 'img/lamp.jpg' %}" />
+                </div>
+                <div class="col-md-6 col-xl-6">
+                    <h3 class="entry-title">Together, We&apos;ll find solutions.</h3>
+                    <p>
+                        You shouldn&apos;t have to jump through hoops to maximize the value of your stocks.
+                        Leveraging property acquisitions and investment opportunities, our family-run company helps
+                        you get everything you deserve.
+                        We combine decades of high-level experience identifying good entry points in the Copy Trade,
+                        Options and Stock market with the personal touch of a family-owned business.
+                    </p>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="site-section section-investment-steps dotted-pattern dotted-pattern-top-right">
+        <div class="container">
+            <h2 class="entry-title">How it works</h2>
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <div class="step-list">
+                        <div class="step-list-item">
+                            <div class="step-list-digit">
+                                <span>01.</span>
+                            </div>
+                            <div class="step-list-content">
+                                <h4 class="step-list-title">Register and Login</h4>
+                                <p>
+                                    Start investing in our platform by registering a free account.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="step-list-item">
+                            <div class="step-list-digit">
+                                <span>02.</span>
+                            </div>
+                            <div class="step-list-content">
+                                <h4 class="step-list-title">Fund your account</h4>
+                                <p>
+                                    Become an active investor by funding your account with as little as $100.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="step-list-item">
+                            <div class="step-list-digit">
+                                <span>03.</span>
+                            </div>
+                            <div class="step-list-content">
+                                <h4 class="step-list-title">
+                                    Select projects to invest in
+                                </h4>
+                                <p>
+                                    Select one of our Copy Trade, Options and Stock offerings to invest in to
+                                    diversify your
+                                    funds.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="step-list-item">
+                            <div class="step-list-digit">
+                                <span>04.</span>
+                            </div>
+                            <div class="step-list-content">
+                                <h4 class="step-list-title">
+                                    Watch your stocks grow as the market changes
+                                </h4>
+                                <p>
+                                    Receive investment interest daily while principal are accessible as soon as you
+                                    close your trade.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <div class="step-info" style="
+                  background: #e0e0e2 url(../static/img/tmp/sample-steps.jpg) no-repeat right
+                    bottom;
+                  background-size: contain;
+                ">
+                        <h3>Who can invest?</h3>
+                        <p class="step-info-text">
+                            Individuals and companies can become investors by completing a short registration form
+                            and activating the investor account by depositing initial funds. Keep in mind that you
+                            must be at least 18 years of age and understand that we accept Bank deposits and
+                            other crypto currencies such as Bitcoin,
+                            Tether
+                            USDT (TRC20) and Ethereum.
+                        </p>
+                        <p>
+                            <a href="{% url 'auth:signup' %}" class="button button-primary"
+                                style="text-transform: capitalize !important;"><em
+                                    class="mdi mdi-briefcase-outline"></em> Get Started</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content" class="site-content bgdark">
+        <div class="container">
+            <div class="row text-center">
+                <h3 class="text-white">Academy: The Knowledge to Trade</h3>
+                <p>Your one-stop resource for learning to master the markets. It’s all here in one place, and all
+                    for free!</p><br><br><br>
+                <div class="col-12 col-md-4">
+                    <img src="{% static 'img/card1.jpg' %}" alt="">
+                </div>
+                <div class="col-12 col-md-4">
+                    <img src="{% static 'img/card2.jpg' %}" alt="">
+                </div>
+                <div class="col-12 col-md-4">
+                    <img src="{% static 'img/card1.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content" class="site-content">
+
+        <main class="site-section section-main">
+
+            <div class="container">
+                <div class="row">
+                    <!-- TradingView Widget BEGIN -->
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript"
+                            src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+                                {
+                                    "exchanges": [],
+                                        "dataSource": "SPX500",
+                                            "grouping": "sector",
+                                                "blockSize": "market_cap_basic",
+                                                    "blockColor": "change",
+                                                        "locale": "en",
+                                                            "symbolUrl": "",
+                                                                "colorTheme": "light",
+                                                                    "hasTopBar": false,
+                                                                        "isDataSetEnabled": false,
+                                                                            "isZoomEnabled": true,
+                                                                                "hasSymbolTooltip": true,
+                                                                                    "width": "100%",
+                                                                                        "height": "500"
+                                }
+                            </script>
+                    </div>
+                    <!-- TradingView Widget END -->
+                </div>
+            </div>
+        </main>
+    </div>
+    <div id="content" class="site-content bgdark">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-6">
+                    <img src="{% static 'img/coin.png' %}" alt="">
+                </div>
+                <div class="col-12 col-md-6 mt-4">
+                    <h3 class="entry-title text-white">Manage your money
+                        & crypto in one place</h3>
+                    <p>As well as managing your fiat currency, you can also securely store, send and receive the
+                        world’s most popular crypto in the eToro Money app.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content" class="site-content">
+        <main class="site-section section-main">
+            <div class="container">
+                <div class="row text-center">
+                    <h3>Multi-asset platform</h3>
+                    <div class="col-md-6 offset-lg-3">
+                        <p>Options Trades Hub offers 3,000+ financial instruments across various classes, such
+                            as
+                            stocks, crypto and
+                            more. To explore more visit the Account section.</p>
+                    </div>
+                    <img src="{% static 'img/chart.jpeg' %}" alt="">
+                    <h3>We keep your money safe</h3>
+                    <div class="col-md-6 offset-lg-3">
+                        <p>Options Trades Hub works with globally renowned banking partners including:</p>
+                    </div>
+                    <style>
+                        .fix {
+                            padding-right: 20px;
+                        }
+                    </style>
+                    <div class="pt-4">
+                        <img class="fix" src="{% static 'img/jpmorgan.svg' %}" width="150" alt="">
+                        <img class="fix" src="{% static 'img/deutsche.svg' %}" width="150" alt="">
+                        <img src="{% static 'img/coutts.svg' %}" width="150" alt="">
+                        <img src="{% static 'img/jss.svg' %}" width="150" alt="">
+                        <img src="{% static 'img/pictet.svg' %}" width="150" alt="">
+                        <img src="{% static 'img/upb.svg' %}" width="150" alt="">
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="site-section section-call-to-action has-media dotted-pattern dotted-pattern-top-right">
+        <div class="container">
+            <h2 class="entry-title">
+                Move Forward with Confidence
+            </h2>
+            <p style="max-width: 600px; margin: auto; padding-bottom: 30px;">Ready to maximize the value of your
+                assets and investments?
+                We&apos;re here to
+                help. Schedule a
+                consultation with Options TH and discover what’s possible today.</p>
+            <p class="no-margin-bottom">
+                <a href="{% url 'auth:signup' %}" class="button button-primary"
+                    style="text-transform: capitalize !important;"><em class="mdi mdi-briefcase-outline"></em>
+                    Invest Now</a>
+                <a href="contact" class="button button-light button-outline"
+                    style="text-transform: capitalize !important;"><em class="mdi mdi-email"></em>
+                    Get in touch</a>
+            </p>
+        </div>
+        <!-- <img src="tmp/sample-video.jpg" alt=""> -->
+        <video id="sample-video" src="{% static 'img/images/landscape.jpeg' %}"
+            poster="{% static 'img/images/landscape.jpeg' %}" autoplay="" loop="" muted=""></video>
+    </div>
+</div>
+
+<style>
+    body {
+        top: 0px !important;
+    }
+
+    body>.skiptranslate {
+        display: none;
+    }
+
+    .goog-logo-link {
+        display: none !important;
+    }
+
+    .goog-te-gadget {
+        color: transparent !important;
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+
+    .icon-before {
+        position: relative;
+        width: 160px;
+    }
+
+    #goog-gt-tt {
+        display: none !important;
+        top: 0px !important;
+    }
+
+    .goog-tooltip.skiptranslate {
+        display: none !important;
+        top: 0px !important;
+    }
+
+    .activity-root {
+        display: hide !important;
+    }
+
+    .status-message {
+        display: hide !important;
+    }
+
+    .started-activity-container {
+        display: hide !important;
+    }
+
+    #google_translate_element {
+        color: transparent;
+    }
+
+    #google_translate_element a {
+        display: none;
+    }
+
+    .icon-bar {
+        position: relative;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        color: white;
+        text-align: center;
+    }
+</style>
+
+{% endblock content %}

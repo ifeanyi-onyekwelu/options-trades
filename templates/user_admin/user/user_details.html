@@ -1,0 +1,78 @@
+{% extends 'user_admin/_base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}User {{ user.username }}{% endblock title %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                {{ request.user.last_name }}</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'admin:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <form id="formAccountSettings" method="post">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input class="form-control" type="text" id="firstName" name="firstName"
+                                            value="{{ user.first_name }}" autofocus />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input class="form-control" type="text" name="lastName" id="lastName"
+                                            value="{{ user.last_name }}" />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="email" class="form-label">E-mail</label>
+                                        <input class="form-control" type="email" id="email" name="email"
+                                            value="{{ user.email }}" placeholder="example@example.com" />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="email" class="form-label">Username</label>
+                                        <input class="form-control" type="text" id="username" name="userName"
+                                            value="{{ user.username }}" placeholder="Username" />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="phone" class="form-label">Phone Number</label>
+                                        <input type="text" class="form-control" id="phone" name="phone"
+                                            value="{{ user.phone_number }}" readonly />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="dateOfBirth" class="form-label">Date Of Birth</label>
+                                        <input type="text" class="form-control" id="dateOfBirth" name="dateOfBirth"
+                                            value="{{ user.date_of_birth }}" readonly />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="dateJoined" class="form-label">Date Joined</label>
+                                        <input type="text" class="form-control" id="dateJoined" name="dateJoined"
+                                            value="{{ user.date_joined }}" readonly />
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="status" class="form-label">Status</label>
+                                        <input type="text" class="form-control" id="status" name="status"
+                                            value="{{ user.is_active }}" readonly />
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
