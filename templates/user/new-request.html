@@ -1,0 +1,40 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="d-md-flex d-block my-4 page-header-breadcrumb">
+        </div>
+        <div class="row mb-5">
+            <div class="col-xl-12">
+                <h5 class="fw-semibold text-center"> Withdraw Fund </h5>
+                <p class="text-muted text-center">Your withdrawal will be processed automatically. </p>
+                <div class="text-center text-danger">Note: You need to set up your three (3) wallet addresses in
+                    order for
+                    them<br>
+                    to appear on payment
+                    method. Click <a href="wallet">here</a> to set up your wallets</div>
+                <br>
+                <div class="col-xl-6 offset-xl-3">
+                    <div class="card custom-card">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <form action="" method="post">
+
+                                    <div class="alert alert-danger">Your wallet is empty, please set up your
+                                        receiving wallet <a href="wallet">here</a>
+                                        first.</div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

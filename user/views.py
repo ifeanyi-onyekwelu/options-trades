@@ -38,48 +38,13 @@ class Dashboard(TemplateView):
 
 
 @method_decorator(login_required, name="dispatch")
-class Investment(ListView):
-    model = InvestmentPlan
-    context_object_name = 'plans'
-    template_name = 'user/investment.html'
+class BuyNow(TemplateView):
+    template_name = 'user/buy-now.html'
 
 
-@login_required
-@require_POST
-def handle_invest(request):
-    amount = request.POST.get('amount')
-
-    user_balance = UserBalance.objects.get(user=request.user)
-    amount_decimal = Decimal(str(amount))
-
-    if amount_decimal <= 5000:
-        plan_slug = 'starter'
-    elif amount_decimal <= 10000:
-        plan_slug = 'silver' 
-    elif amount_decimal <= 50000:
-        plan_slug = 'gold'   
-    else:
-        messages.error(request, 'Invalid amount for investment.')
-        return redirect("user:invest")
-
-    if user_balance.balance < amount_decimal:
-        messages.error(request, 'Insufficient funds.')
-        return redirect("user:invest")
-
-    investment_plan = get_object_or_404(InvestmentPlan, slug=plan_slug)
-
-    
-    UserInvestment.objects.create(
-        user=request.user,
-        investment_plan=investment_plan,
-        amount=amount_decimal
-    )
-
-    user_balance.balance -= amount_decimal
-    user_balance.save()
-
-    messages.error(request, 'Investment successful')
-    return redirect("user:invest")
+@method_decorator(login_required, name="dispatch")
+class CopyTrade(TemplateView):
+    template_name = 'user/copy-trade.html'
 
 
 @method_decorator(login_required, name="dispatch")
@@ -89,7 +54,54 @@ class Deposit(TemplateView):
 
 @method_decorator(login_required, name="dispatch")
 class Withdraw(TemplateView):
-    template_name = 'user/withdraw.html'
+    template_name = 'user/new-request.html'
+
+
+@method_decorator(login_required, name="dispatch")
+class Invest(TemplateView):
+    template_name = 'user/invest.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Broker(TemplateView):
+    template_name = 'user/broker.html'
+
+
+# @login_required
+# @require_POST
+# def handle_invest(request):
+#     amount = request.POST.get('amount')
+
+#     user_balance = UserBalance.objects.get(user=request.user)
+#     amount_decimal = Decimal(str(amount))
+
+#     if amount_decimal <= 5000:
+#         plan_slug = 'starter'
+#     elif amount_decimal <= 10000:
+#         plan_slug = 'silver' 
+#     elif amount_decimal <= 50000:
+#         plan_slug = 'gold'   
+#     else:
+#         messages.error(request, 'Invalid amount for investment.')
+#         return redirect("user:invest")
+
+#     if user_balance.balance < amount_decimal:
+#         messages.error(request, 'Insufficient funds.')
+#         return redirect("user:invest")
+
+#     investment_plan = get_object_or_404(InvestmentPlan, slug=plan_slug)
+
+    
+#     UserInvestment.objects.create(
+#         user=request.user,
+#         investment_plan=investment_plan,
+#         amount=amount_decimal
+#     )
+
+#     user_balance.balance -= amount_decimal
+#     user_balance.save()
+
+#     messages.error(request, 'Investment successful')
+#     return redirect("user:invest")
 
 
 @login_required
@@ -126,6 +138,14 @@ class Profile(TemplateView):
         context['profile'] = UserProfile.objects.get(user=self.request.user)
 
         return context
+
+@method_decorator(login_required, name="dispatch")
+class Notifications(TemplateView):
+    template_name = 'user/notifications.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Support(TemplateView):
+    template_name = 'user/support.html'
 
 
 @login_required
@@ -167,6 +187,18 @@ def handle_update_profile(request):
 @method_decorator(login_required, name="dispatch")
 class ChangePassword(TemplateView):
     template_name = 'user/change-password.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Pin(TemplateView):
+    template_name = 'user/pin.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Wallet(TemplateView):
+    template_name = 'user/wallet.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Referrals(TemplateView):
+    template_name = 'user/referrals.html'
 
 
 @login_required
@@ -225,43 +257,3 @@ class ReferredUsers(TemplateView):
         context['referred_users'] = referred_users
 
         return context
-
-
-@method_decorator(login_required, name="dispatch")
-class TransferFunds(CreateView):
-    model = TransferModel
-    fields = "__all__"
-    template_name = 'user/transfer-funds.html'
-
-    def post(self, request, *args, **kwargs):
-        sender = request.user
-        print(sender)
-
-        receiver = User.objects.get(username=request.POST.get('username'))
-
-        self.process_transfer(sender, receiver, request.POST.get('amount'))
-        return super().post(request, *args, **kwargs)
-
-    def process_transfer(self, sender, receiver, amount):
-        sender_balance = UserBalance.objects.get(user=sender).balance
-
-        amount_decimal = Decimal((amount))
-        charge = Decimal(str(0.05))
-
-        if sender_balance < amount_decimal:
-            return JsonResponse({'status': 'error', 'message': 'Insufficient funds'})
-
-        
-        transfer = TransferModel.objects.create(sender=sender, receiver=receiver, amount=amount)
-
-        return transfer
-
-
-@login_required
-def delete_account(request):
-    
-    user = User.objects.get(id=request.user.id)
-    user.delete()
-
-    logout(request)
-    return redirect('app:home')

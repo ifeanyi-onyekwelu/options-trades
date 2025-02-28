@@ -1,8 +1,12 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 import uuid
+<<<<<<< HEAD
 import datetime
 from django.utils import timezone
+=======
+from django.utils.timezone import now
+>>>>>>> e7942fca4e5bbb08501dbd878e781f7a78bf51a6
 import secrets
 import string
 from decimal import Decimal
@@ -10,10 +14,13 @@ from users.models import UserBalance
 from django.utils.text import slugify
 import os
 
+<<<<<<< HEAD
 now = timezone.now()
 naive_datetime = datetime.datetime(year=now.year, month=now.month, day=now.day, hour=now.hour, minute=now.minute, second=now.second)
 aware_datetime = timezone.make_aware(naive_datetime, timezone=timezone.get_current_timezone())
 
+=======
+>>>>>>> e7942fca4e5bbb08501dbd878e781f7a78bf51a6
 def default_profile_image_path(instance, filename):
     ext = filename.split('.')[-1]
     return os.path.join('profile images', filename)
@@ -39,7 +46,11 @@ class InvestmentPlan(models.Model):
     returns_percentage = models.DecimalField(max_digits=5, decimal_places=2)
     duration_days = models.IntegerField()
     total_returns_percentage = models.DecimalField(max_digits=5, decimal_places=2)
+<<<<<<< HEAD
     date_created = models.DateTimeField(default=aware_datetime)
+=======
+    date_created = models.DateTimeField(default=now)
+>>>>>>> e7942fca4e5bbb08501dbd878e781f7a78bf51a6
 
     def __str__(self):
         return "{}".format(self.name)
@@ -65,7 +76,11 @@ class UserInvestment(models.Model):
     investment_plan = models.ForeignKey(InvestmentPlan, on_delete=models.CASCADE)
     returns = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+<<<<<<< HEAD
     date_created = models.DateTimeField(default=aware_datetime)
+=======
+    date_created = models.DateTimeField(default=now)
+>>>>>>> e7942fca4e5bbb08501dbd878e781f7a78bf51a6
 
     def __str__(self):
         return "Investment by {}. Plan - {}".format(self.user, self.investment_plan)
@@ -92,7 +107,11 @@ class Deposit(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     transaction_id = models.CharField(max_length=20, unique=True)
     proof_of_payment = models.FileField(upload_to="proof of payment/", null=True)
+<<<<<<< HEAD
     date_created = models.DateTimeField(default=aware_datetime)
+=======
+    date_created = models.DateTimeField(default=now)
+>>>>>>> e7942fca4e5bbb08501dbd878e781f7a78bf51a6
     
     def generate_transaction_id(self):
         transaction_id = ''.join(secrets.choice(string.digits) for x in range(20))
@@ -130,7 +149,11 @@ class Withdraw(models.Model):
     wallet_address = models.CharField(max_length=100, default="0")
     coin = models.CharField(max_length=100, default="USDT")
     status = models.CharField(max_length=255, choices=STATUS_CHOICES)
+<<<<<<< HEAD
     date_created = models.DateTimeField(default=aware_datetime)
+=======
+    date_created = models.DateTimeField(default=now)
+>>>>>>> e7942fca4e5bbb08501dbd878e781f7a78bf51a6
 
     def generate_transaction_id(self):
         transaction_id = ''.join(secrets.choice(string.digits) for x in range(20))
@@ -163,7 +186,11 @@ class Transfer(models.Model):
     receiver = models.ForeignKey(get_user_model(), related_name='receiver', on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     transaction_id = models.CharField(max_length=20, unique=True)
+<<<<<<< HEAD
     date_created = models.DateTimeField(default=aware_datetime)
+=======
+    date_created = models.DateTimeField(default=now)
+>>>>>>> e7942fca4e5bbb08501dbd878e781f7a78bf51a6
 
     def generate_transaction_id(self):
         transaction_id = ''.join(secrets.choice(string.digits) for x in range(20))
@@ -197,4 +224,8 @@ class Referral(models.Model):
     )
     referrer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='referrer')
     referred_user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='referred_user')
+<<<<<<< HEAD
     date_created = models.DateTimeField(default=aware_datetime)
+=======
+    date_created = models.DateTimeField(default=now)
+>>>>>>> e7942fca4e5bbb08501dbd878e781f7a78bf51a6

@@ -1,0 +1,57 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Start::app-content -->
+<div class="main-content app-content">
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="d-md-flex d-block my-4 page-header-breadcrumb">
+        </div>
+        <!-- Page Header Close -->
+        <style>
+            .sendtop {
+                background-color: #000021 !important;
+            }
+        </style>
+        <!-- Start:: row-1 -->
+        <div class="row">
+            <form action="" method="post" class="col-xl-12">
+                <div class="card custom-card sendtop">
+                    <div class="card-body p-5 d-flex align-items-center justify-content-center">
+                        <div class="container">
+                            <h3 class="text-fixed-white text-center">Trader Hash
+                            </h3>
+                            <span class="d-block fs-16 text-fixed-white text-center op-8 mb-4">
+                                Enter your Trader Hash in the form below
+                            </span>
+                            <h5 class="text-success">How to get Trader Hash</h5>
+                            <div class="nk-block-des text-white">
+                                <p>Trader hash is a unique code issued to each trader on our platform. It is
+                                    used to track all trades associated with any trader.</p>
+                                <p>To get Trader Hash, simply contact the person that invited you or our
+                                    customer support.</p>
+                            </div>
+                            <div class="p-3 mb-4 rounded currency-exchange-area">
+                                <div class="row gy-3">
+                                    <div class="col-12">
+                                        <label class="text-white pb-1">Trader Hash</label>
+                                        <input name="brocker" type="text" placeholder="Enter Trader Hash"
+                                            class="form-control" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit" name="submit" class="btn btn-success btn-wave sendtop ">Verify
+                                    Trader</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

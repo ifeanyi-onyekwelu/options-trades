@@ -1,0 +1,147 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Terms of Purchase</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="{% 
+url 'user:dashboard' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Terms
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="container-lg">
+            <!-- Start::row-1 -->
+            <div class="row justify-content-center">
+                <div class="col-xl-8">
+                    <div class="card custom-card overflow-hidden">
+                        <div class="card-body p-0">
+                            <div
+                                class="p-3 terms-heading-cover d-flex align-items-center text-fixed-white bg-primary h5 fw-semibold mb-0">
+                                <span class="avatar avatar-md me-3">
+                                    <img src="{% static 'img/media-67.png' %}" alt="">
+                                </span> Terms Of Purchase
+                            </div>
+                            <div class="p-4 text-muted terms-conditions" id="terms-scroll">
+                                <div class="mb-5">
+                                    <p class="mb-3 op-7">
+                                        <span class="fw-bold text-default op-8">Carefully read through the
+                                            Agreement.
+                                        </span>
+                                    </p>
+                                    <p class="mb-0 op-7">
+                                        This Agreement sets out the specific terms that will apply to you when
+                                        using the buy shares
+                                        functionality on Options Trades Hub platform. The terms in this
+                                        Agreement apply to
+                                        you in addition to the
+                                        General Terms and Conditions, which apply to all of our
+                                        services.<br><br>
+                                        Capitalized words in this Agreement will have the same meaning which are
+                                        given to those
+                                        word in the General Terms and Conditions. If a term of this Agreement
+                                        conflicts with or
+                                        differs
+                                        from a term in the General Terms and Conditions, this Agreement will
+                                        apply.
+                                    </p>
+                                </div>
+                                <h6 class="fw-bold pb-3 text-default op-7"><span
+                                        class="terms-heading">Introduction</span></h6>
+                                <div class="mb-4">
+                                    <p class="op-7 mb-2">1.1 - These terms and
+                                        conditions (the "Agreement") govern the purchase of options and shares
+                                        (collectively referred to as "Securities") from Options Trades Hub (the
+                                        "Company") by the purchaser (the "Buyer").
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Offer and Acceptance</p>
+                                    <p class="op-7 mb-2">
+                                        2.1 - By purchasing Securities from the Company, the Buyer agrees to be
+                                        bound by the terms and conditions set forth in this Agreement.
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Purchase Price and Payment
+                                    </p>
+                                    <p class="op-7">
+                                        3.1 The purchase price for the Securities shall be listed in the
+                                        appropriate page, unless a special request is made according to the
+                                        number of user purchase and it will be agreed upon by both parties in
+                                        writing.
+                                    </p>
+                                    <p class="op-7">
+                                        3.2 Payment shall be made to the generated accounts / wallets as at time
+                                        of deposit and within the time frame stipulated by our payment merchant.
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Delivery of Securities</p>
+                                    <p class="op-7 mb-2">
+                                        4.1 The Company agrees to deliver the Securities to the Buyer within a
+                                        reasonable time frame after the payment is confirmed.
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Representations and Warranties
+                                    </p>
+                                    <p class="op-7 mb-2">
+                                        5.1 The Company represents and warrants that it has the authority to
+                                        issue and sell the Securities.
+                                    </p>
+                                    <p class="op-7 mb-0">
+                                        5.2 The Buyer represents and warrants that it has the legal capacity and
+                                        authority to purchase the Securities.
+                                    </p>
+                                </div>
+                                <div class="mb-0">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Transfer Restrictions</p>
+                                    <p class="op-7 mb-2">
+                                        6.1 The Buyer acknowledges and agrees that the Securities may be subject
+                                        to certain transfer restrictions as outlined in terms and privacy
+                                        policy.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-sm-flex d-block align-items-center justify-content-between shadow-lg">
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input" checked="" required type="checkbox" value=""
+                                        id="privacy-policy">
+                                    <label class="form-check-label text-muted" for="privacy-policy">
+                                        I agree with the
+                                    </label>
+                                    <a href="../privacy" class="fw-semibold text-muted ms-1"><u>Privacy
+                                            Policy</u></a>
+                                </div>
+                            </div>
+                            <div class="btn-list mt-sm-0 mt-2">
+                                <a href="{% url 'user:dashboard' %}" class="btn btn-outline-danger btn-wave">I
+                                    DECLINE</a>
+                                <a href="{% url 'user:invest' %}" class="btn btn-success btn-wave">I ACCEPT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End::row-1 -->
+
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

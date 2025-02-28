@@ -1,0 +1,105 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Start::app-content -->
+<div class="main-content app-content">
+    <div class="container-fluid">
+
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Support</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'user:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Create Ticket</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Header Close -->
+
+        <!-- Start::row-1 -->
+        <div class="row justify-content-center">
+            <div class="col-xxl-12 col-xl-12 col-lg-12 col-md-12 col-xm-12">
+                <div class="card custom-card overflow-hidden">
+                    <div class="card-body p-0">
+                        <div class="contact-page-banner">
+                            <div class="text-center">
+                                <h3 class="fw-semibold pb-2 text-fixed-white">Support Ticket</h3>
+                                <p class="text-fixed-white px-sm-0 px-3">Make sure you have checked our <a href="../faq"
+                                        class="text-warning">FAQ</a> first before opening support
+                                    ticket. <br>Please do
+                                    not
+                                    resend any ticket because it might result to late reply.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
+                <div class="row">
+                    <div class="col-xxl-8 col-xl-8 col-lg-12 offset-xl-2 col-md-12 col-sm-12">
+                        <form method="post" action="" class="card custom-card contactus-form overflow-hidden">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    Ticket 406541 </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row gy-3">
+                                    <div class="col-xl-6">
+                                        <label for="contact-address-firstname" class="form-label">First Name
+                                            :</label>
+                                        <input type="text" value="Ifeanyi" class="form-control form-control-light"
+                                            id="contact-address-firstname" placeholder="Enter Name" readonly>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <label for="contact-address-lastname" class="form-label">Last Name
+                                            :</label>
+                                        <input type="text" value="Onyekwelu" class="form-control form-control-light"
+                                            id="contact-address-lastname" placeholder="Enter Name" readonly>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <label for="contact-address-email" class="form-label">Email :</label>
+                                        <input type="email" class="form-control form-control-light"
+                                            value="ifeanyionyekwelu786@gmail.com" id="contact-address-email"
+                                            placeholder="Enter Email Id" readonly>
+                                    </div>
+                                    <div class="col-xl-6">
+                                        <label for="contact-address-phone" class="form-label">Subject :</label>
+                                        <select name="subject" class="form-control form-control-light">
+                                            <option value="Admin - Account Funding">Account Funding</option>
+                                            <option value="Admin - Investment Related">Investment Related
+                                            </option>
+                                            <option value="Admin - Fund Withdrawal">Fund Withdrawal</option>
+                                            <option value="Admin - Profile Management">Profile Management
+                                            </option>
+                                            <option value="Admin - Password Related">Password Related</option>
+                                            <option value="Admin - Transfer Pin Related">Transfer Pin Related
+                                            </option>
+                                            <option value="Admin - Other Issues">Other Issues</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <label for="contact-mail-message" class="form-label">Message :</label>
+                                        <textarea class="form-control form-control-light" minlength="50"
+                                            id="contact-mail-message" name="message" rows="3" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-center">
+                                    <button type="submit" name="submit" class="btn btn-primary-light btn-wave">Send
+                                        Ticket</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End::row-1 -->
+
+</div>
+{% endblock content %}

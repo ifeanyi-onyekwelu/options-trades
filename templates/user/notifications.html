@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block content %}
+<!-- Start::app-content -->
 <div class="main-content app-content">
     <div class="container-fluid">
         <!-- Page Header -->
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Deposit History</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Notification</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item">
-                            <a href="{% 
-url 'user:dashboard' %}">Dashboard</a>
+                            <a href="{% url 'user:dashboard' %}">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
-                            Deposit
+                            Notice
                         </li>
                     </ol>
                 </nav>
@@ -28,26 +28,32 @@ url 'user:dashboard' %}">Dashboard</a>
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="datatable-basic" data-order='[[ 3, "desc" ]]'
+                            <table id="datatable-basic" data-order='[[ 2, "desc" ]]'
                                 class="table table-bordered text-nowrap w-100">
                                 <thead>
                                     <tr>
-                                        <th>Amount</th>
-                                        <th>Payment Method</th>
-                                        <th>Status</th>
+                                        <th>Title</th>
+                                        <th>Notice</th>
                                         <th>Date</th>
+                                        <th>...</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>$2,000</td>
-                                        <td>BANK</td>
+                                        <td>Account Funding</td>
+                                        <td>Your account funding of $2,000 is awaiting payment. You will be contacted
+                                            shortly on how to complete your deposit.</td>
                                         <td>
-                                            <span class="text-danger">Pending</span>
+                                            2025-02-27 07:09 pm</td>
+                                        <td>
+                                            <form action="" method="post">
+                                                <input type="text" hidden value="2477" name="nid">
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    name="submit">delete</button>
+                                            </form>
                                         </td>
-                                        <td>
-                                            Feb. 27, 2025</td>
                                     </tr>
+
                                 </tbody>
                             </table>
                         </div>

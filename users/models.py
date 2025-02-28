@@ -1,26 +1,12 @@
 from django.db import models
 import uuid
-import datetime
-from django.utils import timezone
+from django.utils.timezone import now
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
 import secrets
 import string
 import os
 from django.conf import settings
-
-now = timezone.now()
-naive_datetime = datetime.datetime(
-    year=now.year,
-    month=now.month,
-    day=now.day,
-    hour=now.hour,
-    minute=now.minute,
-    second=now.second,
-)
-aware_datetime = timezone.make_aware(
-    naive_datetime, timezone=timezone.get_current_timezone()
-)
 
 
 def default_profile_image_path(instance, filename):
@@ -30,7 +16,7 @@ def default_profile_image_path(instance, filename):
 
 class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    date_joined = models.DateTimeField(default=aware_datetime)
+    date_joined = models.DateTimeField(default=now)
 
     def __str__(self):
         return "{} {} - {}".format(self.first_name, self.last_name, self.email)

@@ -2,169 +2,66 @@
 {% load static %}
 {% block title %}Deposit{% endblock title %}
 
-
-{% block extrastyle %}
-<style>
-    /* Add your custom styles here */
-    .payment-option {
-        text-align: center;
-        margin: 10px;
-    }
-
-    .payment-option img {
-        height: 200px;
-        width: auto;
-        margin: 2rem 0;
-    }
-
-    .payment-option h4 {
-        background: var(--light);
-        padding: .7rem;
-        color: #fff;
-    }
-
-    .payment-option p {
-        color: var(--light);
-    }
-
-    .payment-option .btn {
-        background: var(--light);
-    }
-
-    .wallet-address-qrcode {
-        width: 300px;
-        height: 300px;
-        object-fit: contain;
-        display: block;
-        margin: auto;
-    }
-</style>
-{% endblock extrastyle %}
-
 {% block content %}
 <div class="main-content app-content">
     <div class="container-fluid">
-        <div class="modal fade" id="usdtDeposit" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCenterTitle">Deposit Via USDT</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <img src="{% static 'img/usdt-address.jpeg' %}" alt="" class="wallet-address-qrcode">
-                            <div class="col-lg-12 mb-3">
-                                <label for="nameWithTitle" class="form-label">Wallet Address</label>
-                                <input type="text" id="nameWithTitle" class="form-control"
-                                    value="TTdRoo9deUzB3ZKWXLLjbQTPBLEJNbVWGv" readonly />
-                            </div>
-                            <div class="col-lg-12 mb-3">
-                                <label for="nameWithTitle" class="form-label">Amount to deposit</label>
-                                <input type="text" id="nameWithTitle" class="form-control"
-                                    placeholder="$10 - $10,000" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            Cancel
-                        </button>
-                        <button type="button" class="btn btn-primary">Submit</button>
-                    </div>
-                </div>
-            </div>
+
+        <!-- Page Header -->
+        <div class="d-md-flex d-block my-4 page-header-breadcrumb">
         </div>
-        <div class="modal fade" id="bitcoinDeposit" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCenterTitle">Deposit Via BTC</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <img src="{% static 'img/btc-address.jpeg' %}" alt="" class="wallet-address-qrcode">
-                            <div class="col-lg-12 mb-3">
-                                <label for="nameWithTitle" class="form-label">Wallet Address</label>
-                                <input type="text" id="nameWithTitle" class="form-control"
-                                    value="3JN3ykBae8hXhq5oANKKTupwSjpo5tyhxP" readonly />
-                            </div>
-                            <div class="col-lg-12 mb-3">
-                                <label for="nameWithTitle" class="form-label">Amount to deposit</label>
-                                <input type="text" id="nameWithTitle" class="form-control"
-                                    placeholder="$1,000 - $10,000" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            Cancel
-                        </button>
-                        <button type="button" class="btn btn-primary">Submit</button>
-                    </div>
+        <!-- Page Header Close -->
+        <div class="row mb-5">
+            <div class="col-xl-12">
+                <h5 class="fw-semibold text-center"> Fund your Account </h5>
+                <p class="text-muted text-center col-lg-6 offset-lg-3 pb-3">Account funding is processed
+                    automatically. Select
+                    any of the
+                    crypto assets and make deposit, funds sent to the wrong crypto asset or network cannot be
+                    recovered.</p>
+                <div class="pb-4">
+                    <center>
+                        <img src="../assets/images/bank.png" style="width: 50px; padding-right: 10px;" alt="">
+                        <img src="../assets/images/btc.png" style="width: 50px; padding-right: 10px;" alt="">
+                        <img src="../assets/images/usdt.png" style="width: 50px; padding-right: 10px;" alt="">
+                        <img src="../assets/images/eth.png" style="width: 50px; padding-right: 10px;" alt="">
+                    </center>
                 </div>
-            </div>
-        </div>
-        <div class="modal fade" id="cardDeposit" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalCenterTitle">Deposit Via CARD</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col mb-3">
-                                <label for="nameWithTitle" class="form-label">Name</label>
-                                <input type="text" id="nameWithTitle" class="form-control" placeholder="Enter Name" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                            Close
-                        </button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card payment-option">
-                    <h4>USDT Payment</h4>
-                    <img src="{% static 'img/TetherUSDT.png' %}" alt="USDT">
-                    <p>Minimum Deposit: $1,000</p>
-                    <p>Maximum Deposit: $10,000</p>
-                    <p>Processing Time: 1-2 business days</p>
-                    <btn class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#usdtDeposit">Deposit Now</btn>
-                </div>
+
             </div>
 
-            <div class="col-md-4">
-                <div class="card payment-option">
-                    <h4>Bitcoin (BTC)</h4>
-                    <img src="{% static 'img/btc.png' %}" alt="BTC">
-                    <p>Minimum Deposit: $1,000</p>
-                    <p>Maximum Deposit: $10,000</p>
-                    <p>Processing Time: 1-2 business days</p>
-                    <btn class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bitcoinDeposit">Deposit Now
-                    </btn>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card payment-option">
-                    <h4>Card</h4>
-                    <img src="{% static 'img/card.png' %}" alt="card">
-                    <p>Minimum Deposit: $1,000</p>
-                    <p>Maximum Deposit: $10,000</p>
-                    <p>Processing Time: 1-2 business days</p>
-                    <btn class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cardDeposit">Deposit Now</btn>
+            <div class="col-xl-6 offset-xl-3">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <form action="" method="post">
+                                <div class="input-group mb-3 d-flex flex-nowrap">
+                                    <select class="form-control" name="method" data-trigger id="choices-single-default"
+                                        required>
+                                        <option value="" hidden>-- Payment method --</option>
+                                        <option value="BITCOIN">
+                                            BITCOIN - (BTC) </option>
+                                        <option value="ETHEREUM">
+                                            ETHEREUM - (ETH - ERC20) </option>
+                                        <option value="USDT">
+                                            USDT - (Tether USD - TRC20) </option>
+                                        <option value="BANK">BANK DEPOSIT</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3 d-flex flex-nowrap">
+                                    <input type="number" pattern="[1-9]" name="amount" placeholder="Amount" required
+                                        class="form-control form-control-lg crypto-buy-sell-input" aria-label="Amount">
+                                </div>
+                                <div class="d-grid mt-4 pt-1">
+                                    <button type="submit" name="submit"
+                                        class="btn btn-primary btn-wave">Deposit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 {% endblock content %}
