@@ -4,85 +4,146 @@
 {% block content %}
 <div class="main-content app-content">
     <div class="container-fluid">
-        <div class="w-75 mx-auto mt-lg-5">
-            <div class="px-2 py-3 fw-bold bg-black flex align-items-center justify-content-center text-center">
-                <h3 class="text-white fs-17">Terms Of Purchase</h3>
-            </div>
-
-            <div class="px-4 py-3 bg-gray-100">
-                <h4 class="fw-bold text-gray-6 my-3 fs-13">Carefully read through the Agreement.</h4>
-                <p class="fs-12 mb-3">
-                    This Agreement sets out the specific terms that will apply to you when using the
-                    <strong>copy trading</strong> functionality on the Options Trades Hub platform.
-                    The terms in this Agreement apply to you in addition to the General Terms and Conditions,
-                    which apply to all of our services and not just to copy trading.
-                </p>
-                <p class="fs-12 mb-3">
-                    Capitalized words in this Agreement will have the same meaning which are given to those words in the
-                    General Terms and Conditions.
-                    If a term of this Agreement conflicts with or differs from a term in the General Terms and
-                    Conditions, this Agreement will apply.
-                </p>
-
-                <h3 class="fw-bold fs-14 mt-4 mb-3 text-gray-6">Introduction</h3>
-                <p class="fs-12 mb-3">1.1 - When using the copy trading services, you are agreeing to use our services.
-                </p>
-
-                <h3 class="fw-bold fs-14 mt-4 mb-3 text-gray-6">Offer and Acceptance</h3>
-                <p class="fs-12 mb-3">
-                    1.2 - The Options Trades Hub platform provides you with the ability to interact, follow and copy
-                    other traders,
-                    by using the information, as well as providing you with "copy trading features".
-                    Copy trading features include open trades only.
-                </p>
-
-                <h3 class="fw-bold fs-14 mt-4 mb-3 text-gray-6">Authorization and Approval</h3>
-                <p class="fs-12 mb-3">
-                    1.3 - Copy trading is a trading functionality which allows you to copy the account of other traders.
-                    You do this by copying a specific Options Trades Hub trader account.
-                    By placing a copy order, you authorize us to automatically recreate this account for you
-                    in your Options Trades Hub account without any prior consultation, consent or approval.
-                </p>
-                <p class="fs-12 mb-3">
-                    This will be done on a pro rata basis with the same products and the same trading instructions
-                    (unless such action would be in contravention of Applicable Law).
-                    For example, we may start copy trading, stop copy trading and/or pause the copying of the copied
-                    trader,
-                    account, set limits to any position etc.
-                </p>
-
-                <h3 class="fw-bold fs-14 mt-4 mb-3 text-gray-6">Delivery of Securities</h3>
-                <p class="fs-12 mb-3">
-                    1.4 - Please read the first paragraph of our Terms and Conditions to understand the terms in
-                    "Placing an order".
-                    For more information on how to place a copy trade on the Options Trades Hub platform, please contact
-                    support.
-                </p>
-
-                <h3 class="fw-bold fs-14 mt-4 mb-3 text-gray-6">Multiples and Singles</h3>
-                <p class="fs-12 mb-3">
-                    2.1 - We offer a copy trading service which allows you to copy trades on the Options Trades Hub
-                    platform.
-                    You can choose to copy the orders in an account of a single Options Trades Hub trader.
-                    For more information, please contact support.
-                </p>
-            </div>
-
-            <div class="px-3 py-4 d-flex align-items-center justify-content-between bg-white">
-                <div class="d-flex align-items-center gap-1">
-                    <label for="agree">
-                        <input type="checkbox" name="agree" id="agree">
-                        <span>I agree with the <a href="" class="underline">Privacy Policy</a></span>
-                    </label>
-                </div>
-
-                <div class="d-flex align-items-center gap-2">
-                    <button class="btn btn-outline btn-outline-danger">I DECLINE</button>
-                    <button class="btn btn-success">I AGREE</button>
-                </div>
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Terms of Trade</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'user:dashboard' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Terms
+                        </li>
+                    </ol>
+                </nav>
             </div>
         </div>
+
+        <div class="container-lg">
+
+            <!-- Start::row-1 -->
+            <div class="row justify-content-center">
+                <div class="col-xl-8">
+                    <div class="card custom-card overflow-hidden">
+                        <div class="card-body p-0">
+                            <div
+                                class="p-3 terms-heading-cover d-flex align-items-center text-fixed-white bg-primary h5 fw-semibold mb-0">
+                                <span class="avatar avatar-md me-3">
+                                    <img src="{% static 'img/media-67.png' %}" alt="">
+                                </span> Terms Of Trade
+                            </div>
+                            <div class="p-4 text-muted terms-conditions" id="terms-scroll">
+                                <div class="mb-5">
+                                    <p class="mb-3 op-7">
+                                        <span class="fw-bold text-default op-8">Carefully read through the
+                                            Agreement.
+                                        </span>
+                                    </p>
+                                    <p class="mb-0 op-7">
+                                        This Agreement sets out the specific terms that will apply to you when
+                                        using the copy trading
+                                        functionality on the Options Trades Hub platform. The terms in this
+                                        Agreement apply to you in addition to the
+                                        General Terms and Conditions, which apply to all of our services and not
+                                        just to copy trading.
+                                        Capitalized words in this Agreement will have the same meaning which are
+                                        given to those
+                                        word in the General Terms and Conditions. If a term of this Agreement
+                                        conflicts with or differs
+                                        from a term in the General Terms and Conditions, this Agreement will
+                                        apply.
+                                    </p>
+                                </div>
+                                <h6 class="fw-bold pb-3 text-default op-7"><span
+                                        class="terms-heading">Introduction</span></h6>
+                                <div class="mb-4">
+                                    <p class="op-7 mb-2">1.1 - When using the copy trading services, you are
+                                        agreeing to use our services.
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Offer and Acceptance</p>
+                                    <p class="op-7 mb-2">
+                                        1.2 - The Options Trades Hub platform provides you with the ability
+                                        to interact, follow and copy other traders,
+                                        by using the information, as well as providing you with "copy trading
+                                        features". Copy
+                                        trading features includes open trades only.
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Authorization and Approval
+                                    </p>
+                                    <p class="op-7">
+                                        1.3 Copy trading is a trading functionality which allows you to copy the
+                                        account of other
+                                        traders. You do this by copying a specific Options Trades Hub trader account. By
+                                        placing a copy order,
+                                        you authorize us to automatically recreate this account for you in your
+                                        Options Trades Hub account
+                                        without any prior consultation, consent or approval.
+                                    </p>
+                                    <p class="op-7">
+                                        This will be done on a pro rata basis
+                                        with the same products and the same trading instructions (unless such
+                                        action would be in
+                                        contravention of Applicable Law). For example, we may start copy
+                                        trading, stop copy
+                                        trading and/or pause the copying of the copied trader, account, set
+                                        limits to any position
+                                        etc.
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Delivery of Securities</p>
+                                    <p class="op-7 mb-2">
+                                        1.4 Please read the first paragraph of our Terms and Conditions to
+                                        understand the terms in
+                                        "Placing an order".
+                                        For more information on how to place a copy trade on the
+                                        Options Trades Hub platform, please contact support.
+                                    </p>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="fw-semibold text-muted mb-2 fs-14">Multiples and Singles
+                                    </p>
+                                    <p class="op-7 mb-2">
+                                        2.1 We offer a copy trading service which allows you to copy trades on
+                                        the Options Trades Hub platform. You
+                                        can choose to copy the orders in an account of a single
+                                        Options Trades Hub trader. For more information,
+                                        please contact support".
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer d-sm-flex d-block align-items-center justify-content-between shadow-lg">
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input" checked="" required type="checkbox" value=""
+                                        id="privacy-policy">
+                                    <label class="form-check-label text-muted" for="privacy-policy">
+                                        I agree with the
+                                    </label>
+                                    <a href="../privacy" class="fw-semibold text-muted ms-1"><u>Privacy
+                                            Policy</u></a>
+                                </div>
+                            </div>
+                            <div class="btn-list mt-sm-0 mt-2">
+                                <a href="{% url 'user:dashboard' %}" class="btn btn-outline-danger btn-wave">I
+                                    DECLINE</a>
+                                <a href="{% url 'user:broker' %}" class="btn btn-success btn-wave">I ACCEPT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End::row-1 -->
+
+        </div>
+
     </div>
 </div>
-
 {% endblock content %}

@@ -4,33 +4,64 @@
 
 {% block content %}
 <div class="main-content app-content">
-    <div class="container-fluid text-center">
-        <div class="w-50 mx-auto mt-lg-5">
-            <h3 class="fw-bold">Fund Your Account</h3>
-            <p class="fs-14 text-gray-7 fw-normal">Account funding is processed automatically. Select any of the crypto assets and make deposit, funds sent to the wrong crypto asset or network cannot be recovered.</p>
+    <div class="container-fluid">
 
-            <div class="mt-5 d-flex align-items-center justify-content-center gap-md-3">
-                <img src="{% static 'img/bank.png' %}" alt="Bank Transfer" style="width: 40px;">
-                <img src="{% static 'img/btc.png' %}" alt="Bank Transfer" style="width: 40px;">
-                <img src="{% static 'img/usdt.png' %}" alt="Bank Transfer" style="width: 40px;">
-                <img src="{% static 'img/eth.png' %}" alt="Bank Transfer" style="width: 40px;">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block my-4 page-header-breadcrumb">
+        </div>
+        <!-- Page Header Close -->
+        <div class="row mb-5">
+            <div class="col-xl-12">
+                <h5 class="fw-semibold text-center"> Fund your Account </h5>
+                <p class="text-muted text-center col-lg-6 offset-lg-3 pb-3">Account funding is processed
+                    automatically. Select
+                    any of the
+                    crypto assets and make deposit, funds sent to the wrong crypto asset or network cannot be
+                    recovered.</p>
+                <div class="pb-4">
+                    <center>
+                        <img src="../assets/images/bank.png" style="width: 50px; padding-right: 10px;" alt="">
+                        <img src="../assets/images/btc.png" style="width: 50px; padding-right: 10px;" alt="">
+                        <img src="../assets/images/usdt.png" style="width: 50px; padding-right: 10px;" alt="">
+                        <img src="../assets/images/eth.png" style="width: 50px; padding-right: 10px;" alt="">
+                    </center>
+                </div>
+
             </div>
 
-            <div class="bg-white p-2 rounded-2 mt-5">
-                <form method="post" class="d-flex flex-column gap-4">
-                    {% csrf_token %}
-                    <select name="method" id="method" required class="w-100 p-2 rounded-1 border-1 border-danger bg-white">
-                        <option value="">SELECT A PAYMENT METHOD</option>
-                        <option value="btc">BITCOIN - (BTC)</option>
-                        <option value="eth">ETHEREUM - (ERC20)</option>
-                        <option value="usdt">USDT - (Tether USD - TRC20)</option>
-                    </select>
-
-                    <input type="text" name="amount" id="amount" placeholder="0.00" class="w-100 p-2 border-light bg-white">
-                    <button class="btn w-100 px-2 py-2 rounded-1 border-0 bg-gray-200 bg-black text-gray-1 fw-bolder">Deposit</button>
-                </form>
+            <div class="col-xl-6 offset-xl-3">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <form action="" method="post">
+                                <div class="input-group mb-3 d-flex flex-nowrap">
+                                    <select class="form-control" name="method" data-trigger id="choices-single-default"
+                                        required>
+                                        <option value="" hidden>-- Payment method --</option>
+                                        <option value="BITCOIN">
+                                            BITCOIN - (BTC) </option>
+                                        <option value="ETHEREUM">
+                                            ETHEREUM - (ETH - ERC20) </option>
+                                        <option value="USDT">
+                                            USDT - (Tether USD - TRC20) </option>
+                                        <option value="BANK">BANK DEPOSIT</option>
+                                    </select>
+                                </div>
+                                <div class="input-group mb-3 d-flex flex-nowrap">
+                                    <input type="number" pattern="[1-9]" name="amount" placeholder="Amount" required
+                                        class="form-control form-control-lg crypto-buy-sell-input" aria-label="Amount">
+                                </div>
+                                <div class="d-grid mt-4 pt-1">
+                                    <button type="submit" name="submit"
+                                        class="btn btn-primary btn-wave">Deposit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 </div>
 {% endblock content %}

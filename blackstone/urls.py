@@ -13,7 +13,7 @@ urlpatterns = [
     path('', include('app.urls', namespace='app')),
     path('account/', include('auth_app.urls', namespace='auth')),
     path('admin/', include('user_admin.urls', namespace='admin')),
-    path('user/', include('user.urls', namespace='user'))
+    path('account/', include('user.urls', namespace='user'))
 ]
 
 if settings.DEBUG:

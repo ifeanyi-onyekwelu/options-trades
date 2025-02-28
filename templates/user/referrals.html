@@ -1,0 +1,70 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Start::app-content -->
+<div class="main-content app-content">
+    <div class="container">
+
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Apply for KYC</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'user:dashboard' %}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">KYC</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!-- Page Header Close -->
+
+        <!-- Start::row-1 -->
+        <div class="row mb-5">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-header d-sm-flex d-block">
+                        {% include './_profile_tabs.html' %}
+                    </div>
+                    <div class="card-body">
+                        <p>Referral Link: <a class="text-success"
+                                href="https://optionstradeshub.com/signup?ref=198404">https://optionstradeshub.com/signup?ref=198404</a>
+                        </p>
+                        <p>Referral Code: <span class="text-success">198404</span>
+                        </p>
+                        <div class="tab-content">
+                            <div class="p-sm-3 p-0">
+                                <h6 class="fw-semibold mb-3">
+                                    My Referrals
+                                </h6>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="card custom-card">
+                                            <div class="card-body">
+                                                <table id="responsiveDataTable"
+                                                    class="table table-bordered text-nowrap w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Level 1 (5%)</th>
+                                                            <th>Level 2 (1%)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End::row-1 -->
+
+    </div>
+</div>
+{% endblock content %}

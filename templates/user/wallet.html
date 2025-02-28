@@ -8,12 +8,12 @@
 
         <!-- Page Header -->
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Manage Password</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Manage Wallet</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{% url 'user:dashboard' %}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Password</li>
+                        <li class="breadcrumb-item active" aria-current="page">Wallet</li>
                     </ol>
                 </nav>
             </div>
@@ -33,30 +33,33 @@
                                 role="tabpanel">
                                 <div class="p-sm-3 p-0">
                                     <h6 class="fw-semibold mb-3">
-                                        Manage Password :
+                                        Manage Wallet :
                                     </h6>
+                                    <p class="text-danger">Note: Make sure you carefully confirm your crypto
+                                        asset wallet address because any funds sent to a wrong crypto wallet
+                                        address will not be recovered.</p>
                                     <div class="row gy-4 mb-4">
-                                        <div class="col-xl-12">
-                                            <label for="first-name" class="form-label">Existing Password</label>
-                                            <input type="password" class="form-control" id="first-name" name="opassword"
-                                                placeholder="Existing password" required>
+                                        <div class="col-xl-4">
+                                            <label for="btc" class="form-label">Bitcoin Wallet</label>
+                                            <input type="text" class="form-control" id="btc" name="btc" value=""
+                                                placeholder="Bitcoin wallet">
                                         </div>
-                                        <div class="col-xl-6">
-                                            <label for="last-name" class="form-label">New password</label>
-                                            <input type="password" class="form-control" id="last-name" name="password"
-                                                placeholder="New password" required>
+                                        <div class="col-xl-4">
+                                            <label for="eth" class="form-label">Ethereum Wallet</label>
+                                            <input type="text" class="form-control" id="eth" name="eth" value=""
+                                                placeholder="Ethereum wallet">
                                         </div>
-                                        <div class="col-xl-6">
-                                            <label for="cpassword" class="form-label">Confirm password</label>
-                                            <input type="password" class="form-control" id="cpassword" name="cpassword"
-                                                placeholder="Confirm password" required>
+                                        <div class="col-xl-4">
+                                            <label for="usdt" class="form-label">USDT Wallet <span
+                                                    class="text-danger">(TRC20 only)</span></label>
+                                            <input type="text" class="form-control" id="usdt" name="usdt" value=""
+                                                placeholder="USDT (TRC20) wallet">
                                         </div>
-
                                     </div>
                                     <div class="card-footer">
                                         <div class="float-end">
                                             <button name="submit" class="btn btn-primary m-1">
-                                                Update Password
+                                                Update Wallet
                                             </button>
                                         </div>
                                     </div>

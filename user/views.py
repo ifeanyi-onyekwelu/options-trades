@@ -58,10 +58,12 @@ class Withdraw(TemplateView):
 
 
 @method_decorator(login_required, name="dispatch")
-class Investment(ListView):
-    model = InvestmentPlan
-    context_object_name = 'plans'
-    template_name = 'user/investment.html'
+class Invest(TemplateView):
+    template_name = 'user/invest.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Broker(TemplateView):
+    template_name = 'user/broker.html'
 
 
 # @login_required
@@ -137,6 +139,14 @@ class Profile(TemplateView):
 
         return context
 
+@method_decorator(login_required, name="dispatch")
+class Notifications(TemplateView):
+    template_name = 'user/notifications.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Support(TemplateView):
+    template_name = 'user/support.html'
+
 
 @login_required
 @require_POST
@@ -177,6 +187,18 @@ def handle_update_profile(request):
 @method_decorator(login_required, name="dispatch")
 class ChangePassword(TemplateView):
     template_name = 'user/change-password.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Pin(TemplateView):
+    template_name = 'user/pin.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Wallet(TemplateView):
+    template_name = 'user/wallet.html'
+    
+@method_decorator(login_required, name="dispatch")
+class Referrals(TemplateView):
+    template_name = 'user/referrals.html'
 
 
 @login_required
@@ -235,43 +257,3 @@ class ReferredUsers(TemplateView):
         context['referred_users'] = referred_users
 
         return context
-
-
-@method_decorator(login_required, name="dispatch")
-class TransferFunds(CreateView):
-    model = TransferModel
-    fields = "__all__"
-    template_name = 'user/transfer-funds.html'
-
-    def post(self, request, *args, **kwargs):
-        sender = request.user
-        print(sender)
-
-        receiver = User.objects.get(username=request.POST.get('username'))
-
-        self.process_transfer(sender, receiver, request.POST.get('amount'))
-        return super().post(request, *args, **kwargs)
-
-    def process_transfer(self, sender, receiver, amount):
-        sender_balance = UserBalance.objects.get(user=sender).balance
-
-        amount_decimal = Decimal((amount))
-        charge = Decimal(str(0.05))
-
-        if sender_balance < amount_decimal:
-            return JsonResponse({'status': 'error', 'message': 'Insufficient funds'})
-
-        
-        transfer = TransferModel.objects.create(sender=sender, receiver=receiver, amount=amount)
-
-        return transfer
-
-
-@login_required
-def delete_account(request):
-    
-    user = User.objects.get(id=request.user.id)
-    user.delete()
-
-    logout(request)
-    return redirect('app:home')
