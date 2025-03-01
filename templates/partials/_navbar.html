@@ -15,8 +15,13 @@
                 <li><a href="{% url 'app:team' %}">Our Team</a></li>
                 <li><a href="{% url 'app:faqs' %}">FAQ</a></li>
                 <li><a href="{% url 'app:contact' %}">Help Center</a></li>
+                {% if request.user.is_authenticated %}
+                <li><a href="{% url 'user:dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'auth:handle_logout' %}">Logout</a></li>
+                {% else %}
                 <li><a href="{% url 'auth:signup' %}">Get Started</a></li>
                 <li><a href="{% url 'auth:login' %}">Sign In</a></li>
+                {% endif %}
             </ul>
         </nav>
         <div id="menu-toggle">

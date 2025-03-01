@@ -256,7 +256,7 @@ class DepositDetailView(DetailView):
 
 @login_required
 def delete_deposit(request, deposit):
-    deposit = get_object_or_404(Deposit, id=category_id)
+    deposit = get_object_or_404(Deposit, id=deposit)
     deposit.delete()
     return redirect("admin:deposits")
 
@@ -318,68 +318,3 @@ def delete_transfer(request, transfer_id):
     transfer = get_object_or_404(Transfer, id=transfer_id)
     transfer.delete()
     return redirect("admin:transfers")
-
-
-@method_decorator(guest_only, name="dispatch")
-class Login(View):
-
-    def get(self, request, *args, **kwargs):
-        return render(self.request, "user_admin/login.html")
-
-    def post(self, request, *args, **kwargs):
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-
-        user = get_object_or_404(User, email=email)
-
-        if not user.check_password(password):
-            messages.error(request, "Invalid credentials provided!")
-            return redirect(reverse("admin:login"))
-
-        if user is not None:
-            login(request, user)
-            return redirect(reverse("admin:dashboard"))
-        else:
-            messages.error(request, "Invalid credentials provided!")
-            return redirect(reverse("admin:login"))
-
-
-@method_decorator(guest_only, name="dispatch")
-class SignupView(TemplateView):
-    def get(self, request, *args, **kwargs):
-        return render(request, "user_admin/signup.html")
-
-    def post(self, request, *args, **kwargs):
-        firstName = request.POST.get("fname")
-        lastName = request.POST.get("lname")
-        email = request.POST.get("email")
-        password1 = request.POST.get("password1")
-        password2 = request.POST.get("password2")
-
-        if not password1 == password2:
-            messages.error(request, "Passwords do not match")
-            return redirect(reverse("admin:signup"))
-
-        if User.objects.filter(email=email).exists():
-            messages.error(request, "Email already exists")
-            return redirect(reverse("admin:signup"))
-
-        new_user = User.objects.create(
-            first_name=firstName,
-            last_name=lastName,
-            email=email,
-            password=make_password(password1),
-            is_staff=True,
-            is_superuser=True,
-        )
-
-        new_user_profile = UserProfile.objects.create(user=new_user).save()
-        new_user.save()
-
-        return redirect(reverse("admin:login"))
-
-
-@login_required
-def handle_logout(request):
-    logout(request)
-    return redirect("admin:login")

@@ -45,9 +45,4 @@ urlpatterns = [
     path('transfers/', TransferListView.as_view(), name='transfers'),
     path('transfers/<uuid:pk>/', TransferDetailView.as_view(), name='transfer'),
     path('transfers/<uuid:pk>/delete/', delete_transfer, name='transfer-delete'),
-
-    # auth
-    path('login/', Login.as_view(), name='login'),
-    path('signup/', SignupView.as_view(), name='signup'),
-    path('logout/', handle_logout, name='logout')
 ]

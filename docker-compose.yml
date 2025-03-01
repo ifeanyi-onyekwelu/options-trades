@@ -1,17 +1,18 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
-    image: postgres:15
+    image: mysql/mysql-server:8.0.35-alpine
     restart: always
     environment:
-      POSTGRES_DB: optionstradinghub
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ifyonyekeshy7
+      MYSQL_DATABASE: optionstradeshub
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: ifyonyekeshy7
+      MYSQL_HOST: db
     ports:
-      - "5432:5432"
+      - "3306:3306"
     volumes:
-      - pg_data:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
 
   web:
     build: .
@@ -26,4 +27,4 @@ services:
       - .env
 
 volumes:
-  pg_data:
+  mysql_data:

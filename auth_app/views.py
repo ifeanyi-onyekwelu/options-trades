@@ -41,7 +41,10 @@ def handle_login(request):
 
         if user is not None:
             login(request, user)
-            return redirect(reverse("user:dashboard"))
+            if user.is_superuser or user.is_staff:
+                return redirect(reverse("admin:dashboard"))
+            else:
+                return redirect(reverse("user:dashboard"))
         else:
             messages.error(request, "Invalid credentials provided!")
             return redirect(reverse("auth:login"))

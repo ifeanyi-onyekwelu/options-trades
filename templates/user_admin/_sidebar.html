@@ -1,112 +1,90 @@
 {% load static %}
 
-<aside class="app-sidebar sticky" id="sidebar">
-    <!-- Start::main-sidebar-header -->
-    <div class="main-sidebar-header">
-        <a href="{% url 'admin:dashboard' %}" class="header-logo">
+<aside class="app-sidebar sticky" id="sidebar" style="background: #111C43;">
+    <div class="main-sidebar-header" style="background: #111C43;">
+        <a href="{% url 'user:dashboard' %}" class="header-logo">
             <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-logo">
-            <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-logo">
-            <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-dark">
-            <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-dark">
-            <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-white">
-            <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-white">
         </a>
     </div>
 
     <div class="main-sidebar" id="sidebar-scroll">
         <nav class="main-menu-container nav nav-pills flex-column sub-open">
-            <div class="slide-left" id="slide-left">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
-                </svg>
-            </div>
             <ul class="main-menu">
-                <!-- Start::slide__category -->
-                <li class="slide__category"><span class="category-name">Home</span></li>
 
-                <!-- Start::slide -->
-                <li class="slide has-sub">
+                <li class="slide__category"><span class="category-name">User</span></li>
+
+                <li class="slide">
                     <a href="{% url 'admin:dashboard' %}" class="side-menu__item">
                         <i class="bx bx-layer side-menu__icon"></i>
                         <span class="side-menu__label">Dashboard</span>
                     </a>
-                    <ul class="slide-menu child1">
+                </li>
 
+                <li class="slide has-sub">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="bx bx-credit-card side-menu__icon"></i>
+                        <span class="side-menu__label">user</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li class="slide">
+                            <a href="{% url 'admin:user-list' %}" class="side-menu__item">All Users</a>
+                        </li>
+                        <li class="slide">
+                            <a href="{% url 'admin:user-profile-list' %}" class="side-menu__item">User Profiles</a>
+                        </li>
+                        <li class="slide">
+                            <a href="{% url 'admin:user-balance-list' %}" class="side-menu__item">User Wallets</a>
+                        </li>
                     </ul>
                 </li>
 
-                <li class="slide__category"><span class="category-name">user</span></li>
-
                 <li class="slide has-sub">
-                    <a href="{% url 'admin:user-list' %}" class="side-menu__item">
-                        <i class="bx bx-user side-menu__icon"></i>
-                        <span class="side-menu__label">All Users</span>
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="bx bx-add-to-queue side-menu__icon"></i>
+                        <span class="side-menu__label">investment</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
-                </li>
-                <li class="slide has-sub">
-                    <a href="{% url 'admin:user-profile-list' %}" class="side-menu__item">
-                        <i class="bx bx-user side-menu__icon"></i>
-                        <span class="side-menu__label">User Profiles</span>
-                    </a>
-
-                </li>
-                <li class="slide has-sub">
-                    <a href="{% url 'admin:user-balance-list' %}" class="side-menu__item">
-                        <i class="bx bx-user side-menu__icon"></i>
-                        <span class="side-menu__label">User Wallets</span>
-                    </a>
-                </li>
-
-                <li class="slide__category"><span class="category-name">investment</span></li>
-
-                <li class="slide has-sub">
-                    <a href="{% url 'admin:investment_plans' %}" class="side-menu__item">
-                        <i class="bx bx-dollar side-menu__icon"></i>
-                        <span class="side-menu__label">Investment Plans</span>
-                    </a>
-                </li>
-                <li class="slide has-sub">
-                    <a href="" class="side-menu__item">
-                        <i class="bx bx-dollar side-menu__icon"></i>
-                        <span class="side-menu__label">Add Investment Plan</span>
-                    </a>
-                </li>
-
-                <li class="slide__category"><span class="category-name">transactions</span></li>
-
-                <li class="slide has-sub">
-                    <a href="{% url 'admin:deposits' %}" class="side-menu__item">
-                        <i class="bx bx-layer side-menu__icon"></i>
-                        <span class="side-menu__label">Deposits</span>
-                    </a>
-                </li>
-                <li class="slide has-sub">
-                    <a href="{% url 'admin:withdrawals' %}" class="side-menu__item">
-                        <i class="bx bx-layer side-menu__icon"></i>
-                        <span class="side-menu__label">Withdrawals</span>
-                    </a>
-                </li>
-                <li class="slide has-sub">
-                    <a href="{% url 'admin:transfers' %}" class="side-menu__item">
-                        <i class="bx bx-layer side-menu__icon"></i>
-                        <span class="side-menu__label">Transfers</span>
-                    </a>
-                </li>
-
-                <li class="slide__category"><span class="category-name">Account</span></li>
-
-                <li class="slide has-sub">
-                    <a href="" class="side-menu__item">
-                        <i class="bx bx-layer side-menu__icon"></i>
-                        <span class="side-menu__label">View Profile</span>
-                    </a>
+                    <ul class="slide-menu child1">
+                        <li class="slide">
+                            <a href="{% url 'admin:investment_plans' %}" class="side-menu__item">Investment Plans</a>
+                        </li>
+                        <li class="slide">
+                            <a href="" class="side-menu__item">Add Investment Plan</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="slide has-sub">
-                    <a href="" class="side-menu__item">
-                        <i class="bx bx-layer side-menu__icon"></i>
-                        <span class="side-menu__label">Manage Password</span>
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="bx bx-add-to-queue side-menu__icon"></i>
+                        <span class="side-menu__label">Transactions</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
+                    <ul class="slide-menu child1">
+                        <li class="slide">
+                            <a href="{% url 'admin:deposits' %}" class="side-menu__item">Deposits</a>
+                        </li>
+                        <li class="slide">
+                            <a href="{% url 'admin:withdrawals' %}" class="side-menu__item">Withdrawals</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="slide has-sub">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="bx bx-dollar-circle side-menu__icon"></i>
+                        <span class="side-menu__label">Profile</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li class="slide">
+                            <a href="" class="side-menu__item">View Profile</a>
+                        </li>
+                        <li class="slide">
+                            <a href="" class="side-menu__item">Manage Password</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="slide">
@@ -115,9 +93,8 @@
                         <span class="side-menu__label text-danger">Logout</span>
                     </a>
                 </li>
-            </ul>
 
+            </ul>
         </nav>
     </div>
-
 </aside>
