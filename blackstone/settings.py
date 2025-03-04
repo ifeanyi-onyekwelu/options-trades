@@ -11,7 +11,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = os.getenv("DEBUG").lower() == "true"
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["optionstradezhub.com", "https://optionstradezhub.com"]
 
 APP_URL = os.getenv("APP_URL")
 

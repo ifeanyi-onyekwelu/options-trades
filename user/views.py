@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, FormView
+from django.urls import reverse_lazy
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from .decorators import login_required
@@ -15,6 +16,8 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Sum
+from .forms import DepositForm
+import uuid
 
 
 @method_decorator(login_required, name="dispatch")
@@ -48,8 +51,93 @@ class CopyTrade(TemplateView):
 
 
 @method_decorator(login_required, name="dispatch")
-class Deposit(TemplateView):
+class Deposit(FormView):
     template_name = 'user/deposit.html'
+    form_class = DepositForm
+    success_url = reverse_lazy('user:deposit-confirmation')
+
+    def form_valid(self, form):
+        method = form.cleaned_data['method']
+        amount = form.cleaned_data['amount']
+
+        # Store in session (so it's available in the next view)
+        self.request.session['deposit_method'] = method
+        self.request.session['deposit_amount'] = str(amount)
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('user:deposit-confirmation')
+
+
+@method_decorator(login_required, name="dispatch")
+class DepositConfirmationView(TemplateView):
+    template_name = 'user/deposit_confirmation.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Get data from session
+        context['method'] = self.request.session.get('deposit_method')
+        context['amount'] = self.request.session.get('deposit_amount')
+
+        # Optional: handle case where session data is missing (e.g., user refreshes after session expires)
+        if not context['method'] or not context['amount']:
+            context['error'] = "No deposit information found. Please start again."
+
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        """
+        Handle the 'I Have Made Payment' button click.
+        """
+        method = request.session.get('deposit_method')
+        amount = request.session.get('deposit_amount')
+
+        if not method or not amount:
+            messages.error(request, "Session expired or missing data. Please start the deposit process again.")
+            return redirect('deposit_start')  # Adjust this to the appropriate view
+
+        # Map method to the choices in Deposit.CRYPTO_CHOICES
+        method_mapping = {
+            'BITCOIN': 'BTC',
+            'ETHEREUM': 'ETH',
+            'USDT': 'USDT',
+            'LITECOIN': 'LTC',
+        }
+
+        crypto_currency = method_mapping.get(method.upper())
+
+        if not crypto_currency:
+            messages.error(request, "Invalid payment method.")
+            return redirect('user:deposit') 
+
+        deposit = DepositModel.objects.create(
+            user=request.user,
+            amount=amount,
+            crypto_currency=crypto_currency,
+            transaction_id=str(uuid.uuid4())[:20]
+        )
+
+        messages.success(request, "Deposit record created successfully! Your wallet will be credited after verification.")
+        
+        # Clear the session data after saving
+        request.session.pop('deposit_method', None)
+        request.session.pop('deposit_amount', None)
+
+        return redirect('user:deposit_history')
+
+
+@method_decorator(login_required, name="dispatch")
+class DepositHistory(TemplateView):
+    template_name = 'user/deposit-history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        deposits = DepositModel.objects.filter(user=self.request.user)
+
+        context['deposits'] = deposits
+        return context
 
 
 @method_decorator(login_required, name="dispatch")

@@ -48,11 +48,8 @@ def handle_login(request):
         else:
             messages.error(request, "Invalid credentials provided!")
             return redirect(reverse("auth:login"))
-    except User.DoesNotExist:
-        messages.error(request, "Invalid credentials provided!")
-        return redirect(reverse("auth:login"))
     except Exception as e:
-        messages.error(request, f"An error occurred! {e}")
+        messages.error(request, "Invalid credentials provided!")
         return redirect(reverse("auth:login"))
 
 

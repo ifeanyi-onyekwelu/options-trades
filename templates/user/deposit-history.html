@@ -1,0 +1,62 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="main-content app-content">
+    <div class="container-fluid">
+        <!-- Page Header -->
+        <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+            <h1 class="page-title fw-semibold fs-18 mb-0">Deposit History</h1>
+            <div class="ms-md-1 ms-0">
+                <nav>
+                    <ol class="breadcrumb mb-0">
+                        <li class="breadcrumb-item">
+                            <a href="{% 
+url 'user:dashboard' %}">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            Deposit
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Start:: row-2 -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="datatable-basic" data-order='[[ 3, "desc" ]]'
+                                class="table table-bordered text-nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>Amount</th>
+                                        <th>Payment Method</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for deposit in deposits %}
+                                    <tr>
+                                        <td>${{ deposit.amount }}</td>
+                                        <td>{{ deposit.crypto_currency }}</td>
+                                        <td>
+                                            <span class="text-danger">{{ deposit.status }}</span>
+                                        </td>
+                                        <td>{{ deposit.date_created|date:"M. j, Y" }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End:: row-2 -->
+    </div>
+</div>
+{% endblock content %}

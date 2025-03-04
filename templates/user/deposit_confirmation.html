@@ -1,0 +1,68 @@
+{% extends 'user/_base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Start::app-content -->
+<div class="main-content app-content">
+    <div class="container-fluid">
+
+        <!-- Page Header Close -->
+        <div class="row mb-5 mt-lg-5">
+            <div class="col-xl-6 offset-xl-3">
+                <div class="card custom-card">
+                    <div class="card-body text-center">
+                        <p class="mb-3">Go ahead and credit your Wallet</p>
+
+                        <p class="mb-1">Amount in USD: <strong>${{ amount }}</strong></p>
+                        <p class="mb-3">Amount in {{ method|upper }}: <strong>{{ crypto_amount }}</strong></p>
+
+                        {% if method == 'ETHEREUM' %}
+                        <p class="mb-1">ETH Wallet Address:</p>
+                        <p class="fw-bold text-break">0x97105F3b708298D55dBbb2151DBF1B7E244E22e8</p>
+                        <div class="mb-3">
+                            <img src="{% static 'path/to/eth_qr.png' %}" alt="ETH QR Code" class="img-fluid"
+                                style="max-width: 150px;">
+                        </div>
+
+                        {% elif method == 'BITCOIN' %}
+                        <p class="mb-1">BTC Wallet Address:</p>
+                        <p class="fw-bold text-break">bc1qpauy39w9myzmqq5krh28z8wt4j3ghfw8f2aufq</p>
+                        <div class="mb-3">
+                            <img src="{% static 'path/to/btc_qr.png' %}" alt="BTC QR Code" class="img-fluid"
+                                style="max-width: 150px;">
+                        </div>
+
+                        {% elif method == 'USDT' %}
+                        <p class="mb-1">USDT Wallet Address:</p>
+                        <p class="fw-bold text-break">TVect6D5HhuHkCiba1NPgLVwh7ETonNnVa</p>
+                        <div class="mb-3">
+                            <img src="{% static 'path/to/usdt_qr.png' %}" alt="USDT QR Code" class="img-fluid"
+                                style="max-width: 150px;">
+                        </div>
+
+                        {% elif method == 'LITECOIN' %}
+                        <p class="mb-1">Litecoin Wallet Address:</p>
+                        <p class="fw-bold text-break">ltc1quca45k5sx02h3wxf50ft8fykknjzhclgjf83ty</p>
+                        <div class="mb-3">
+                            <img src="{% static 'path/to/usdt_qr.png' %}" alt="USDT QR Code" class="img-fluid"
+                                style="max-width: 150px;">
+                        </div>
+
+                        {% else %}
+                        <p class="text-danger">Invalid payment method selected.</p>
+                        {% endif %}
+
+                        <p class="text-danger mb-3">Click on the button below after making payment.</p>
+
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-dark">I Have Made Payment</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

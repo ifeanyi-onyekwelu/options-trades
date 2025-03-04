@@ -33,27 +33,18 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <div class="tab-content">
-                            <form action="" method="post">
+                            <form method="post">
+                                {% csrf_token %}
                                 <div class="input-group mb-3 d-flex flex-nowrap">
-                                    <select class="form-control" name="method" data-trigger id="choices-single-default"
-                                        required>
-                                        <option value="" hidden>-- Payment method --</option>
-                                        <option value="BITCOIN">
-                                            BITCOIN - (BTC) </option>
-                                        <option value="ETHEREUM">
-                                            ETHEREUM - (ETH - ERC20) </option>
-                                        <option value="USDT">
-                                            USDT - (Tether USD - TRC20) </option>
-                                        <option value="BANK">BANK DEPOSIT</option>
-                                    </select>
+                                    {{ form.method }}
                                 </div>
+
                                 <div class="input-group mb-3 d-flex flex-nowrap">
-                                    <input type="number" pattern="[1-9]" name="amount" placeholder="Amount" required
-                                        class="form-control form-control-lg crypto-buy-sell-input" aria-label="Amount">
+                                    {{ form.amount }}
                                 </div>
+
                                 <div class="d-grid mt-4 pt-1">
-                                    <button type="submit" name="submit"
-                                        class="btn btn-primary btn-wave">Deposit</button>
+                                    <button type="submit" class="btn btn-primary btn-wave">Deposit</button>
                                 </div>
                             </form>
                         </div>

@@ -78,6 +78,18 @@ class UserInvestment(models.Model):
 
 
 class Deposit(models.Model):
+    CRYPTO_CHOICES = (
+        ('BTC', 'Bitcoin'),
+        ('ETH', 'Ethereum'),
+        ('USDT', 'Tether'),
+        ('LTC', 'Litecoin'),
+    )
+    STATUS_CHOICES = (
+        ('PENDING', 'Pending'),
+        ('APPROVED', 'Approved'),
+        ('REJECTED', 'Rejected'),
+    )
+
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -85,27 +97,10 @@ class Deposit(models.Model):
     )
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
+    crypto_currency = models.CharField(max_length=10, choices=CRYPTO_CHOICES, blank=True, null=True)
     transaction_id = models.CharField(max_length=20, unique=True)
-    proof_of_payment = models.FileField(upload_to="proof of payment/", null=True)
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='PENDING')
     date_created = models.DateTimeField(default=now)
-    
-    def generate_transaction_id(self):
-        transaction_id = ''.join(secrets.choice(string.digits) for x in range(20))
-        return transaction_id
-
-    def save(self, *args, **kwargs):
-        if not self.transaction_id:
-            self.transaction_id = self.generate_transaction_id()
-
-        user_balance = UserBalance.objects.get(user=self.user)
-        user_balance.balance += self.amount
-        user_balance.save()
-        
-        super().save(*args, **kwargs)
-
-    @property
-    def transaction_type(self):
-        return 'deposit'
 
 
 class Withdraw(models.Model):

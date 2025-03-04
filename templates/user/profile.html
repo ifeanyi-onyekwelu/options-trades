@@ -38,19 +38,18 @@
                                         <div class="col-xl-6">
                                             <label for="first-name" class="form-label">First Name</label>
                                             <input type="text" class="form-control" id="first-name" name="fname"
-                                                value="Ifeanyi" placeholder="First Name" required>
+                                                value="{{ request.user.first_name }}" placeholder="First Name" required>
                                         </div>
                                         <div class="col-xl-6">
                                             <label for="last-name" class="form-label">Last Name</label>
                                             <input type="text" class="form-control" id="last-name" name="lname"
-                                                value="Onyekwelu" placeholder="Last Name" required>
+                                                value="{{ request.user.last_name }}" placeholder="Last Name" required>
                                         </div>
                                         <div class="col-xl-12">
                                             <label class="form-label">Email</label>
                                             <div class="input-group mb-3">
-                                                <input type="text" class="form-control"
-                                                    value="ifeanyionyekwelu786@gmail.com" id="basic-url" readonly
-                                                    aria-describedby="basic-addon3">
+                                                <input type="text" class="form-control" value="{{ request.user.email }}"
+                                                    id="basic-url" readonly aria-describedby="basic-addon3">
                                             </div>
                                         </div>
                                     </div>
