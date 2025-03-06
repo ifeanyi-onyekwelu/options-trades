@@ -83,9 +83,16 @@
                                         class="ti ti-bell fs-18 me-2 op-7"></i>Notification</a></li>
                             <li><a class="dropdown-item d-flex" href="{% url 'user:support' %}"><i
                                         class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li>
-                            <li><a class="dropdown-item d-flex" href="{% url 'auth:handle_logout' %}"><i
-                                        class="ti ti-logout fs-18 me-2 op-7"></i>Log
-                                    Out</a></li>
+                            <li class="slide">
+                                <form action="{% url 'auth:logout' %}" method="POST" class="dropdown-item d-flex">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn block w-100 side-menu__item"
+                                        style="padding: 0; border: none; background: none; cursor: pointer;">
+                                        <i class="ti ti-logout fs-18 me-2 op-7"></i></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -145,6 +152,19 @@
     <script type="text/javascript"
         src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.querySelector(".sidemenu-toggle");
+            const sidebar = document.querySelector("#sidebar");
+
+            if (toggleButton && sidebar) {
+                toggleButton.addEventListener("click", function () {
+                    sidebar.classList.toggle("show");
+                });
+            }
+        });
+
+    </script>
 </body>
 
 </html>

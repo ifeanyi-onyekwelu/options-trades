@@ -1,100 +1,89 @@
-from django.shortcuts import render, reverse, redirect, get_object_or_404
-from django.views.generic import TemplateView
-from django.contrib.auth import login, logout
-from django.views.decorators.http import require_POST
-from django.http import JsonResponse
-from users.models import User, UserProfile
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.views import LogoutView
+from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
-from .decorators import guest_only, login_required
+from .decorators import guest_only
 from django.contrib import messages
-
+from users.models import User
+from django.views.generic import FormView
+from django.contrib.auth import login
+from .forms import SignupForm, LoginForm
 
 @method_decorator(guest_only, name="dispatch")
-class Login(TemplateView):
+class CustomLoginView(FormView):
     template_name = "login.html"
+    form_class = LoginForm
+    success_url = reverse_lazy("user:dashboard")
+
+    def dispatch(self, request, *args, **kwargs):
+        print("Dispatch method called")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        print("GET method called")
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        print("POST method called")
+        return super().post(request, *args, **kwargs)
+
+    def get_success_url(self):
+        print("get_success_url called")
+        user = self.request.user
+        if user.is_superuser or user.is_staff:
+            print("Redirecting to admin dashboard")
+            return reverse_lazy("admin:dashboard")
+        print("Redirecting to user dashboard")
+        return reverse_lazy("user:dashboard")
+
+    def form_valid(self, form):
+        print("form_valid called")
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        
+        print(f"Form valid - Email: {email}, Password: {password}")
+
+        user = User.objects.filter(email=email).first()
+        if user:
+            print(f"User found: {user}")
+        else:
+            print("User not found")
+
+        if user and user.check_password(password):
+            print("Password correct - logging in user")
+            login(self.request, user)
+            return super().form_valid(form)
+
+        print("Invalid email or password")
+        messages.error(self.request, "Invalid email or password")
+        return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        print("form_invalid called")
+        print(f"Form errors: {form.errors}")
+        return super().form_invalid(form)
 
 
-@method_decorator(guest_only, name="dispatch")
-class Signup(TemplateView):
+class SignupView(FormView):
     template_name = "signup.html"
+    form_class = SignupForm
+    success_url = reverse_lazy("user:dashboard")
+
+    def form_valid(self, form):
+        user = form.save()  # The form handles saving
+        login(self.request, user)
+
+        messages.success(self.request, "Registration successful")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "There was a problem with your registration.")
+        return super().form_invalid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         context["ref"] = self.request.GET.get("ref")
         return context
 
 
-@guest_only
-@require_POST
-def handle_login(request):
-    try:
-        email = request.POST.get("email")
-        password = request.POST.get("password")
-
-        user = get_object_or_404(User, email=email)
-
-        if not user.check_password(password):
-            messages.error(request, "Invalid credentials provided!")
-            return redirect(reverse("auth:login"))
-
-        if user is not None:
-            login(request, user)
-            if user.is_superuser or user.is_staff:
-                return redirect(reverse("admin:dashboard"))
-            else:
-                return redirect(reverse("user:dashboard"))
-        else:
-            messages.error(request, "Invalid credentials provided!")
-            return redirect(reverse("auth:login"))
-    except Exception as e:
-        messages.error(request, "Invalid credentials provided!")
-        return redirect(reverse("auth:login"))
-
-
-@guest_only
-@require_POST
-def handle_signup(request):
-    firstName = request.POST.get("fname")
-    lastName = request.POST.get("lname")
-    email = request.POST.get("email")
-    password = request.POST.get("password1")
-    password2 = request.POST.get("password2")
-
-    referral_code = request.POST.get("ref")
-
-    if not password == password2:
-        messages.error(request, "Passwords do not match")
-        return redirect(reverse("auth:signup"))
-
-    if User.objects.filter(email=email).exists():
-        messages.error(request, "Email already exists")
-        return redirect(reverse("auth:signup"))
-
-    new_user = User.objects.create(
-        first_name=firstName,
-        last_name=lastName,
-        email=email,
-        password=make_password(password),
-    )
-
-    try:
-        referrer = UserProfile.objects.get(referral_code=referral_code)
-        new_user_profile = UserProfile.objects.create(
-            user=new_user, referred_by=referrer.user
-        )
-    except UserProfile.DoesNotExist:
-        new_user_profile = UserProfile.objects.create(user=new_user)
-
-    new_user.save()
-    new_user_profile.save()
-
-    messages.success(request, "Registration successful")
-    return redirect(reverse("user:dashboard"))
-
-
-@login_required
-def handle_logout(request):
-    logout(request)
-    return redirect(reverse("auth:login"))
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy("auth:login")

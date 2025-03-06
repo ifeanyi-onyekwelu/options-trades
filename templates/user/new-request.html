@@ -16,7 +16,7 @@
                     order for
                     them<br>
                     to appear on payment
-                    method. Click <a href="wallet">here</a> to set up your wallets</div>
+                    method. Click <a href="{% url 'user:wallet' %}">here</a> to set up your wallets</div>
                 <br>
                 <div class="col-xl-6 offset-xl-3">
                     <div class="card custom-card">
@@ -25,7 +25,7 @@
                                 <form action="" method="post">
 
                                     <div class="alert alert-danger">Your wallet is empty, please set up your
-                                        receiving wallet <a href="wallet">here</a>
+                                        receiving wallet <a href="{% url 'user:wallet' %}">here</a>
                                         first.</div>
 
                                 </form>

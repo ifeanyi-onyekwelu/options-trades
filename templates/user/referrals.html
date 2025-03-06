@@ -29,9 +29,9 @@
                     </div>
                     <div class="card-body">
                         <p>Referral Link: <a class="text-success"
-                                href="https://optionstradeshub.com/signup?ref=198404">https://optionstradeshub.com/signup?ref=198404</a>
+                                href="https://optionstradeszhub.com/signup?ref={{request.user.referralCode}}">https://optionstradeszhub.com/account/signup/?ref={{request.user.referral_code}}</a>
                         </p>
-                        <p>Referral Code: <span class="text-success">198404</span>
+                        <p>Referral Code: <span class="text-success">{{request.user.referral_code}}</span>
                         </p>
                         <div class="tab-content">
                             <div class="p-sm-3 p-0">

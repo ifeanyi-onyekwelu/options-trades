@@ -21,29 +21,29 @@
 
         <div class="row">
             <div class="col-md-12">
-                <div class="card mb-4">
+
+                <!-- Add conditional class for border color -->
+                <div class="card mb-4 
+                    {% if deposit.status == 'PENDING' %}border border-warning{% elif deposit.status == 'APPROVED' %}border border-success{% elif deposit.status == 'REJECTED' %}border border-danger{% endif %}
+                ">
                     <form id="formAccountSettings" method="post">
                         {% csrf_token %}
-                        <div class="card-body">
-                            <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                <a href="{{ deposit.proof_of_payment.url }}">
-                                    <img src="{{ deposit.proof_of_payment.url }}" alt="Profile Image"
-                                        class="d-block rounded" height="100" width="100" id="currentProfileImage" />
-                                </a>
-                            </div>
-                        </div>
-                        <hr class="my-0" />
                         <div class="card-body">
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <label for="user" class="form-label">User</label>
                                     <input class="form-control" type="text" id="user" name="user"
-                                        value="{{ deposit.user.username }}" readonly />
+                                        value="{{ deposit.user.first_name }} {{ deposit.user.last_name }}" readonly />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="amount" class="form-label">Amount</label>
                                     <input class="form-control" type="text" name="amount" id="amount"
                                         value="${{ deposit.amount|intcomma }}" readonly />
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="cryptocurrency" class="form-label">Cryptocurrency</label>
+                                    <input class="form-control" type="text" id="cryptocurrency" name="cryptocurrency"
+                                        value="{{ deposit.crypto_currency }}" readonly />
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="transactionId" class="form-label">Transaction ID</label>
@@ -52,18 +52,35 @@
                                 </div>
                                 <div class="mb-3 col-md-6">
                                     <label for="date_created" class="form-label">Date Created</label>
-                                    <input class="form-control" type="date_created" id="date_created"
-                                        name="date_created" value="{{ deposit.date_created }}" readonly />
+                                    <input class="form-control" type="text" id="date_created" name="date_created"
+                                        value="{{ deposit.date_created }}" readonly />
+                                </div>
+
+                                <!-- Status field with color -->
+                                <div class="mb-3 col-md-6">
+                                    <label for="status" class="form-label">Status</label>
+                                    <input class="form-control 
+                                        {% if deposit.status == 'pending' %}border border-warning text-warning
+                                        {% elif deposit.status == 'success' %}border border-success text-success
+                                        {% elif deposit.status == 'rejected' %}border border-danger text-danger
+                                        {% endif %}" type="text" id="status" name="status"
+                                        value="{{ deposit.status|title }}" readonly />
                                 </div>
                             </div>
+
                             <div class="mt-2">
-                                <a href="{% url 'admin:delete-deposit' deposit.id %}"
-                                    class="btn btn-outline-danger">delete</a>
+                                <a href="{% url 'admin:deposit-update' deposit.id %}"
+                                    class="btn btn-outline-warning">Update</a>
+                                <a href="{% url 'admin:deposit-delete' deposit.id %}"
+                                    class="btn btn-outline-danger">Delete</a>
                             </div>
+                        </div>
                     </form>
                 </div>
+
             </div>
         </div>
+
     </div>
 </div>
 {% endblock content %}

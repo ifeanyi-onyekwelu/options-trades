@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.bootstrap5.min.css" />
-    <link rel="stylesheet" href="https://php.spruko.com/ynex/ynex/assets/libs/apexcharts/apexcharts.css" </head>
-    <link href="{% static 'assets/fontawesome/css/all.min.css' %}" rel="stylesheet">
-    <link href="{% static 'assets/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://php.spruko.com/ynex/ynex/assets/libs/apexcharts/apexcharts.css"/>
+    <link href="{% static 'assets/fontawesome/css/all.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'assets/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet"/>
     <!-- <link href="{% static 'user_admin/css/style.css' %}" rel="stylesheet"> -->
     <link href="{% static 'css/styles2.css' %}" rel="stylesheet">
 
@@ -32,19 +32,6 @@
             <div class="main-header-container container-fluid">
                 <div class="header-content-left">
                     <div class="header-element">
-                        <div class="horizontal-logo">
-                            <a href="{% url 'admin:dashboard' %}" class="header-logo">
-                                <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-logo">
-                                <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-logo">
-                                <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-dark">
-                                <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-dark">
-                                <img src="{% static 'img/images/logo-light.png' %}" alt="logo" class="desktop-white">
-                                <img src="{% static 'img/images/logo-mobile.png' %}" alt="logo" class="toggle-white">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="header-element">
                         <a aria-label="Hide Sidebar"
                             class="sidemenu-toggle header-link animated-arrow hor-toggle horizontal-navtoggle"
                             data-bs-toggle="sidebar" href="javascript:void(0);"><span></span></a>
@@ -53,13 +40,6 @@
                 </div>
 
                 <div class="header-content-right">
-                    <div class="header-element notifications-dropdown">
-                        <a href="#" class="header-link dropdown-toggle" aria-expanded="false">
-                            <i class="bx bx-bell header-link-icon"></i>
-                            <span class="badge bg-secondary rounded-pill header-icon-badge pulse pulse-secondary"
-                                id="notification-icon-badge">0</span>
-                        </a>
-                    </div>
 
                     <div class="header-element">
                         <a href="javascript:void(0);" class="header-link dropdown-toggle" id="mainHeaderProfile"
@@ -70,7 +50,7 @@
                                         class="rounded-circle">
                                 </div>
                                 <div class="d-sm-block d-none">
-                                    <p class="fw-semibold mb-0 lh-1">{{ request.user.first_name }}</p>
+                                    <p class="fw-semibold mb-0 lh-1">admin</p>
                                     <span class="op-7 fw-normal text-success d-block fs-11">Active</span>
                                 </div>
                             </div>
@@ -82,13 +62,20 @@
                             <li><a class="dropdown-item d-flex border-block-end" href="javascript:void(0);"><i
                                         class="ti ti-wallet fs-18 me-2 op-7"></i>Bal:
                                     $0.00</a></li>
-                            <li><a class="dropdown-item d-flex" href=""><i
+                            <li><a class="dropdown-item d-flex" href="{% url 'admin:notifications-list' %}"><i
                                         class="ti ti-bell fs-18 me-2 op-7"></i>Notification</a></li>
                             <li><a class="dropdown-item d-flex" href=""><i
                                         class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li>
-                            <li><a class="dropdown-item d-flex" href="{% url 'auth:handle_logout' %}"><i
-                                        class="ti ti-logout fs-18 me-2 op-7"></i>Log
-                                    Out</a></li>
+                            <li class="slide">
+                                <form action="{% url 'auth:logout' %}" method="POST" class="dropdown-item d-flex">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn block w-100 side-menu__item"
+                                        style="padding: 0; border: none; background: none; cursor: pointer;">
+                                        <i class="ti ti-logout fs-18 me-2 op-7"></i></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
 
@@ -117,6 +104,20 @@
     <script src="{% static 'js/custom.js' %}"></script>
     <script src="{% static 'assets/lib/choices.js/public/assets/scripts/choices.min.js' %}"></script>
     <script src="{% static 'js/main2.js' %}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.querySelector(".sidemenu-toggle");
+            const sidebar = document.querySelector("#sidebar");
+
+            if (toggleButton && sidebar) {
+                toggleButton.addEventListener("click", function () {
+                    sidebar.classList.toggle("show");
+                });
+            }
+        });
+
+    </script>
 </body>
 
 </html>

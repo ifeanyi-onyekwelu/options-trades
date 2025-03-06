@@ -1,4 +1,4 @@
-{% extends 'user/_base.html' %}
+{% extends './_base.html' %}
 {% load static %}
 
 {% block content %}
@@ -12,7 +12,7 @@
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item">
-                            <a href="{% url 'user:dashboard' %}">Dashboard</a>
+                            <a href="{% url 'admin:dashboard' %}">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
                             Notice
@@ -32,6 +32,7 @@
                                 class="table table-bordered text-nowrap w-100">
                                 <thead>
                                     <tr>
+                                        <th>User</th>
                                         <th>Title</th>
                                         <th>Notice</th>
                                         <th>Date</th>
@@ -40,6 +41,7 @@
                                 <tbody>
                                     {% for notification in notifications %}
                                     <tr>
+                                        <td>{{ notification.user.first_name }} {{ notification.user.last_name }}</td>
                                         <td>{{ notification.title }}</td>
                                         <td>{{ notification.description }}</td>
                                         <td>{{ notification.created_at }}</td>

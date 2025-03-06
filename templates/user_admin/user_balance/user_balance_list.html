@@ -9,7 +9,8 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-                <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
+                <h1 class="page-title fw-semibold fs-18 mb-0">Welcome
+                    {{ request.user.first_name }}
                     {{ request.user.last_name }}</h1>
                 <div class="ms-md-1 ms-0">
                     <nav>
@@ -36,14 +37,12 @@
                             {% for user_balance in user_balances %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
-                                <td><a href="{% url 'admin:user-balance-details' user_balance.id %}">
+                                <td><a href="{% url 'admin:user-wallet-details' user_balance.id %}">
                                         {{ user_balance.user.first_name }} {{ user_balance.user.last_name }}</a></td>
                                 <td>{{ user_balance.balance }}</td>
                                 <td>
-                                    <a href="{% url 'admin:user-balance-delete' user_balance.id %}"
-                                        class="btn btn-primary">Add Funds</a>
-                                    <a href="{% url 'admin:user-balance-delete' user_balance.id %}"
-                                        class="btn btn-secondary">Remove Funds</a>
+                                    <a href="{% url 'admin:manage-funds' user_balance.id %}"
+                                        class="btn btn-primary">Manage Funds</a>
                                 </td>
                             </tr>
                             {% endfor %}

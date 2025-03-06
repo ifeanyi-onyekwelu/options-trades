@@ -8,7 +8,7 @@
     <div class="row justify-content-center align-items-center authentication authentication-basic h-100">
         <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-8 col-sm-8 col-12">
             <div class="card custom-card">
-                <form action="{% url 'auth:handle_login' %}" method="POST" class="card-body p-5">
+                <form method="POST" class="card-body p-5">
                     {% csrf_token %}
                     <p class="h5 fw-semibold mb-2 text-center">Sign In</p>
                     <p class="mb-4 text-muted op-7 fw-normal text-center">
@@ -17,58 +17,47 @@
 
                     {% if messages %}
                     {% for message in messages %}
-                    <div class="alert 
-            {% if 'error' in message.tags %} alert-danger 
-            {% elif 'success' in message.tags %} alert-success 
-            {% else %} alert-secondary {% endif %} 
-            alert-dismissible fade show" role="alert">
+                    <div class="alert
+                        {% if 'error' in message.tags %} alert-danger
+                        {% elif 'success' in message.tags %} alert-success
+                        {% else %} alert-secondary {% endif %}
+                        alert-dismissible fade show" role="alert">
                         <strong>{{ message.tags|title }}:</strong> {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     {% endfor %}
                     {% endif %}
 
-
                     <div class="row gy-3">
                         <div class="col-xl-12">
-                            <label for="email" class="form-label text-default">Email</label>
-                            <input type="email" name="email" required class="form-control form-control-lg" id="email"
-                                placeholder="Email" />
+                            <label for="{{ form.email.id_for_label }}" class="form-label text-default">Email</label>
+                            {{ form.email }}
                         </div>
 
                         <div class="col-xl-12">
                             <div class="d-flex justify-content-between">
-                                <label for="password" class="form-label text-default">Password</label>
+                                <label for="{{ form.password.id_for_label }}"
+                                    class="form-label text-default">Password</label>
                                 <a href="forgot" class="text-primary">Forgot Password?</a>
                             </div>
+
                             <div class="input-group">
-                                <input type="password" name="password" class="form-control form-control-lg" required
-                                    id="password" placeholder="Password" />
+                                {{ form.password }}
                                 <button class="btn btn-light" onclick="createpassword('password',this)" type="button"
                                     id="button-addon2">
                                     <i class="fas fa-eye align-middle"></i>
                                 </button>
                             </div>
                         </div>
-                        <!-- <div class="col-xl-12">
-                            <label for="code" class="form-label text-default fs-16">Verification Code:
-                                <span class="text-danger">725261</span></label><br />
-                            <p class="fs-12" style="padding: -5px 0 !important">
-                                Please enter the verification code you see above into the
-                                text box provided. This is required to prevent automated
-                                submissions.
-                            </p>
-                            <input type="text" name="code1" value="725261" hidden />
-                            <input type="number" name="code2" required class="form-control form-control-lg" id="code"
-                                placeholder="Enter Verification code" />
-                        </div> -->
-                        <div class="form-check mt-3">
-                            <input class="form-check-input" type="checkbox" checked value="" id="defaultCheck1" />
+
+                        <div class="col-xl-12">
+                            <input class="form-check-input" type="checkbox" checked value="" id="defaultCheck1">
                             <label class="form-check-label text-muted fw-normal" for="defaultCheck1">
                                 Keep me signed in
                             </label>
                         </div>
                     </div>
+
                     <div class="col-xl-12 d-grid mt-2">
                         <button type="submit" name="submit" class="btn btn-lg btn-primary">
                             Login

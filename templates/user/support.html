@@ -41,7 +41,8 @@
             <div class="col-xxl-10 col-xl-10 col-lg-10 col-md-10 col-sm-10 col-12">
                 <div class="row">
                     <div class="col-xxl-8 col-xl-8 col-lg-12 offset-xl-2 col-md-12 col-sm-12">
-                        <form method="post" action="" class="card custom-card contactus-form overflow-hidden">
+                        <form method="post" class="card custom-card contactus-form overflow-hidden">
+                            {% csrf_token %}
                             <div class="card-header">
                                 <div class="card-title">
                                     Ticket 406541 </div>
@@ -51,19 +52,19 @@
                                     <div class="col-xl-6">
                                         <label for="contact-address-firstname" class="form-label">First Name
                                             :</label>
-                                        <input type="text" value="Ifeanyi" class="form-control form-control-light"
+                                        <input type="text" value="{{ request.user.first_name }}" class="form-control form-control-light"
                                             id="contact-address-firstname" placeholder="Enter Name" readonly>
                                     </div>
                                     <div class="col-xl-6">
                                         <label for="contact-address-lastname" class="form-label">Last Name
                                             :</label>
-                                        <input type="text" value="Onyekwelu" class="form-control form-control-light"
+                                        <input type="text" value="{{ request.user.last_name }}" class="form-control form-control-light"
                                             id="contact-address-lastname" placeholder="Enter Name" readonly>
                                     </div>
                                     <div class="col-xl-6">
                                         <label for="contact-address-email" class="form-label">Email :</label>
                                         <input type="email" class="form-control form-control-light"
-                                            value="ifeanyionyekwelu786@gmail.com" id="contact-address-email"
+                                            value="{{ request.user.email }}" id="contact-address-email"
                                             placeholder="Enter Email Id" readonly>
                                     </div>
                                     <div class="col-xl-6">

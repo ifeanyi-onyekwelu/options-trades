@@ -1,34 +1,45 @@
 {% load static %}
-<header id="top-header" class="site-header">
-    <div class="container">
-        <div class="site-identity">
-            <a href="{% url 'app:home' %}" class="site-title"><img src="{% static 'img/images/logo.png' %}"
-                    class="custom-logo" width="209" height="18" alt="Options TH" /></a>
-            <p class="site-description screen-reader-text">
-                Options TH</p>
-        </div>
-        <nav class="language-navigation">
-        </nav>
-        <nav class="main-navigation">
-            <ul id="menu-main" class="menu">
-                <li><a href="{% url 'app:about' %}">Our Company</a></li>
-                <li><a href="{% url 'app:team' %}">Our Team</a></li>
-                <li><a href="{% url 'app:faqs' %}">FAQ</a></li>
-                <li><a href="{% url 'app:contact' %}">Help Center</a></li>
-                {% if request.user.is_authenticated %}
-                <li><a href="{% url 'user:dashboard' %}">Dashboard</a></li>
-                <li><a href="{% url 'auth:handle_logout' %}">Logout</a></li>
-                {% else %}
-                <li><a href="{% url 'auth:signup' %}">Get Started</a></li>
-                <li><a href="{% url 'auth:login' %}">Sign In</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-        <div id="menu-toggle">
-            <a href="{% url 'app:home' %}#menu-main" title="Toggle menu">
-                <em class="mdi mdi-menu"></em><em class="mdi mdi-close"></em>
-                <span class="screen-reader-text">Menu</span>
+<header id="top-header" class="site-header"
+    style="width: 100%; background-color: #fff; border-bottom: 1px solid #ddd; padding: 10px 0;">
+    <div class="container-fluid" style="max-width: 1200px; margin: 0 auto;">
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <!-- Logo on the left -->
+            <a class="navbar-brand" href="{% url 'app:home' %}">
+                <img src="{% static 'img/images/logo.png' %}" alt="Options TH" style="height: 50px; width: auto;">
             </a>
-        </div>
+
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Items -->
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:about' %}">Our Company</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:team' %}">Our Team</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:faqs' %}">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'app:contact' %}">Help Center</a></li>
+
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'user:dashboard' %}">Dashboard</a></li>
+                    <li class="nav-item">
+                        <form action="{% url 'auth:logout' %}" method="POST" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-link nav-link"
+                                style="padding: 0; border: none; background: none;">Logout</button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'auth:signup' %}">Get Started</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'auth:login' %}">Sign In</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+        </nav>
+
     </div>
 </header>

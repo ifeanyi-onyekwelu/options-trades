@@ -1,17 +1,13 @@
 {% extends 'partials/_base.html' %}
 {% load static %}
 
-{% block title %}About Us{% endblock title %}
-
-
 {% block content %}
-
 <header id="featured" class="site-featured">
     <div id="featured-media" class="featured-media has-media">
         <div class="featured-text">
             <div class="container">
                 <h2 class="entry-title">Privacy Policy</h2>
-                <form class="searchform">
+                <form action="privacy" class="searchform">
                     <label for="search-form-input" class="screen-reader-text">Search for:</label>
                     <input type="search" id="search-form-input" name="s" placeholder="Search&hellip;">
                     <button type="submit">
@@ -32,13 +28,13 @@
                 <div id="sidebar" class="col-12 col-md-4 col-lg-3">
                     <h4>Security</h4>
                     <ul class="menu">
-                        <li class="current-menu-item"><a href="privacy#">Updated</a></li>
-                        <li><a href="privacy#">Privacy Policy</a></li>
+                        <li class="current-menu-item"><a href="#">Updated</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-md-8 col-lg-9">
                     <div class="breadcrumbs">
-                        <a href="{% url 'app:home' %}" class="home-url">Home</a>
+                        <a href="./" class="home-url">Home</a>
                         <span class="current">Privacy Policy</span>
                     </div>
                     <h3>How can I create an investor account?</h3>
@@ -70,7 +66,7 @@
                     purposes and means of processing the personal information of consumers, who conduct business
                     activities in the State of California.<br><br>
                     Company (referred to as “the Company,” “We,” “Us,” or “Our” in this Agreement) refers to
-                    Options Trades Hub, .<br><br>
+                    Options Tradez Hub, .<br><br>
                     Consumer, for purposes of the CCPA (California Consumer Privacy Act), means a natural person
                     who is a resident of California. A resident, as defined by law, includes (1) any person who
                     is in the U.S. for purposes other than a temporary or transitory purpose, and (2) any person
@@ -103,7 +99,7 @@
                     Usage Data refers to data collected automatically, generated both by the use of the Service
                     and by the infrastructure of the Service itself (for example, the duration of a visit to a
                     page).<br><br>
-                    Website refers to Options Trades Hub, accessible from https://optionstradeshub.com.<br><br>
+                    Website refers to Options Tradez Hub, accessible from https://optionstradezhub.com.<br><br>
                     You mean the person accessing or using the Service, or the company or other legal entity on
                     behalf of which such person accesses or uses the Service, as applicable.<br><br>
                     Collection and Use of Your Personal Data
@@ -171,8 +167,7 @@
                     cookies. <br><br>For more information on how you can delete Flash cookies, see “Where can I
                     change
                     my settings to disable or delete local shared objects?” available on
-                    <a
-                        href="https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects">https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects</a><br><br>
+                    <a href="https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects">https://helpx.adobe.com/flash-player/kb/disable-local-shared-objects-flash.html#main_Where_can_I_change_the_settings_for_disabling__or_deleting_local_shared_objects</a><br><br>
 
                     Web beacons: Certain sections of our Service and our emails may contain small electronic
                     files known as web beacons (also called clear gifs, pixel tags, and single-pixel gifs) that
@@ -379,8 +374,7 @@
                     their visit to our service or other websites on the Internet.<br><br>
 
                     You can opt out of the use of the DoubleClick cookie for interest-based advertising by
-                    visiting Google’s Ads Settings page: <a
-                        href="https://www.google.com/ads/preferences">http://www.google.com/ads/preferences/</a>
+                    visiting Google’s Ads Settings page: <a href="https://www.google.com/ads/preferences">http://www.google.com/ads/preferences/</a>
 
                     Email Marketing<br><br>
 
@@ -393,8 +387,7 @@
 
                     <b>Twilio</b><br>
 
-                    Their Privacy Policy can be found at <a
-                        href="https://www.twilio.com/legal/privacy">https://www.twilio.com/legal/privacy</a><br><br>
+                    Their Privacy Policy can be found at <a href="https://www.twilio.com/legal/privacy">https://www.twilio.com/legal/privacy</a><br><br>
 
                     Payments<br>
 
@@ -785,7 +778,7 @@
                     To exercise any of your rights under the CCPA, if you are a California resident, you may
                     contact us:<br><br>
 
-                    Visit this page on our website: https://optionstradeshub.com
+                    Visit this page on our website: https://optionstradezhub.com
                     Only you, or a person registered with the California Secretary of State whom you authorize
                     to act on your behalf, may make a verifiable request regarding your personal
                     information.<br><br>
@@ -918,10 +911,10 @@
                     It is recommended that you review this Privacy Policy periodically for changes. Changes to
                     this Privacy Policy will be effective when posted on this page.
                     </p>
+
                 </div>
             </div>
         </div>
     </main>
 </div>
-
 {% endblock content %}

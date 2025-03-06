@@ -1,7 +1,8 @@
 {% extends '../_base.html' %}
 {% load static %}
+{% load humanize %}
 
-{% block title %}Update Withdrawal Status{% endblock title %}
+{% block title %}Confirm Delete Deposit{% endblock title %}
 
 {% block content %}
 <div class="main-content app-content">
@@ -12,9 +13,9 @@
 
         <div class="row mb-5">
             <div class="col-xl-12">
-                <h5 class="fw-semibold text-center">Update Withdrawal Status</h5>
+                <h5 class="fw-semibold text-center">Confirm Delete Deposit</h5>
                 <p class="text-muted text-center col-lg-6 offset-lg-3 pb-3">
-                    Use this form to update the status of a withdrawal transaction.
+                    Are you sure you want to delete this deposit transaction? This action cannot be undone.
                 </p>
             </div>
 
@@ -34,13 +35,18 @@
                             <form method="post">
                                 {% csrf_token %}
 
-                                <div class="input-group mb-3 d-flex flex-nowrap">
-                                    <span class="input-group-text">Status</span>
-                                    {{ form.status }}
+                                <div class="mb-3">
+                                    <p><strong>User:</strong> {{ deposit.user.first_name }} {{ deposit.user.last_name }}
+                                    </p>
+                                    <p><strong>Amount:</strong> ${{ deposit.amount|intcomma }}</p>
+                                    <p><strong>Transaction ID:</strong> {{ deposit.transaction_id }}</p>
+                                    <p><strong>Date Created:</strong> {{ deposit.date_created }}</p>
                                 </div>
 
-                                <div class="d-grid mt-4 pt-1">
-                                    <button type="submit" class="btn btn-primary btn-wave">Update Withdrawal</button>
+                                <div class="d-grid gap-2 mt-4 pt-1">
+                                    <button type="submit" class="btn btn-danger btn-wave">Yes, Delete Deposit</button>
+                                    <a href="{% url 'admin:deposit-detail' deposit.id %}"
+                                        class="btn btn-secondary btn-wave">Cancel</a>
                                 </div>
                             </form>
 

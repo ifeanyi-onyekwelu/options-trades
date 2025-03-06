@@ -11,8 +11,7 @@
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item">
-                            <a href="{% 
-url 'user:dashboard' %}">Dashboard</a>
+                            <a href="{% url 'user:dashboard' %}">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item active" aria-current="page">
                             Deposit
@@ -44,7 +43,15 @@ url 'user:dashboard' %}">Dashboard</a>
                                         <td>${{ deposit.amount }}</td>
                                         <td>{{ deposit.crypto_currency }}</td>
                                         <td>
-                                            <span class="text-danger">{{ deposit.status }}</span>
+                                            {% if deposit.status == 'APPROVED' %}
+                                                <span class="badge bg-success">{{ deposit.status }}</span>
+                                            {% elif deposit.status == 'PENDING' %}
+                                                <span class="badge bg-warning">{{ deposit.status }}</span>
+                                            {% elif deposit.status == 'REJECTED' %}
+                                                <span class="badge bg-danger">{{ deposit.status }}</span>
+                                            {% else %}
+                                                <span class="badge bg-secondary">{{ deposit.status }}</span>
+                                            {% endif %}
                                         </td>
                                         <td>{{ deposit.date_created|date:"M. j, Y" }}</td>
                                     </tr>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import InvestmentPlan, UserInvestment, Deposit, Withdraw, Transfer, Referral
+from .models import InvestmentPlan, UserInvestment, Deposit, Withdraw
 
 @admin.register(InvestmentPlan)
 class InvestmentPlanAdmin(admin.ModelAdmin):
@@ -16,11 +16,3 @@ class DepositAdmin(admin.ModelAdmin):
 @admin.register(Withdraw)
 class WithdrawAdmin(admin.ModelAdmin):
     list_display = ('user','amount','transaction_id','date_created')
-
-@admin.register(Transfer)
-class TransferAdmin(admin.ModelAdmin):
-    list_display = ('sender','receiver','amount','transaction_id','date_created')
-
-@admin.register(Referral)
-class ReferralAdmin(admin.ModelAdmin):
-    list_display = ('referrer','referred_user','date_created')

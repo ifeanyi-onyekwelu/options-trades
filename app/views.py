@@ -1,13 +1,9 @@
-from django.shortcuts import render, reverse, redirect
+from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from users.models import User
-from django.contrib.auth.hashers import make_password
-from django.utils.decorators import method_decorator
 from django.contrib.auth.models import Group
 
 

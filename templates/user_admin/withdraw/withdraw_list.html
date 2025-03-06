@@ -50,6 +50,10 @@
                             <td><a href="{% url 'admin:delete-withdrawal' withdraw.id %}"
                                     class="btn btn-danger">Delete</a></td>
                         </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No withdrawals available.</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>

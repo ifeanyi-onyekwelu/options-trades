@@ -29,20 +29,21 @@
                     </div>
                     <div class="card-body">
                         <div class="tab-content">
-                            <form action="" method="POST" class="tab-pane show active" role="tabpanel">
+                            <form method="POST" class="tab-pane show active" role="tabpanel">
+                                {% csrf_token %}
                                 <div class="p-sm-3 p-0">
                                     <h6 class="fw-semibold mb-3">
                                         Profile :
                                     </h6>
                                     <div class="row gy-4 mb-4">
                                         <div class="col-xl-6">
-                                            <label for="first-name" class="form-label">First Name</label>
-                                            <input type="text" class="form-control" id="first-name" name="fname"
+                                            <label for="firstName" class="form-label">First Name</label>
+                                            <input type="text" class="form-control" id="firstName" name="firstName"
                                                 value="{{ request.user.first_name }}" placeholder="First Name" required>
                                         </div>
                                         <div class="col-xl-6">
-                                            <label for="last-name" class="form-label">Last Name</label>
-                                            <input type="text" class="form-control" id="last-name" name="lname"
+                                            <label for="lastName" class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" id="lastName" name="lastName"
                                                 value="{{ request.user.last_name }}" placeholder="Last Name" required>
                                         </div>
                                         <div class="col-xl-12">
@@ -58,10 +59,10 @@
                                     </h6>
                                     <div class="row gy-4 mb-4">
                                         <div class="col-xl-6">
-                                            <label for="email-address" class="form-label">Address (optional)
+                                            <label for="address" class="form-label">Address (optional)
                                                 :</label>
-                                            <input type="text" class="form-control" id="email-address" name="address"
-                                                value="" placeholder="address">
+                                            <input type="text" class="form-control" id="address" name="address" value=""
+                                                placeholder="address">
                                         </div>
                                         <div class="col-xl-6">
                                             <label class="form-label">Country (optional):</label>
@@ -556,7 +557,7 @@
                                     </div>
                                     <div class="card-footer">
                                         <div class="float-end">
-                                            <button name="submit" class="btn btn-primary m-1">
+                                            <button name="submit" class="btn btn-primary m-1" type="submit">
                                                 Update Profile
                                             </button>
                                         </div>

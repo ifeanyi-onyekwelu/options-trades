@@ -7,8 +7,8 @@
 <div class="main-content app-content">
     <div class="container-fluid">
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
-                {{ request.user.last_name }}</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }} {{
+                request.user.last_name }}</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
@@ -21,38 +21,50 @@
 
         <div class="row">
             <div class="col-md-12">
-                <table class="table">
-                    <thead>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
                         <tr>
                             <th>S/N</th>
                             <th>User</th>
                             <th>Amount</th>
                             <th>Transaction ID</th>
                             <th>Date</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for deposit in deposits %}
                         <tr>
                             <td>{{ forloop.counter }}</td>
-                            <td><a href="{% url 'admin:deposit' deposit.id %}">{{ deposit.user.first_name }}
-                                    {{ deposit.user.last_name }}</a></td>
-
                             <td>
-                                {{ deposit.amount|intcomma }}
+                                <a href="{% url 'admin:deposit-detail' deposit.id %}">
+                                    {{ deposit.user.first_name }} {{ deposit.user.last_name }}
+                                </a>
                             </td>
-
-                            <td>
-                                {{ deposit.transaction_id }}
-                            </td>
-
+                            <td>{{ deposit.amount|intcomma }}</td>
+                            <td>{{ deposit.transaction_id }}</td>
                             <td>{{ deposit.date_created }}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <a href="{% url 'admin:deposit-detail' deposit.id %}"
+                                        class="btn btn-sm btn-info">View</a>
+                                    <a href="{% url 'admin:deposit-update' deposit.id %}?action=update"
+                                        class="btn btn-sm btn-warning">Update Status</a>
+                                    <a href="{% url 'admin:deposit-delete' deposit.id %}" class="btn btn-sm btn-danger"
+                                        onclick="return confirm('Are you sure you want to delete this deposit?');">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No deposits available.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
+
     </div>
 </div>
 {% endblock content %}

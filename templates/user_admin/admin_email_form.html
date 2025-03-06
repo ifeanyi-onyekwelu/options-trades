@@ -1,20 +1,23 @@
-{% extends '../_base.html' %}
+{% extends './_base.html' %}
 {% load static %}
 
-{% block title %}Update Withdrawal Status{% endblock title %}
+{% block title %}Send Email to Users{% endblock title %}
 
 {% block content %}
 <div class="main-content app-content">
     <div class="container-fluid">
 
+        <!-- Page Header -->
         <div class="d-md-flex d-block my-4 page-header-breadcrumb">
         </div>
+        <!-- Page Header Close -->
 
         <div class="row mb-5">
             <div class="col-xl-12">
-                <h5 class="fw-semibold text-center">Update Withdrawal Status</h5>
+                <h5 class="fw-semibold text-center">Send Email to All Users</h5>
                 <p class="text-muted text-center col-lg-6 offset-lg-3 pb-3">
-                    Use this form to update the status of a withdrawal transaction.
+                    Use this form to send an email to all registered users on the platform. Admin users will not receive
+                    this email.
                 </p>
             </div>
 
@@ -35,12 +38,17 @@
                                 {% csrf_token %}
 
                                 <div class="input-group mb-3 d-flex flex-nowrap">
-                                    <span class="input-group-text">Status</span>
-                                    {{ form.status }}
+                                    <span class="input-group-text">Subject</span>
+                                    {{ form.subject }}
+                                </div>
+
+                                <div class="input-group mb-3 d-flex flex-nowrap">
+                                    <span class="input-group-text">Message</span>
+                                    {{ form.message }}
                                 </div>
 
                                 <div class="d-grid mt-4 pt-1">
-                                    <button type="submit" class="btn btn-primary btn-wave">Update Withdrawal</button>
+                                    <button type="submit" class="btn btn-primary btn-wave">Send Email</button>
                                 </div>
                             </form>
 
@@ -48,7 +56,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>

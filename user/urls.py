@@ -21,7 +21,4 @@ urlpatterns = [
     path('pin/', Pin.as_view(), name='pin'),
     path('wallet/', Wallet.as_view(), name='wallet'),
     path('referrals/', Referrals.as_view(), name='referrals'),
-    
-    # path('handle-invest/', handle_invest, name='handle-invest'),
-    path('referred-users/', ReferredUsers.as_view(), name='referred-users'),
 ]

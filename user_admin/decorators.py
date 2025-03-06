@@ -14,7 +14,7 @@ def login_required(view_func):
     @wraps(view_func)
     def _wrapper(request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect(reverse('admin:login'))
+            return redirect(reverse('auth:login'))
         elif not request.user.is_superuser:
             return redirect(reverse('app:home'))
         return view_func(request, *args, **kwargs)

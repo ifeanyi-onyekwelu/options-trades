@@ -26,8 +26,8 @@
                             <th>S/N</th>
                             <th>First Name</th>
                             <th>Last Name</th>
-                            <th>Email Address</th>
                             <th>Username</th>
+                            <th>Email Address</th>
                             <th>Status</th>
                             <th>Date Joined</th>
                         </tr>
@@ -48,6 +48,10 @@
                                     class="btn btn-sm btn-info text-light">Activate</a></td>
                             {% endif %}
                             <td>{{ user.date_joined }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No users available.</td>
                         </tr>
                         {% endfor %}
                     </tbody>

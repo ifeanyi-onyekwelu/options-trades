@@ -5,7 +5,7 @@ from django.utils.timezone import now
 import secrets
 import string
 from decimal import Decimal
-from users.models import UserBalance
+from users.models import UserWallet
 from django.utils.text import slugify
 import os
 
@@ -106,8 +106,8 @@ class Deposit(models.Model):
 class Withdraw(models.Model):
     STATUS_CHOICES = (
         ('Pending', 'Pending'), 
-        ('Successul', 'Successful'), 
-        ('Failed', 'Failed')
+        ('Approved', 'Approved'), 
+        ('Rejected', 'Rejected')
     )
     id = models.UUIDField(
         primary_key=True,
@@ -130,7 +130,7 @@ class Withdraw(models.Model):
         if not self.transaction_id:
             self.transaction_id = self.generate_transaction_id()
 
-        # Deduct the withdraw amount from the UserBalance
+        # Deduct the withdraw amount from the UserWallet
         user_balance = UserBalance.objects.get(user=self.user)
         user_balance.balance -= self.amount
         user_balance.save()
@@ -143,48 +143,13 @@ class Withdraw(models.Model):
         return 'withdrawal'
 
 
-class Transfer(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
-    sender = models.ForeignKey(get_user_model(), related_name='sender', on_delete=models.CASCADE)
-    receiver = models.ForeignKey(get_user_model(), related_name='receiver', on_delete=models.CASCADE)
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
-    transaction_id = models.CharField(max_length=20, unique=True)
-    date_created = models.DateTimeField(default=now)
-
-    def generate_transaction_id(self):
-        transaction_id = ''.join(secrets.choice(string.digits) for x in range(20))
-        return transaction_id
-
-    def save(self, *args, **kwargs):
-        if not self.transaction_id:
-            self.transaction_id = self.generate_transaction_id()
-
-        amount_decimal = Decimal(str(self.amount))        
-
-        user_balance = UserBalance.objects.get(user=self.sender)
-        sender_balance = UserBalance.objects.get(user=self.receiver)
-        user_balance.balance -= amount_decimal
-        sender_balance.balance += amount_decimal
-        user_balance.save()
-        sender_balance.save()
-        
-        super().save(*args, **kwargs)
-
-    @property
-    def transaction_type(self):
-        return 'transfer'
+class Notification(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
-class Referral(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
-    referrer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='referrer')
-    referred_user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='referred_user')
-    date_created = models.DateTimeField(default=now)
+    class Meta:
+        ordering = ['-created_at']
+
