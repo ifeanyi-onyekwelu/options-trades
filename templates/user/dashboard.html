@@ -28,6 +28,7 @@
 
             <div class="col-xxl-12">
                 <div class="row">
+                    {% for wallet in wallets %}
                     <div class="col-xxl-3 col-xl-6 col-lg-12">
                         <div class="card custom-card">
                             <div class="card-body">
@@ -40,7 +41,7 @@
                                             </span>
                                         </div>
                                         <div class="mb-0 fw-semibold">
-                                            Total Balance
+                                            {{ wallet.currency }} Balance
                                         </div>
                                     </div>
                                     <div class="ms-auto">
@@ -51,119 +52,17 @@
                                     <div>
                                         <p class="mb-1">USD</p>
                                         <p class="fs-20 mb-0 fw-semibold lh-1 text-primary">
-                                            ${{ wallet.balance|intcomma }} </p>
+                                            ${{ wallet.balance|intcomma }}</p>
                                     </div>
                                     <div class="ms-auto text-end">
                                         <p class="mb-0">Updated</p>
-                                        <p class="mb-0 text-muted"><span class="text-success">now</span>
-                                        </p>
+                                        <p class="mb-0 text-muted"><span class="text-success">now</span></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xxl-3 col-xl-6 col-lg-12">
-                        <div class="card custom-card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="d-flex align-items-center">
-                                        <div class="me-2">
-                                            <span class="avatar avatar-md avatar-rounded bg-light p-2">
-                                                <img src="{% static 'img/images/crypto-currencies/regular/stellar.svg' %}"
-                                                    alt="">
-                                            </span>
-                                        </div>
-                                        <div class="mb-0 fw-semibold">
-                                            Bitcoin Balance
-                                        </div>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <div id="btc-charts"></div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end">
-                                    <div>
-                                        <p class="mb-1">USD</p>
-                                        <p class="fs-20 mb-0 fw-semibold lh-1 text-primary">
-                                            $0.00</p>
-                                    </div>
-                                    <div class="ms-auto text-end">
-                                        <p class="mb-0">Updated</p>
-                                        <p class="mb-0 text-muted"><span class="text-success">now</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-3 col-xl-6 col-lg-12">
-                        <div class="card custom-card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="d-flex align-items-center">
-                                        <div class="me-2">
-                                            <span class="avatar avatar-md avatar-rounded bg-light p-2">
-                                                <img src="{% static 'img/images/crypto-currencies/regular/stellar.svg' %}"
-                                                    alt="">
-                                            </span>
-                                        </div>
-                                        <div class="mb-0 fw-semibold">
-                                            Ethereum Balance
-                                        </div>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <div id="btc-charts"></div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end">
-                                    <div>
-                                        <p class="mb-1">USD</p>
-                                        <p class="fs-20 mb-0 fw-semibold lh-1 text-primary">
-                                            $0.00</p>
-                                    </div>
-                                    <div class="ms-auto text-end">
-                                        <p class="mb-0">Updated</p>
-                                        <p class="mb-0 text-muted"><span class="text-success">now</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xxl-3 col-xl-6 col-lg-12">
-                        <div class="card custom-card">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="d-flex align-items-center">
-                                        <div class="me-2">
-                                            <span class="avatar avatar-md avatar-rounded bg-light p-2">
-                                                <img src="{% static 'img/images/crypto-currencies/regular/stellar.svg' %}"
-                                                    alt="">
-                                            </span>
-                                        </div>
-                                        <div class="mb-0 fw-semibold">
-                                            Tether (TRC20) Balance
-                                        </div>
-                                    </div>
-                                    <div class="ms-auto">
-                                        <div id="btc-charts"></div>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-end">
-                                    <div>
-                                        <p class="mb-1">USD</p>
-                                        <p class="fs-20 mb-0 fw-semibold lh-1 text-primary">
-                                            $0.00</p>
-                                    </div>
-                                    <div class="ms-auto text-end">
-                                        <p class="mb-0">Updated</p>
-                                        <p class="mb-0 text-muted"><span class="text-success">now</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
 
                     <div class="col-xxl-12 col-xl-12">
                         <div class="card custom-card">
@@ -232,6 +131,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% for deposit in deposits %}
+                                    <tr>
+                                        <td>${{ deposit.amount }}</td>
+                                        <td>{{ deposit.crypto_currency }}</td>
+                                        <td>
+                                            {% if deposit.status == 'APPROVED' %}
+                                            <span class="badge bg-success">{{ deposit.status }}</span>
+                                            {% elif deposit.status == 'PENDING' %}
+                                            <span class="badge bg-warning">{{ deposit.status }}</span>
+                                            {% elif deposit.status == 'REJECTED' %}
+                                            <span class="badge bg-danger">{{ deposit.status }}</span>
+                                            {% else %}
+                                            <span class="badge bg-secondary">{{ deposit.status }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ deposit.date_created|date:"M. j, Y" }}</td>
+                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>

@@ -2,79 +2,53 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .sendtop {
+        background-color: #000021 !important;
+    }
+</style>
+
 <div class="main-content app-content">
     <div class="container-fluid">
+        <div class="d-md-flex d-block my-4 page-header-breadcrumb"></div>
 
-        <!-- Page Header -->
-        <div class="d-md-flex d-block my-4 page-header-breadcrumb">
-        </div>
-        <!-- Page Header Close -->
-        <style>
-            .sendtop {
-                background-color: #000021 !important;
-            }
-        </style>
-        <!-- Start:: row-1 -->
         <div class="row">
             <form method="post" class="col-xl-12">
                 {% csrf_token %}
                 <div class="card custom-card sendtop">
                     <div class="card-body p-5 d-flex align-items-center justify-content-center">
                         <div class="container">
-                            <h3 class="text-fixed-white text-center">Buy Stocks
-                            </h3>
+                            <h3 class="text-fixed-white text-center">Buy Stocks</h3>
                             <span class="d-block fs-16 text-fixed-white text-center op-8 mb-4">
-                                Choose from any of the available stocks and
-                                become a share holder.
+                                Choose from any of the available stocks and become a shareholder.
                             </span>
+
                             <div class="p-3 mb-4 rounded currency-exchange-area">
                                 <div class="row gy-3">
                                     <div class="col-12">
                                         <label class="text-white pb-1">My Wallet</label>
                                         <select name="paytype" required class="form-control form-select">
-                                            <option value="USDT">Tether USD Balance -
-                                                $0 </option>
-                                            <option value="BTC">Bitcoin Balance -
-                                                $0 </option>
-                                            <option value="ETH">Ethereum Balance -
-                                                $0 </option>
+                                            {% for wallet in user_wallets %}
+                                            <option value="{{ wallet.currency }}">
+                                                {{ wallet.currency }} Balance - ${{ wallet.balance }}
+                                            </option>
+                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-12">
                                         <label class="text-white pb-1">Stock</label>
-                                        <select class="form-select form-control" oninput="display();" data-trigger
-                                            id="stock" name="stock">
-                                            <option value="1">
-                                                Apple Inc. Stock ($1,558.00)
+                                        <select class="form-select form-control" id="stock" name="stock">
+                                            {% for stock_id, stock in stocks.items %}
+                                            <option value="{{ stock_id }}">
+                                                {{ stock.name }} - ${{ stock.price }}
                                             </option>
-                                            <option value="4">
-                                                Amazon.com, Inc. Stock ($1,430.00)
-                                            </option>
-                                            <option value="3">
-                                                Alphabet Inc Stock ($320.00)
-                                            </option>
-                                            <option value="6">
-                                                Meta Platforms, Inc. Stock ($1,440.10)
-                                            </option>
-                                            <option value="2">
-                                                Microsoft Corporation Stock ($1,976.00)
-                                            </option>
-                                            <option value="5">
-                                                NVIDIA Corporation Stock ($1,440.10)
-                                            </option>
-                                            <option value="7">
-                                                Tesla, Inc. Common Stock ($1,440.10)
-                                            </option>
-                                            <option value="8">
-                                                Walmart Inc. Common Stock ($680.30)
-                                            </option>
+                                            {% endfor %}
                                         </select>
                                     </div>
 
                                     <div class="col-12">
                                         <label class="text-white pb-1">Slot</label>
-                                        <select name="quantity" id="quantity" oninput="display();"
-                                            class="form-select form-control" required>
+                                        <select name="quantity" id="quantity" class="form-select form-control" required>
                                             <option value="" hidden>-- select slot --</option>
                                             <option value='5'>5 slots</option>
                                             <option value='6'>6 slots</option>
@@ -96,12 +70,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="text-center text-white fs-16 pb-4">
-                                        Total Stock: <span id="display">$0</span>
-                                    </div> -->
 
                             <div class="text-center">
-                                <button type="submit" name="submit" class="btn btn-success btn-wave sendtop ">Buy
+                                <button type="submit" name="submit" class="btn btn-success btn-wave sendtop">Buy
                                     Stock</button>
                             </div>
                         </div>
@@ -109,7 +80,6 @@
                 </div>
             </form>
         </div>
-
     </div>
 </div>
 {% endblock content %}

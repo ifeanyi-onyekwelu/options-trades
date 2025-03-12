@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load humanize %}
 <html lang="en">
 
 <head>
@@ -78,7 +79,7 @@
                                         class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
                             <li><a class="dropdown-item d-flex border-block-end" href="javascript:void(0);"><i
                                         class="ti ti-wallet fs-18 me-2 op-7"></i>Bal:
-                                    $0.00</a></li>
+                                    ${{ total_balance_admin|intcomma }}</a></li>
                             <li><a class="dropdown-item d-flex" href="{% url 'user:notifications' %}"><i
                                         class="ti ti-bell fs-18 me-2 op-7"></i>Notification</a></li>
                             <li><a class="dropdown-item d-flex" href="{% url 'user:support' %}"><i

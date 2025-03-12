@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ subject }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: #444;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        .email-header {
+            background-color: #111C43;
+            color: #ffffff;
+            padding: 25px;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .email-body {
+            padding: 25px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #333333;
+        }
+        .email-body p {
+            margin: 0 0 15px;
+        }
+        .email-footer {
+            background-color: #f4f7f6;
+            text-align: center;
+            padding: 15px;
+            font-size: 13px;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+        .email-footer a {
+            color: #111C43;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .cta-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: #111C43;
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        .cta-button:hover {
+            background-color: #0d1534;
+        }
+        .divider {
+            height: 1px;
+            background-color: #ddd;
+            margin: 20px 0;
+        }
+        .email-footer small {
+            font-size: 11px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="email-header">
+            {{ subject }}
+        </div>
+
+        <div class="email-body">
+            <p>{{ message|linebreaks }}</p>
+
+            <div class="divider"></div>
+
+            <a href="https://optionstradezhub.com" class="cta-button">Visit Website</a>
+        </div>
+
+        <div class="email-footer">
+            Sent by <strong>Admin</strong> <br>
+            <a href="#">Unsubscribe</a> |
+            <a href="https://optionstradezhub.com/contact">Contact Support</a>
+            <br><br>
+            <small>© {{ year }} OptionsTradezHub. All Rights Reserved.</small>
+        </div>
+    </div>
+</body>
+</html>

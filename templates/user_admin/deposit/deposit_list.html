@@ -7,8 +7,7 @@
 <div class="main-content app-content">
     <div class="container-fluid">
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }} {{
-                request.user.last_name }}</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
@@ -28,6 +27,7 @@
                             <th>User</th>
                             <th>Amount</th>
                             <th>Transaction ID</th>
+                            <th>Status</th>
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>
@@ -43,6 +43,17 @@
                             </td>
                             <td>{{ deposit.amount|intcomma }}</td>
                             <td>{{ deposit.transaction_id }}</td>
+                            <td>
+                                {% if deposit.status == 'APPROVED' %}
+                                <span class="badge bg-success">{{ deposit.status }}</span>
+                                {% elif deposit.status == 'PENDING' %}
+                                <span class="badge bg-warning">{{ deposit.status }}</span>
+                                {% elif deposit.status == 'REJECTED' %}
+                                <span class="badge bg-danger">{{ deposit.status }}</span>
+                                {% else %}
+                                <span class="badge bg-secondary">{{ deposit.status }}</span>
+                                {% endif %}
+                            </td>
                             <td>{{ deposit.date_created }}</td>
                             <td>
                                 <div class="btn-group" role="group">

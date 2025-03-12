@@ -39,6 +39,18 @@ class AdminEmailForm(forms.Form):
             attrs={"class": "form-control", "placeholder": "Email Message"}
         )
     )
+    recipient = forms.ChoiceField(
+        choices=[],
+        widget=forms.Select(attrs={"class": "form-control"}),
+        required=True,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        users = User.objects.filter(is_superuser=False, is_staff=False)
+        user_choices = [(user.email, user.email) for user in users]
+        user_choices.insert(0, ("all", "All Users"))  # Option to send to all
+        self.fields["recipient"].choices = user_choices
 
 
 class AddRemoveFundsForm(forms.Form):

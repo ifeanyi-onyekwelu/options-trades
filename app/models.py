@@ -2,16 +2,14 @@ from django.db import models
 from django.contrib.auth import get_user_model
 import uuid
 from django.utils.timezone import now
-import secrets
-import string
-from decimal import Decimal
-from users.models import UserWallet
 from django.utils.text import slugify
 import os
+from users.models import UserWallet
+
 
 def default_profile_image_path(instance, filename):
-    ext = filename.split('.')[-1]
-    return os.path.join('profile images', filename)
+    ext = filename.split(".")[-1]
+    return os.path.join("profile images", filename)
 
 
 def calculate_returns(amount, investment_plan):
@@ -22,11 +20,7 @@ def calculate_returns(amount, investment_plan):
 
 
 class InvestmentPlan(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=255)
     starting_price = models.DecimalField(max_digits=10, decimal_places=2)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
@@ -38,27 +32,25 @@ class InvestmentPlan(models.Model):
 
     def __str__(self):
         return "{}".format(self.name)
-    
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
 
         super().save(*args, **kwargs)
-    
+
     @property
     def get_type(self):
-        return 'investment_plan'
+        return "investment_plan"
 
 
 class UserInvestment(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     investment_plan = models.ForeignKey(InvestmentPlan, on_delete=models.CASCADE)
-    returns = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    returns = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True
+    )
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     date_created = models.DateTimeField(default=now)
 
@@ -74,73 +66,48 @@ class UserInvestment(models.Model):
 
     @property
     def get_type(self):
-        return 'user_investment'
+        return "user_investment"
 
 
 class Deposit(models.Model):
     CRYPTO_CHOICES = (
-        ('BTC', 'Bitcoin'),
-        ('ETH', 'Ethereum'),
-        ('USDT', 'Tether'),
-        ('LTC', 'Litecoin'),
+        ("BTC", "Bitcoin"),
+        ("ETH", "Ethereum"),
+        ("USDT", "Tether"),
+        ("LTC", "Litecoin"),
     )
     STATUS_CHOICES = (
-        ('PENDING', 'Pending'),
-        ('APPROVED', 'Approved'),
-        ('REJECTED', 'Rejected'),
+        ("PENDING", "Pending"),
+        ("APPROVED", "Approved"),
+        ("REJECTED", "Rejected"),
     )
 
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    crypto_currency = models.CharField(max_length=10, choices=CRYPTO_CHOICES, blank=True, null=True)
+    crypto_currency = models.CharField(
+        max_length=10, choices=CRYPTO_CHOICES, blank=True, null=True
+    )
     transaction_id = models.CharField(max_length=20, unique=True)
-    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default='PENDING')
+    status = models.CharField(max_length=30, choices=STATUS_CHOICES, default="PENDING")
     date_created = models.DateTimeField(default=now)
 
 
 class Withdraw(models.Model):
     STATUS_CHOICES = (
-        ('Pending', 'Pending'), 
-        ('Approved', 'Approved'), 
-        ('Rejected', 'Rejected')
+        ("Pending", "Pending"),
+        ("Approved", "Approved"),
+        ("Rejected", "Rejected"),
     )
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
-    transaction_id = models.CharField(max_length=20, unique=True)
     wallet_address = models.CharField(max_length=100, default="0")
-    coin = models.CharField(max_length=100, default="USDT")
+    wallet = models.ForeignKey(
+        UserWallet, on_delete=models.CASCADE, blank=True, null=True
+    )
     status = models.CharField(max_length=255, choices=STATUS_CHOICES)
     date_created = models.DateTimeField(default=now)
-
-    def generate_transaction_id(self):
-        transaction_id = ''.join(secrets.choice(string.digits) for x in range(20))
-        return transaction_id
-
-    def save(self, *args, **kwargs):
-        if not self.transaction_id:
-            self.transaction_id = self.generate_transaction_id()
-
-        # Deduct the withdraw amount from the UserWallet
-        user_balance = UserBalance.objects.get(user=self.user)
-        user_balance.balance -= self.amount
-        user_balance.save()
-        print(self.amount)
-        
-        super().save(*args, **kwargs)
-
-    @property
-    def transaction_type(self):
-        return 'withdrawal'
 
 
 class Notification(models.Model):
@@ -149,7 +116,5 @@ class Notification(models.Model):
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-
     class Meta:
-        ordering = ['-created_at']
-
+        ordering = ["-created_at"]

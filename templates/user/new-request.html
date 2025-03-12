@@ -2,38 +2,97 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .sendtop {
+        background-color: #000021 !important;
+    }
+</style>
+
 <div class="main-content app-content">
     <div class="container-fluid">
+        <div class="d-md-flex d-block my-4 page-header-breadcrumb"></div>
 
-        <!-- Page Header -->
-        <div class="d-md-flex d-block my-4 page-header-breadcrumb">
-        </div>
-        <div class="row mb-5">
-            <div class="col-xl-12">
-                <h5 class="fw-semibold text-center"> Withdraw Fund </h5>
-                <p class="text-muted text-center">Your withdrawal will be processed automatically. </p>
-                <div class="text-center text-danger">Note: You need to set up your three (3) wallet addresses in
-                    order for
-                    them<br>
-                    to appear on payment
-                    method. Click <a href="{% url 'user:wallet' %}">here</a> to set up your wallets</div>
-                <br>
-                <div class="col-xl-6 offset-xl-3">
-                    <div class="card custom-card">
-                        <div class="card-body">
-                            <div class="tab-content">
-                                <form action="" method="post">
+        <div class="row">
+            {% if has_balance %}
+            <!-- If user has balance in any wallet -->
+            <form method="post" class="col-xl-12">
+                {% csrf_token %}
+                <div class="card custom-card sendtop">
+                    <div class="card-body p-5 d-flex align-items-center justify-content-center">
+                        <div class="container">
+                            <h3 class="text-fixed-white text-center">Withdraw Funds</h3>
+                            <span class="d-block fs-16 text-fixed-white text-center op-8 mb-4">
+                                Select a wallet, enter the withdrawal address and amount to withdraw.
+                            </span>
 
-                                    <div class="alert alert-danger">Your wallet is empty, please set up your
-                                        receiving wallet <a href="{% url 'user:wallet' %}">here</a>
-                                        first.</div>
+                            <div class="p-3 mb-4 rounded currency-exchange-area">
+                                <div class="row gy-3">
+                                    <!-- Wallet Selection -->
+                                    <div class="col-12">
+                                        <label class="text-white pb-1">My Wallet</label>
+                                        <select name="wallet" required class="form-control form-select">
+                                            {% for wallet in user_wallets %}
+                                            <option value="{{ wallet.currency }}">
+                                                {{ wallet.currency }} Balance - ${{ wallet.balance }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
 
-                                </form>
+                                    <!-- Wallet Address -->
+                                    <div class="col-12">
+                                        <label class="text-white pb-1">Wallet Address</label>
+                                        <input type="text" name="wallet_address" required class="form-control"
+                                            placeholder="Enter your wallet address">
+                                    </div>
+
+                                    <!-- Withdrawal Amount -->
+                                    <div class="col-12">
+                                        <label class="text-white pb-1">Amount to Withdraw</label>
+                                        <input type="number" name="amount" required class="form-control"
+                                            placeholder="Enter amount to withdraw" min="1">
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="text-center">
+                                        <button type="submit" name="submit"
+                                            class="btn btn-success btn-wave sendtop">Withdraw Funds</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+            <!-- If the user does not have balance -->
+            <div class="row mb-5">
+                <div class="col-xl-12">
+                    <h5 class="fw-semibold text-center">Withdraw Fund</h5>
+                    <p class="text-muted text-center">Your withdrawal will be processed automatically.</p>
+                    <div class="text-center text-danger">
+                        Note: You need to set up your three (3) wallet addresses in order for them to appear on payment
+                        methods.
+                        Click <a href="{% url 'user:wallet' %}">here</a> to set up your wallets.
+                    </div>
+                    <br>
+                    <div class="col-xl-6 offset-xl-3">
+                        <div class="card custom-card">
+                            <div class="card-body">
+                                <div class="tab-content">
+                                    <form action="" method="post">
+                                        <div class="alert alert-danger">
+                                            Your wallet is empty, please set up your receiving wallet <a
+                                                href="{% url 'user:wallet' %}">here</a> first.
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

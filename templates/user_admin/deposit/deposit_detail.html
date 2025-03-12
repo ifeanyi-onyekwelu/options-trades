@@ -7,8 +7,7 @@
 <div class="main-content app-content">
     <div class="container-fluid">
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome {{ request.user.first_name }}
-                {{ request.user.last_name }}</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Welcome</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
@@ -23,7 +22,7 @@
             <div class="col-md-12">
 
                 <!-- Add conditional class for border color -->
-                <div class="card mb-4 
+                <div class="card mb-4
                     {% if deposit.status == 'PENDING' %}border border-warning{% elif deposit.status == 'APPROVED' %}border border-success{% elif deposit.status == 'REJECTED' %}border border-danger{% endif %}
                 ">
                     <form id="formAccountSettings" method="post">
@@ -59,7 +58,7 @@
                                 <!-- Status field with color -->
                                 <div class="mb-3 col-md-6">
                                     <label for="status" class="form-label">Status</label>
-                                    <input class="form-control 
+                                    <input class="form-control
                                         {% if deposit.status == 'pending' %}border border-warning text-warning
                                         {% elif deposit.status == 'success' %}border border-success text-success
                                         {% elif deposit.status == 'rejected' %}border border-danger text-danger

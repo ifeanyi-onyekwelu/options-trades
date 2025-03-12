@@ -57,6 +57,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "user_admin.context_processors.total_balance_admin",
+                "user.context_processors.total_balance_user",
             ],
         },
     },
@@ -67,7 +69,7 @@ WSGI_APPLICATION = "blackstone.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.getenv("MYSQL_NAME"),
         "USER": os.getenv("MYSQL_USER"),
         "PASSWORD": os.getenv("MYSQL_PASSWORD"),
@@ -115,8 +117,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DEFAULT_EMAIL = os.getenv("DEFAULT_EMAIL")
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "mail.optionstradezhub.com"
-EMAIL_PORT = 465
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")

@@ -18,6 +18,11 @@ from .decorators import login_required
 from .forms import AdminEmailForm, AddRemoveFundsForm
 from django.core.mail import send_mail
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.db.models import Sum
+from django.db import transaction
+from app.utils import create_notification
 
 
 def update_user_status(user_id, status):
@@ -33,7 +38,21 @@ class DashboardView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
+        # Get total balance of all users grouped by wallet currency
+        wallet_balances = (
+            UserWallet.objects.values("currency")
+            .annotate(total_balance=Sum("balance"))
+            .order_by("currency")
+        )
+
+        # Convert to a dictionary for easy template access
+        context["wallet_balances"] = {
+            wallet["currency"]: wallet["total_balance"] for wallet in wallet_balances
+        }
+
+        # Get latest 5 deposits
         context["deposits"] = Deposit.objects.order_by("-date_created")[:5]
+
         return context
 
 
@@ -193,23 +212,29 @@ class DepositUpdateView(UpdateView):
         deposit = form.save(commit=False)
         previous_status = deposit.status
 
-        print(previous_status)
+        print(f"Previous status: {previous_status}")
 
         # Save the deposit with the new status
         deposit.save()
 
-        # Check if the status is changed to 'approved'
+        # Check if the status is changed to 'APPROVED'
         if deposit.status == "APPROVED":
-            print("Hello World")
-            # Add the deposit amount to the user's balance
-            user_balance = get_object_or_404(UserWallet, user=deposit.user)
-            user_balance.balance += deposit.amount
-            user_balance.save()
+            print("Deposit approved!")
+
+            # Get the wallet based on the method selected (BTC, ETH, USDT, etc.)
+            wallet = get_object_or_404(
+                UserWallet, user=deposit.user, currency=deposit.crypto_currency
+            )
+
+            # Add the deposit amount to the user's selected wallet
+            wallet.balance += deposit.amount
+            wallet.save()
 
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("admin:deposit-detail", args=[self.object.id])
+        # Redirect to the admin dashboard or a specific URL after processing the deposit
+        return reverse_lazy("admin:deposits")  # Adjust according to your URL structure
 
 
 @method_decorator(login_required, name="dispatch")
@@ -242,7 +267,43 @@ class WithdrawDetailView(DetailView):
 class WithdrawUpdateView(UpdateView):
     model = Withdraw
     template_name = "user_admin/withdraw/withdraw_form.html"
-    fields = ["status"]  # Only allow updating status
+    fields = ["status"]  # Only allow updating the status
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()  # Get the withdrawal instance
+        previous_status = self.object.status  # Store previous status
+        new_status = request.POST.get("status")  # Get the new status from the form
+
+        # Ensure wallet exists
+        wallet = get_object_or_404(
+            UserWallet, user=self.object.user, currency=self.object.wallet.currency
+        )
+
+        # Start transaction for atomic operations
+        with transaction.atomic():
+            self.object.status = new_status
+            self.object.save()
+
+            # If admin approves the withdrawal and it was previously pending
+            if new_status == "Approved" and previous_status == "Pending":
+                if wallet.balance >= self.object.amount:
+                    wallet.balance -= self.object.amount  # Deduct balance
+                    wallet.save()
+                    create_notification(
+                        user=self.object.user,
+                        title="Withdrawal Approved",
+                        description=f"Your withdrawal of ${self.object.amount} to {self.object.wallet_address} has been approved.",
+                    )
+                    messages.success(
+                        request, "Withdrawal approved and balance deducted."
+                    )
+                else:
+                    messages.error(
+                        request, "Insufficient balance to approve this withdrawal."
+                    )
+                    return redirect("admin:withdrawal", pk=self.object.id)
+
+        return redirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse_lazy("admin:withdrawal", args=[self.object.id])
@@ -255,36 +316,47 @@ class WithdrawDeleteView(DeleteView):
     success_url = reverse_lazy("admin:withdrawals")
 
 
-@method_decorator(login_required, name="dispatch")
 class AdminEmailView(FormView):
     template_name = "user_admin/admin_email_form.html"
     form_class = AdminEmailForm
-    success_url = reverse_lazy("admin-email")  # Adjust to your URL name
+    success_url = reverse_lazy("admin:compose-mail")
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def form_valid(self, form):
         subject = form.cleaned_data["subject"]
         message = form.cleaned_data["message"]
+        recipient_email = form.cleaned_data["recipient"]
 
-        # Get all users excluding admins
-        recipients = User.objects.filter(
-            is_superuser=False, is_staff=False
-        ).values_list("email", flat=True)
+        if recipient_email == "all":
+            recipients = User.objects.filter(
+                is_superuser=False, is_staff=False
+            ).values_list("email", flat=True)
+        else:
+            recipients = [recipient_email]
 
         print(recipients)
 
-        # Send email
-        if recipients:
-            send_mail(
-                subject,
-                message,
-                settings.EMAIL_HOST_USER,
-                list(recipients),
-                fail_silently=False,
-            )
-            messages.success(self.request, "Emails sent successfully!")
-        else:
-            messages.warning(self.request, "No users to send emails to.")
+        context = {
+            "user": self.request.user,
+            "subject": subject,
+            "message": message,
+        }
 
+        html_message = render_to_string("user_admin/email_template.html", context)
+
+        email = EmailMultiAlternatives(
+            subject=subject,
+            body=message,
+            from_email=settings.EMAIL_HOST_USER,
+            to=recipients,
+        )
+        email.attach_alternative(html_message, "text/html")
+        email.send()
+
+        messages.success(self.request, "Email sent successfully!")
         return super().form_valid(form)
 
 

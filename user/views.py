@@ -9,16 +9,26 @@ from users.models import UserWallet, User
 from app.models import (
     Deposit as DepositModel,
     Withdraw as WithdrawModel,
-    UserInvestment,
     Notification,
 )
 from decimal import Decimal
-from django.contrib.auth.hashers import make_password
 from django.contrib import messages
-from django.db.models import Sum
 from .forms import DepositForm
 import uuid
 from app.utils import create_notification
+from django.db import transaction
+
+
+STOCKS = {
+    1: {"name": "Apple Inc.", "price": 1558.00},
+    2: {"name": "Amazon.com, Inc.", "price": 1430.00},
+    3: {"name": "Alphabet Inc.", "price": 320.00},
+    4: {"name": "Meta Platforms, Inc.", "price": 1440.10},
+    5: {"name": "Microsoft Corporation", "price": 1976.00},
+    6: {"name": "NVIDIA Corporation", "price": 1440.10},
+    7: {"name": "Tesla, Inc. Common Stock", "price": 1440.10},
+    8: {"name": "Walmart Inc. Common Stock", "price": 680.30},
+}
 
 
 @method_decorator(login_required, name="dispatch")
@@ -27,15 +37,78 @@ class Dashboard(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        wallet = UserWallet.objects.get(user=self.request.user)
 
-        context["wallet"] = wallet
+        # Fetch all wallets associated with the current user
+        wallets = UserWallet.objects.filter(user=self.request.user)
+
+        # Fetch the 5 most recent deposits for the user
+        deposits = DepositModel.objects.filter(user=self.request.user).order_by(
+            "-date_created"
+        )[:5]
+
+        context["wallets"] = wallets
+        context["deposits"] = deposits
         return context
 
 
 @method_decorator(login_required, name="dispatch")
 class BuyNow(TemplateView):
     template_name = "user/buy-now.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get the user's wallets and balances
+        user_wallets = UserWallet.objects.filter(user=self.request.user)
+        context["user_wallets"] = user_wallets
+        context["stocks"] = STOCKS
+        return context
+
+    def post(self, request, *args, **kwargs):
+        # Get the form data
+        paytype = request.POST.get(
+            "paytype"
+        )  # Selected wallet type (e.g., "USDT", "BTC", etc.)
+        stock_id = int(request.POST.get("stock"))  # Selected stock ID
+        quantity = int(request.POST.get("quantity"))  # Selected quantity (slots)
+
+        # Calculate the total cost for the stock purchase
+        stock = STOCKS.get(stock_id)
+        if not stock:
+            messages.error(request, "Invalid stock selected.")
+            return redirect("user:buy-now")
+
+        total_cost = stock["price"] * quantity  # Total cost of the stock
+
+        # Get the wallet the user selected
+        wallet = UserWallet.objects.filter(user=request.user, currency=paytype).first()
+        if not wallet:
+            messages.error(request, "Wallet not found.")
+            return redirect("user:buy-now")
+
+        # Check if the user has sufficient balance
+        if wallet.balance < total_cost:
+            messages.error(
+                request,
+                f"Insufficient funds. You need ${total_cost - wallet.balance} more.",
+            )
+            return redirect("user:buy-now")
+
+        # Deduct the amount from the user's wallet
+        wallet.balance -= total_cost
+        wallet.save()
+
+        # Create a notification for the user
+        create_notification(
+            user=request.user,
+            title="Stock Purchase",
+            description=f"You purchased {quantity} slot(s) of {stock['name']} for ${total_cost} using {paytype}.",
+        )
+
+        # Redirect to a confirmation page or show a success message
+        messages.success(
+            request, f"Successfully purchased {quantity} slot(s) of {stock['name']}!"
+        )
+        return redirect("user:buy-now")  # Or another confirmation page URL
 
 
 @method_decorator(login_required, name="dispatch")
@@ -150,83 +223,138 @@ class DepositHistory(TemplateView):
 class Withdraw(TemplateView):
     template_name = "user/new-request.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Get the user's wallets and balances
+        user_wallets = UserWallet.objects.filter(user=self.request.user)
+
+        # Check if the user has any wallet with a balance greater than zero
+        has_balance = any(wallet.balance > Decimal("0.00") for wallet in user_wallets)
+
+        context["user_wallets"] = user_wallets
+        context["has_balance"] = has_balance  # Add this to check balance presence
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        # Retrieve form data
+        wallet_id = request.POST.get("wallet")
+        wallet_address = request.POST.get("wallet_address")
+        amount = Decimal(request.POST.get("amount"))
+
+        # Retrieve the selected wallet
+        try:
+            wallet = UserWallet.objects.get(user=request.user, currency=wallet_id)
+        except UserWallet.DoesNotExist:
+            messages.error(request, "Wallet not found.")
+            return redirect("user:withdraw")
+
+        # Check if the user has sufficient balance
+        if wallet.balance < amount:
+            messages.error(request, "Insufficient balance.")
+            return redirect("user:withdraw")
+
+        # Start a transaction to ensure consistency
+        with transaction.atomic():
+            withdrawal = WithdrawModel.objects.create(
+                user=request.user,
+                amount=amount,
+                wallet_address=wallet_address,
+                wallet=wallet,
+                status="Pending",
+            )
+
+            # Assuming create_notification is already defined somewhere
+
+            create_notification(
+                user=request.user,
+                title="Withdrawal Request",
+                description=f"You requested a withdrawal of ${amount} to the wallet address {wallet_address}.",
+            )
+        return redirect("user:withdraw_history")
+
+
+@method_decorator(login_required, name="dispatch")
+class WithdrawHistory(TemplateView):
+    template_name = "user/withdraw-history.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        withdrawals = WithdrawModel.objects.filter(user=self.request.user)
+
+        context["withdrawals"] = withdrawals
+        return context
+
 
 @method_decorator(login_required, name="dispatch")
 class Invest(TemplateView):
     template_name = "user/invest.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get the user's wallets and balances
+        user_wallets = UserWallet.objects.filter(user=self.request.user)
+        context["user_wallets"] = user_wallets
+        context["stocks"] = STOCKS
+        return context
+
+    def post(self, request, *args, **kwargs):
+        # Get the form data
+        paytype = request.POST.get(
+            "paytype"
+        )  # Selected wallet type (e.g., "USDT", "BTC", etc.)
+        stock_id = int(request.POST.get("stock"))  # Selected stock ID
+        quantity = int(request.POST.get("quantity"))  # Selected quantity (slots)
+
+        # Calculate the total cost for the stock purchase
+        stock = STOCKS.get(stock_id)
+        if not stock:
+            messages.error(request, "Invalid stock selected.")
+            return redirect("user:invest")
+
+        total_cost = stock["price"] * quantity  # Total cost of the stock
+
+        # Get the wallet the user selected
+        wallet = UserWallet.objects.filter(user=request.user, currency=paytype).first()
+        if not wallet:
+            messages.error(request, "Wallet not found.")
+            return redirect("user:invest")
+
+        if wallet.balance < total_cost:
+            messages.error(
+                request,
+                f"Insufficient funds. You need ${total_cost - float(wallet.balance):.2f} more.",
+            )
+            return redirect("user:invest")
+
+        total_cost_decimal = Decimal(str(total_cost))
+
+        # Deduct the amount from the user's wallet
+        wallet.balance -= total_cost_decimal
+        wallet.save()
+
+        # Create a notification for the user
+        create_notification(
+            user=request.user,
+            title="Stock Purchase",
+            description=f"You purchased {quantity} slot(s) of {stock['name']} for ${total_cost} using {paytype}.",
+        )
+
+        # Redirect to a confirmation page or show a success message
+        messages.success(
+            request, f"Successfully purchased {quantity} slot(s) of {stock['name']}!"
+        )
+        return redirect("user:invest")  # Or another confirmation page URL
 
 
 @method_decorator(login_required, name="dispatch")
 class Broker(TemplateView):
     template_name = "user/broker.html"
 
-
-# @login_required
-# @require_POST
-# def handle_invest(request):
-#     amount = request.POST.get('amount')
-
-#     user_balance = UserWallet.objects.get(user=request.user)
-#     amount_decimal = Decimal(str(amount))
-
-#     if amount_decimal <= 5000:
-#         plan_slug = 'starter'
-#     elif amount_decimal <= 10000:
-#         plan_slug = 'silver'
-#     elif amount_decimal <= 50000:
-#         plan_slug = 'gold'
-#     else:
-#         messages.error(request, 'Invalid amount for investment.')
-#         return redirect("user:invest")
-
-#     if user_balance.balance < amount_decimal:
-#         messages.error(request, 'Insufficient funds.')
-#         return redirect("user:invest")
-
-#     investment_plan = get_object_or_404(InvestmentPlan, slug=plan_slug)
-
-
-#     UserInvestment.objects.create(
-#         user=request.user,
-#         investment_plan=investment_plan,
-#         amount=amount_decimal
-#     )
-
-#     user_balance.balance -= amount_decimal
-#     user_balance.save()
-
-#     messages.error(request, 'Investment successful')
-#     return redirect("user:invest")
-
-
-@login_required
-@require_POST
-def handle_withdrawal(request):
-    wallet = request.POST.get("account")
-    amount = request.POST.get("amount")
-    walletAddress = request.POST.get("wallet_address")
-    coin = request.POST.get("coin")
-
-    UserWallet = UserWallet.objects.get(user=request.user)
-    amount_decimal = Decimal(str(amount))
-
-    if UserWallet.balance < amount_decimal:
-        return JsonResponse({"status": "error", "message": "Insufficient funds."})
-
-    withdraw = WithdrawModel.objects.create(
-        user=request.user,
-        amount=amount_decimal,
-        status="Pending",
-        wallet_address=walletAddress,
-        coin=coin,
-    )
-    # Create Notification
-    create_notification(
-        user=request.user,
-        title="Withdrawal Request",
-        description=f"You requested a withdrawal of ${amount} in {coin}. Awaiting approval.",
-    )
-    return JsonResponse({"status": "success"})
+    def post(self, request, *args, **kwargs):
+        messages.error(request, "Invalid hash!")
+        return redirect(reverse("user:broker"))
 
 
 @method_decorator(login_required, name="dispatch")
