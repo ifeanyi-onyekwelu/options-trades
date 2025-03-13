@@ -13,7 +13,7 @@ from django.conf import settings
 
 @method_decorator(guest_only, name="dispatch")
 class CustomLoginView(FormView):
-    template_name = "login.html"
+    template_name = "registration/login.html"
     form_class = LoginForm
     success_url = reverse_lazy("user:dashboard")
 
@@ -46,7 +46,7 @@ class CustomLoginView(FormView):
 
 
 class SignupView(FormView):
-    template_name = "signup.html"
+    template_name = "registration/signup.html"
     form_class = SignupForm
     success_url = reverse_lazy("user:dashboard")
 

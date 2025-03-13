@@ -10,10 +10,11 @@ handler404 = custom_error_404
 handler500 = custom_error_500
 
 urlpatterns = [
-    path('', include('app.urls', namespace='app')),
-    path('account/', include('auth_app.urls', namespace='auth')),
-    path('admin/', include('user_admin.urls', namespace='admin')),
-    path('account/', include('user.urls', namespace='user'))
+    path("", include("app.urls", namespace="app")),
+    path("account/", include("auth_app.urls", namespace="auth")),
+    path("admin/", include("user_admin.urls", namespace="admin")),
+    path("auth/", include("user.urls", namespace="user")),
+    path("auth/", include("django.contrib.auth.urls")),
 ]
 
 if settings.DEBUG:

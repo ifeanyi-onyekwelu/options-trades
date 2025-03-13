@@ -38,7 +38,7 @@
                             <div class="d-flex justify-content-between">
                                 <label for="{{ form.password.id_for_label }}"
                                     class="form-label text-default">Password</label>
-                                <a href="forgot" class="text-primary">Forgot Password?</a>
+                                <a href="{% url 'password_reset' %}" class="text-primary">Forgot Password?</a>
                             </div>
 
                             <div class="input-group">
