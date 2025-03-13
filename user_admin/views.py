@@ -212,15 +212,11 @@ class DepositUpdateView(UpdateView):
         deposit = form.save(commit=False)
         previous_status = deposit.status
 
-        print(f"Previous status: {previous_status}")
-
         # Save the deposit with the new status
         deposit.save()
 
         # Check if the status is changed to 'APPROVED'
         if deposit.status == "APPROVED":
-            print("Deposit approved!")
-
             # Get the wallet based on the method selected (BTC, ETH, USDT, etc.)
             wallet = get_object_or_404(
                 UserWallet, user=deposit.user, currency=deposit.crypto_currency
@@ -229,6 +225,14 @@ class DepositUpdateView(UpdateView):
             # Add the deposit amount to the user's selected wallet
             wallet.balance += deposit.amount
             wallet.save()
+
+            # Send email notification
+            send_mail(
+                "Deposit Successfully Confirmed by Admin",  # Subject
+                "The transaction has been successfully confirmed by the admin.",  # Confirmation message
+                settings.DEFAULT_EMAIL,  # From email (or use the admin's email if necessary)
+                [self.object.user.email],  # The user who made the transaction
+            )
 
         return super().form_valid(form)
 
@@ -297,6 +301,16 @@ class WithdrawUpdateView(UpdateView):
                     messages.success(
                         request, "Withdrawal approved and balance deducted."
                     )
+
+                    send_mail(
+                        "Withdrawal Processed and Confirmed by Admin",  # Subject
+                        "Your transaction has been processed and confirmed by the admin.",  # Plain-text message for admin confirmation
+                        settings.DEFAULT_EMAIL,  # From email (or use the admin's email if necessary)
+                        [
+                            self.object.user.email
+                        ],  # Recipient list (user who initiated the transaction)
+                    )
+
                 else:
                     messages.error(
                         request, "Insufficient balance to approve this withdrawal."

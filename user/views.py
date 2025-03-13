@@ -17,6 +17,8 @@ from .forms import DepositForm
 import uuid
 from app.utils import create_notification
 from django.db import transaction
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 STOCKS = {
@@ -188,6 +190,21 @@ class DepositConfirmationView(TemplateView):
             transaction_id=str(uuid.uuid4())[:20],
         )
 
+        # Send Email Notification
+        subject = "Deposit Initiated"
+        message = f"Hello {request.user.username},\n\nYou have initiated a deposit of ${amount} using {crypto_currency}. Your transaction is currently pending verification."
+        send_mail(subject, message, settings.DEFAULT_EMAIL, [request.user.email])
+
+        # Send Email to Admin
+        admin_subject = "New Deposit Request"
+        admin_message = f"User {request.user.username} has initiated a deposit of ${amount} using {crypto_currency}. Please verify."
+        send_mail(
+            admin_subject,
+            admin_message,
+            settings.DEFAULT_EMAIL,
+            [settings.DEFAULT_EMAIL],
+        )
+
         # Create Notification
         create_notification(
             user=request.user,
@@ -265,7 +282,20 @@ class Withdraw(TemplateView):
                 status="Pending",
             )
 
-            # Assuming create_notification is already defined somewhere
+            # Send Email Notification
+            subject = "Withdrawal Request Submitted"
+            message = f"Hello {request.user.username},\n\nYou have requested a withdrawal of ${amount} to the wallet address {wallet_address}. Your request is currently pending approval."
+            send_mail(subject, message, settings.DEFAULT_EMAIL, [request.user.email])
+
+            # Send Email to Admin
+            admin_subject = "New Withdrawal Request"
+            admin_message = f"User {request.user.username} has requested a withdrawal of ${amount} to {wallet_address}. Please review and approve."
+            send_mail(
+                admin_subject,
+                admin_message,
+                settings.DEFAULT_EMAIL,
+                [settings.DEFAULT_EMAIL],
+            )
 
             create_notification(
                 user=request.user,
