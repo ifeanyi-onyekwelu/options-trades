@@ -1,5 +1,6 @@
 {% extends 'user/_base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 <!-- Start::app-content -->
@@ -13,7 +14,7 @@
                     <div class="card-body text-center">
                         <p class="mb-3">Go ahead and credit your Wallet</p>
 
-                        <p class="mb-1">Amount in USD: <strong>${{ amount }}</strong></p>
+                        <p class="mb-1">Amount in USD: <strong>${{ amount|intcomma }}</strong></p>
                         <p class="mb-3">Amount in {{ method|upper }}: <strong>{{ crypto_amount }}</strong></p>
 
                         {% if method == 'ETHEREUM' %}
@@ -45,6 +46,15 @@
                         <p class="fw-bold text-break">ltc1quca45k5sx02h3wxf50ft8fykknjzhclgjf83ty</p>
                         <div class="mb-3">
                             <img src="{% static 'img/qr/ltc_qr.jpg' %}" alt="USDT QR Code" class="img-fluid"
+                                style="max-width: 150px;">
+                        </div>
+
+                        {% elif method == 'BANK' %}
+                        <p class="mb-1">Bank Details</p>
+                        <p class="fw-bold text-break">Need assistance with Bank Details? Reach out to our customer
+                            service team through our Live Chat.</p>
+                        <div class="mb-3">
+                            <img src="{% static 'img/bank.png' %}" alt="BANK Code" class="img-fluid"
                                 style="max-width: 150px;">
                         </div>
 

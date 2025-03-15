@@ -11,9 +11,9 @@ handler500 = custom_error_500
 
 urlpatterns = [
     path("", include("app.urls", namespace="app")),
-    path("account/", include("auth_app.urls", namespace="auth")),
-    path("admin/", include("user_admin.urls", namespace="admin")),
-    path("auth/", include("user.urls", namespace="user")),
+    path("auth/", include("auth_app.urls", namespace="auth")),
+    path("captain/", include("user_admin.urls", namespace="admin")),
+    path("hub/", include("user.urls", namespace="user")),
     path("auth/", include("django.contrib.auth.urls")),
 ]
 

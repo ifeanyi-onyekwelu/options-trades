@@ -32,17 +32,18 @@ class CustomLoginView(FormView):
         if user and user.check_password(password):
             login(self.request, user)
 
-            send_mail(
-                "New Login to Your Account – Was This You?",  # Subject
-                "Your account was logged into. If this wasn't you, please contact support.",  # Plain-text message
-                settings.DEFAULT_EMAIL,
-                [email],  # Recipient list
-            )
+            try:
+                send_mail(
+                    "New Login to Your Account, Was This You?",  # Subject
+                    "Your account was logged into. If this wasn't you, please contact support.",  # Plain-text message
+                    settings.DEFAULT_EMAIL,
+                    [email],  # Recipient list
+                )
+            except Exception as e:
+                messages.error(self.request, "Error sending mail!")
+                print(e)
         messages.error(self.request, "Invalid email or password")
         return self.form_invalid(form)
-
-    def form_invalid(self, form):
-        return super().form_invalid(form)
 
 
 class SignupView(FormView):
@@ -54,19 +55,18 @@ class SignupView(FormView):
         user = form.save()  # The form handles saving
         login(self.request, user)
 
-        send_mail(
-            "Welcome to OptionsTradezHub!",  # Subject
-            "Thank you for joining OptionsTradezHub! We're excited to have you on board.",  # Plain-text message
-            settings.DEFAULT_EMAIL,
-            [user.email],  # Recipient list
-        )
+        try:
+            send_mail(
+                "Welcome to OptionsTradezHub!",  # Subject
+                "Thank you for joining OptionsTradezHub! We're excited to have you on board.",  # Plain-text message
+                settings.DEFAULT_EMAIL,
+                [user.email],  # Recipient list
+            )
+        except Exception as e:
+            print(e)
+            messages.error(self.request, "Error sending mail!")
         messages.success(self.request, "Registration successful")
         return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["ref"] = self.request.GET.get("ref")
-        return context
 
 
 class CustomLogoutView(LogoutView):

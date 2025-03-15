@@ -171,10 +171,11 @@ class DepositConfirmationView(TemplateView):
 
         # Map method to the choices in Deposit.CRYPTO_CHOICES
         method_mapping = {
-            "BITCOIN": "BTC",
-            "ETHEREUM": "ETH",
+            "BITCOIN": "Bitcoin",
+            "ETHEREUM": "Ethereum",
             "USDT": "USDT",
-            "LITECOIN": "LTC",
+            "LITECOIN": "Litecoin",
+            "BANK": "Bank",
         }
 
         crypto_currency = method_mapping.get(method.upper())
@@ -379,12 +380,22 @@ class Invest(TemplateView):
 
 
 @method_decorator(login_required, name="dispatch")
+class InvestHistory(TemplateView):
+    template_name = "user/investment-history.html"
+
+
+@method_decorator(login_required, name="dispatch")
 class Broker(TemplateView):
     template_name = "user/broker.html"
 
     def post(self, request, *args, **kwargs):
         messages.error(request, "Invalid hash!")
         return redirect(reverse("user:broker"))
+
+
+@method_decorator(login_required, name="dispatch")
+class BrokerHistory(TemplateView):
+    template_name = "user/broker-history.html"
 
 
 @method_decorator(login_required, name="dispatch")

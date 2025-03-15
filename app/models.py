@@ -75,6 +75,7 @@ class Deposit(models.Model):
         ("ETH", "Ethereum"),
         ("USDT", "Tether"),
         ("LTC", "Litecoin"),
+        ("BANK", "Bank Transfer"),
     )
     STATUS_CHOICES = (
         ("PENDING", "Pending"),
